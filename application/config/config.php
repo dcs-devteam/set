@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'evaluation';
+$config['base_url']	= 'http://192.168.254.112/evaluation/';
 
 /*
 |--------------------------------------------------------------------------
@@ -224,7 +224,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 'evaluation';
 
 /*
 |--------------------------------------------------------------------------
