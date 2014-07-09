@@ -14,7 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://192.168.254.112/evaluation/';
+//default: http://localhost/evaluation/
+$config['base_url']	= 'http://localhost/evaluation/';
 
 /*
 |--------------------------------------------------------------------------
