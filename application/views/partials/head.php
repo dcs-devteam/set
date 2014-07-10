@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="<?php echo base_url().'assets/css/bootstrap.min.css'?>">
 <!-- Stylesheets -->
 <link rel="stylesheet" href="<?php echo base_url().'assets/css/layouts.css'?>">
+<link rel="stylesheet" href="<?php echo base_url().'assets/css/admin.css'?>">
 
 <!-- Scripts -->
 

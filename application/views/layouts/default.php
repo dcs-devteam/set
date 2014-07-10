@@ -9,9 +9,9 @@
 	</head>
 	<body>
 		<div id="main-wrapper" class="default container-fluid">
-			<div id="main-header" class="row"><?php $this->load->view('partials/header');?></div>
-			<div id="main-content" class="row">{body_content}</div>
-			<div id="main-footer" class="row"><?php $this->load->view('partials/footer');?></div>
+			<div id="main-header"><?php $this->load->view('partials/header');?></div>
+			<div id="main-content">{body_content}</div>
+			<div id="main-footer"><?php $this->load->view('partials/footer');?></div>
 		</div>
 	</body>
 </html>
