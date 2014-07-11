@@ -3,8 +3,8 @@
 <?php echo form_open('',array('class'=>'form-horizontal','role'=>'form'))?>
 	<div class="panel panel-default" id="set-eval-period-form">
 		<div class="panel-heading">
-	    <h3 class="panel-title">Set Evaluation Period</h3>
-	  </div>
+			<h3 class="panel-title">Set Evaluation Period</h3>
+		</div>
 		<div class="panel-body">
 			<div class="form-group">
 				<label for="year" class="col-sm-4 control-label">Academic Year</label>
@@ -31,13 +31,13 @@
 			<div class="form-group">
 				<label for="start_date" class="col-sm-4 control-label">Start Date</label>
 				<div class="col-sm-8">
-					<input id="start_date" name="start_date" type="date" class="form-control" placeholder="MM/DD/YYYY">
+					<input id="start_date" name="start_date" type="date" class="form-control" placeholder="mm/dd/yyyy">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="end_date" class="col-sm-4 control-label">End Date</label>
 				<div class="col-sm-8">
-					<input id="end_date" name="end_date" type="date" class="form-control" placeholder="MM/DD/YYYY">
+					<input id="end_date" name="end_date" type="date" class="form-control" placeholder="mm/dd/yyyy">
 				</div>
 			</div>
 			<div class="form-group">
