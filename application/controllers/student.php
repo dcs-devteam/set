@@ -4,7 +4,9 @@ class Student extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		//refuse access when not logged in as student
-		if ($this->session->userdata('account_type') !== 's') {
+		if (empty($this->session->userdata('account_type'))) {
+			redirect(base_url());
+		} else if ($this->session->userdata('account_type') !== 's') {
 			$message_403 = "You don't have permission to access the url you are trying to reach.";
 			$heading = '403 Forbidden';
 			show_error($message_403,403,$heading);

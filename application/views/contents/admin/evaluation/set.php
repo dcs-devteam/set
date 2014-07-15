@@ -1,5 +1,8 @@
-<div class="alert alert-info" role="alert">You have not set an evaluation period. Fill up the form below to set up one.</div>
-
+<?php if ($this->evaluation_period_model->get_active_evaluation_period() != FALSE):?>
+	<div class="alert alert-info" role="alert">An evaluation period is active. You can view the active evaluation period <a href="<?php echo base_url('admin/evaluation/view')?>">here</a>.</div>
+<?php else:?>
+	<div class="alert alert-warning" role="alert">There is no active evaluation period. You can fill up the form below to set up one.</div>
+<?php endif;?>
 <?php echo form_open('',array('class'=>'form-horizontal','role'=>'form'))?>
 	<div class="panel panel-default" id="set-eval-period-form">
 		<div class="panel-heading">
@@ -38,6 +41,13 @@
 				<label for="end_date" class="col-sm-4 control-label">End Date</label>
 				<div class="col-sm-8">
 					<input id="end_date" name="end_date" type="date" class="form-control" placeholder="mm/dd/yyyy">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="checkbox col-sm-offset-4 col-sm-8">
+					<label>
+						<input type="checkbox" name="is_active"> Active after creation
+					</label>
 				</div>
 			</div>
 			<div class="form-group">

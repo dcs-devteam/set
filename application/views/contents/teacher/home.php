@@ -3,12 +3,12 @@
 <table class="table table-striped table-hover table-bordered">
 	<thead>
 		<tr>
-			<td>Class</td>
-			<td>Section</td>
-			<td>Schedule</td>
-			<td>Semester/Year</td>
-			<td>Teacher</td>
-			<td></td>
+			<th>Class</th>
+			<th>Section</th>
+			<th>Schedule</th>
+			<th>Semester/Year</th>
+			<th>Teacher</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
