@@ -1,4 +1,4 @@
-<div id="stop-confirm-container" class="panel panel-warning user-container">
+<div id="stop-confirm-container" class="panel panel-warning confirm-container">
 	<div class="panel-heading">
 		<h3 class="panel-title">Stop Evaluation Period</h3>
 	</div>
@@ -9,7 +9,7 @@
       Year: <?php echo $year?><br>
   Semester: <?php echo $semester?><br>
 Start Date: <?php echo format_date($start_date)?><br>
-  End Date: <?php echo format_date($end_date)?><br>
+  End Date: <?php echo format_date($end_date)?>
 			</pre>
 			<p>Stopping an evaluation period when the end date has not yet passed will prevent future evaluation periods from using the date range.</p>
 		</div>

@@ -4,7 +4,7 @@
 	<div class="alert alert-warning" role="alert">There is no active evaluation period. You can fill up the form below to set up one.</div>
 <?php endif;?>
 <?php echo form_open('admin/evaluation/edit/'.$period->evaluation_period_id,array('class'=>'form-horizontal','role'=>'form'))?>
-	<div class="panel panel-default" id="set-eval-period-form">
+	<div class="panel panel-default" id="edit-eval-period-form">
 		<div class="panel-heading">
 			<h3 class="panel-title">Edit Evaluation Period</h3>
 		</div>

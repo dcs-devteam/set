@@ -1,4 +1,4 @@
-<div id="error-container" class="panel panel-danger">
+<div id="error-container" class="panel panel-danger result-container">
 	<div class="panel-heading">
 		<h3 class="panel-title"><?php echo $error_title?></h3>
 	</div>

@@ -1,4 +1,4 @@
-<div id="function-result-container" class="panel panel-info user-container">
+<div id="function-result-container" class="panel panel-info result-container">
 	<div class="panel-heading">
 		<h3 class="panel-title">Function Result</h3>
 	</div>

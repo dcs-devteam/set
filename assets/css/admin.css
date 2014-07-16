@@ -1,7 +1,28 @@
-#set-eval-period-form {
+/*evaluation/set*/
+#set-eval-period-form,
+#edit-eval-period-form {
 	max-width: 500px;
-	/*border: 1px solid transparent;*/
-	/*border-color: rgba(204, 204, 204, 1);*/
-	/*border-radius: 6px;*/
-	/*padding-top: 20px;*/
+	margin-left: auto;
+	margin-right: auto; 
+}
+
+/*evaluation/view*/
+#view-eval-period-table th:first-child,
+#view-eval-period-table td:first-child {
+	text-align: right;
+}
+
+/*confirm dialogs*/
+.confirm-container,
+.result-container {
+	max-width: 600px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.confirm-container.panel .panel-heading,
+.confirm-container.panel .panel-footer,
+.result-container .panel-heading,
+.result-container .panel-footer {
+	text-align: center;
 }

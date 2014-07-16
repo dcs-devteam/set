@@ -305,10 +305,7 @@ class Evaluation extends CI_Controller {
 		} else {
 			$this->load->helper('date');
 			//check if start_date<now<end_date
-			if (!(
-				(date_create($result->start_date) < date_create(unix_to_human(now()))) && 
-				(date_create($result->end_date) > date_create(unix_to_human(now())))
-			 )) {
+			if (!(human_to_unix($result->start_date.' 00:00:00') <= now() && now() <= human_to_unix($result->end_date.' 23:59:59'))) {
 				$error_data = array(
 					'error_title' => 'Cannot Start Evaluation Period',
 					'error_message' => 'You cannot start the evaluation period because today\'s date ('.format_date(unix_to_human(now())).') is not within the period\'s date range ('.format_date($result->start_date).' - '.format_date($result->end_date).').'

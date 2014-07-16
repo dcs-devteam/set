@@ -1,4 +1,4 @@
-<div id="delete-confirm-container" class="panel panel-danger user-container">
+<div id="delete-confirm-container" class="panel panel-danger confirm-container">
 	<div class="panel-heading">
 		<h3 class="panel-title">Delete Evaluation Period</h3>
 	</div>
@@ -9,8 +9,9 @@
       Year: <?php echo $year?><br>
   Semester: <?php echo $semester?><br>
 Start Date: <?php echo format_date($start_date)?><br>
-  End Date: <?php echo format_date($end_date)?><br>
+  End Date: <?php echo format_date($end_date)?>
 			</pre>
+			<p>Deleting an evaluation period will also delete all evaluation forms linked to it.</p>
 		</div>
 	</div>
 	<div class="panel-footer">

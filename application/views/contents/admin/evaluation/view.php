@@ -3,7 +3,7 @@
 <?php else:?>
 	<div class="alert alert-warning" role="alert">There is no active evaluation period. You can set an evaluation period <a href="<?php echo base_url('admin/evaluation/set')?>">here</a>.</div>
 <?php endif;?>
-<table class="table table-striped table-hover table-bordered">
+<table class="table table-striped table-hover table-bordered" id="view-eval-period-table">
 	<thead>
 		<tr>
 			<th>ID</th>
