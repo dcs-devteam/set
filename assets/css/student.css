@@ -1,0 +1,33 @@
+#eval-form-tab-container .tab-pane {
+	min-height: 100%;
+	padding-top: 20px;
+}
+
+.pager-button-container {
+	max-width: 300px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 20px;
+}
+
+.eval-form-panel {
+	max-width: 800px;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.eval-form-textarea {
+	width: 100% !important;
+}
+
+.eval-form-table th:not(:first-child),
+.eval-form-table td:not(:first-child) {
+	white-space: nowrap;
+}
+
+.eval-form-table th:first-child,
+.eval-form-table td:first-child {
+	width: 100%;
+	white-space: normal;
+}

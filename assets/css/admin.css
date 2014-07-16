@@ -1,6 +1,7 @@
 /*evaluation/set*/
 #set-eval-period-form,
-#edit-eval-period-form {
+#edit-eval-period-form,
+.form-container {
 	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto; 

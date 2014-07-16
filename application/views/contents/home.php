@@ -1,5 +1,5 @@
 <?php echo form_open('session/login',array('class'=>'form-horizontal','role'=>'form'))?>
-	<div class="panel panel-default" id="set-eval-period-form">
+	<div class="panel panel-default form-container" id="login-form">
 		<div class="panel-heading">
 			<h3 class="panel-title">Login</h3>
 		</div>
