@@ -18,8 +18,12 @@
 						<li class="dropdown <?php if (($this->uri->segment(2) === 'evaluation') OR ($this->uri->uri_string() === 'admin')) echo 'active'?>">
 							<a href="" class="dropdown-toggle" data-toggle="dropdown">Evaluation <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li class="<?php if (($this->uri->uri_string() === 'admin/evaluation/set') OR ($this->uri->uri_string() === 'admin')) echo 'active'?>"><a href="<?php echo base_url('admin/evaluation/set')?>">Set Evaluation Periods</a></li>
-								<li class="<?php if (($this->uri->uri_string() === 'admin/evaluation/view')) echo 'active'?>"><a href="<?php echo base_url('admin/evaluation')?>">View Evaluation Periods</a></li>
+								<li class="<?php if (($this->uri->uri_string() === 'admin/evaluation/view')) echo 'active'?>">
+									<a href="<?php echo base_url('admin/evaluation')?>">View Evaluation Periods</a>
+								</li>
+								<li class="<?php if (($this->uri->uri_string() === 'admin/evaluation/set') OR ($this->uri->uri_string() === 'admin')) echo 'active'?>">
+									<a href="<?php echo base_url('admin/evaluation/set')?>">Set Evaluation Period</a>
+								</li>
 							</ul>
 						</li>
 						<li class="<?php if (($this->uri->segment(2) === 'reports')) echo 'active'?>"><a href="#">Reports</a></li>
