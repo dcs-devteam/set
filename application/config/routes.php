@@ -42,6 +42,8 @@ $route['admin/evaluation'] = "admin/evaluation";
 $route['admin/evaluation/(:any)'] = "admin/evaluation/$1";
 $route['admin'] = "admin/admin";
 $route['admin/(:any)'] = "admin/admin/$1";
+$route['logout'] = "session/logout";
+$route['login'] = "home/login";
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 

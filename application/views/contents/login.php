@@ -5,10 +5,10 @@
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
-				<label for="username"class="col-sm-4 control-label">Username</label>
+				<label for="email"class="col-sm-4 control-label">Email Address</label>
 				<div class="col-sm-8">
-					<input type="text" value="<?php echo $this->session->flashdata('username'); ?>" class="form-control" id="username" name="username" placeholder="Username">
-					<small class="text-danger"><?php echo $this->session->flashdata('username_error');?></small>
+					<input type="text" value="<?php echo $this->session->flashdata('email'); ?>" class="form-control" id="email" name="email" placeholder="Email">
+					<small class="text-danger"><?php echo $this->session->flashdata('email_error');?></small>
 				</div>
 			</div>
 			<div class="form-group">

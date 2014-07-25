@@ -3,18 +3,25 @@
 class Home extends CI_Controller {
 	function __construct() {
 		parent::__construct();
-		$account_type = $this->session->userdata('account_type');
-		if ($account_type === 'a') {
+		$role = $this->session->userdata('role');
+		if ($role === 'admin') {
 			redirect('admin');
-		} else if ($account_type === 's') {
-			redirect('student');
-		} else if ($account_type === 't') {
-			redirect('teacher');
+		} else if ($role === 'staff') {
+			redirect('staff');
+		} else if ($role === 'evaluator') {
+			redirect('evaluator');
+		} else if ($role === 'superadmin') {
+			redirect('superadmin');
 		}
 	}
 	public function index() {
 		$data['page_title'] = "eValuation";
-		$data['body_content'] = $this->load->view('contents/home','',TRUE);
+		$data['body_content'] = $this->load->view('contents/code','',TRUE);
+		$this->parser->parse('layouts/default', $data);
+	}
+	public function login() {
+		$data['page_title'] = "eValuation";
+		$data['body_content'] = $this->load->view('contents/login','',TRUE);
 		$this->parser->parse('layouts/default', $data);
 	}
 }
