@@ -8,10 +8,42 @@
 }
 
 /*evaluation/view*/
-#view-eval-period-table th:first-child,
-#view-eval-period-table td:first-child {
-	text-align: right;
+.class-eval-table th,
+.class-eval-table td {
+	/*white-space: nowrap;*/
 }
+
+.class-eval-table th:first-child,
+.class-eval-table td:first-child {
+	text-align: right;
+	width: 50px;
+}
+
+.class-eval-table th:nth-child(2),
+.class-eval-table td:nth-child(2) {
+	width: 200px;
+}
+
+.class-eval-table th:nth-child(3),
+.class-eval-table td:nth-child(3) {
+	width: 70px;
+}
+
+.class-eval-table th:nth-child(4),
+.class-eval-table td:nth-child(4) {
+	width: 300px;
+}
+
+.class-eval-table th:nth-child(5),
+.class-eval-table td:nth-child(5) {
+	width: 80px;
+}
+
+.class-eval-table th:nth-child(6),
+.class-eval-table td:nth-child(6) {
+	width: 300px;
+}
+
 
 /*confirm dialogs*/
 .confirm-container,

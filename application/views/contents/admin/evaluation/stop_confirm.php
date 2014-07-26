@@ -1,21 +1,15 @@
 <div id="stop-confirm-container" class="panel panel-warning confirm-container">
 	<div class="panel-heading">
-		<h3 class="panel-title">Stop Evaluation Period</h3>
+		<h3 class="panel-title">Stop Class Evaluation</h3>
 	</div>
 	<div class="panel-body">
 		<div id="message-content">
-			<p>Are you sure you want to stop this evaluation period?</p>
-			<pre id="eval-period-block">
-      Year: <?php echo $year?><br>
-  Semester: <?php echo $semester?><br>
-Start Date: <?php echo format_date($start_date)?><br>
-  End Date: <?php echo format_date($end_date)?>
-			</pre>
-			<p>Stopping an evaluation period when the end date has not yet passed will prevent future evaluation periods from using the date range.</p>
+			<p>Are you sure you want to stop evaluation for class <?php echo $class_name?>?</p>
+			<p>Stopping a class evaluation will invalidate unused access codes for this class.</p>
 		</div>
 	</div>
 	<div class="panel-footer">
-		<?php echo form_open('admin/evaluation/stop/'.$id, array('id' => 'stop-confirm-form'));?>
+		<?php echo form_open('admin/evaluation/stop/'.$class_id, array('id' => 'stop-confirm-form'));?>
 			<input type="hidden" value="TRUE" name="confirm"/>
 			<button class="btn btn-warning" type="submit">Stop</button>
 			<button class="btn btn-default" type="button" onClick="history.go(-1);window.close();">Cancel</button>
