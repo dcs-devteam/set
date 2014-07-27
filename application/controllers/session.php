@@ -8,7 +8,7 @@ class Session extends CI_Controller {
 
 	public function login() {
 		//check whether user is already logged in
-		if ($this->session->userdata('email')) {
+		if ($this->session->userdata('email_address')) {
 			$this->redirect_to_home();
 		}
 
@@ -42,27 +42,64 @@ class Session extends CI_Controller {
 		redirect(base_url(),'refresh');
 	}
 
+	public function code() {
+		//destroy session if already present
+		if ($this->session->userdata('access_code')) {
+			$this->session->sess_destroy();
+		}
+
+		$this->load->library('form_validation');
+
+		//validation rules. password validation calls the verify login function
+		$this->form_validation->set_rules('code', 'Access Code', 'trim|required|xss_clean|callback_verify_code');
+
+		if ($this->form_validation->run() == FALSE) {
+			//get email errors
+			$code_error = form_error('code','<p class="text-error">','</p>');
+			$this->session->set_flashdata('code_error', $code_error);
+			//code for data repopulation
+			$this->session->set_flashdata('code', $this->input->post('code'));
+
+			redirect(base_url());
+		} else {
+			$this->redirect_to_form();
+		}
+	}
+
 	//runs when email and password are validated
-	function verify_login($password) {
+	public function verify_login($password) {
 		$email = $this->input->post('email');
 		$result = $this->session_model->login($email,$password);
-		if($result) {
-			//login success, session creation
-			$sess_array = array();
-			foreach ($result as $row) {
-				$sess_array = array(
-					'user_id' => $row->user_id,
-					'email_address' => $row->email_address,
-					'first_name' => $row->first_name,
-					'last_name' => $row->last_name,
-					'role' => $row->role,
-					'office_id' => $row->office_id
-					);
-				$this->session->set_userdata($sess_array);
-			}
+		if ($result) {
+			//verify success, session creation
+			$sess_array = array(
+				'user_id' => $result->user_id,
+				'email_address' => $result->email_address,
+				'first_name' => $result->first_name,
+				'last_name' => $result->last_name,
+				'role' => $result->role,
+				'office_id' => $result->office_id
+				);
+			$this->session->set_userdata($sess_array);
 			return TRUE;
 		} else {
 			$this->form_validation->set_message('verify_login','Invalid email or password.');
+			return FALSE;
+		}
+	}
+
+	public function verify_code($code) {
+		$result = $this->session_model->verify_code($code);
+		if ($result) {
+			//verify success, session creation
+			$sess_array = array(
+				'class_id' => $result->class_id,
+				'access_code' => $result->access_code,
+				);
+			$this->session->set_userdata($sess_array);
+			return TRUE;
+		} else {
+			$this->form_validation->set_message('verify_code','Invalid access code.');
 			return FALSE;
 		}
 	}
@@ -81,6 +118,16 @@ class Session extends CI_Controller {
 		} else {
 			$this->session->sess_destroy();
 			redirect(base_url());
+		}
+	}
+
+	private function redirect_to_form() {
+		$class_id = $this->session->userdata('class_id');
+		if (!empty($class_id)) {
+			redirect('evaluation/evaluate/'.$class_id);
+		} else {
+			$this->session->sess_destroy();
+			redirect(base_url(),'refresh');
 		}
 	}
 }

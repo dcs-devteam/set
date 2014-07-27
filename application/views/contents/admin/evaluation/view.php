@@ -4,7 +4,7 @@
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Name</th>
+				<th>Class</th>
 				<th>Section</th>
 				<th>Schedule</th>
 				<th>Students</th>
@@ -38,7 +38,7 @@
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Name</th>
+				<th>Class</th>
 				<th>Section</th>
 				<th>Schedule</th>
 				<th>Students</th>

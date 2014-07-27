@@ -8,9 +8,8 @@
 		<?php $this->load->view('partials/head');?>
 	</head>
 	<body>
-		<div id="main-wrapper" class="default container-fluid">
-			<div id="main-header"><?php $this->load->view('partials/header');?></div>
-			<div id="main-content" class="row">{body_content}</div>
+		<div id="main-wrapper" class="evaluation-form container">
+			<div id="main-content">{body_content}</div>
 		</div>
 	</body>
 </html>

@@ -1,0 +1,52 @@
+#evaluation-form-container #header {
+	text-align: center;
+}
+
+.eval-form-table th:not(:first-child),
+.eval-form-table td:not(:first-child) {
+	white-space: nowrap;
+}
+
+.eval-form-table th:first-child,
+.eval-form-table td:first-child {
+	width: 100%;
+	white-space: normal;
+}
+
+.btn-container {
+	display: block !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.eval-form-submit {
+	width: 250px;
+	height: 50px;
+	font-size: 20px;
+}
+
+/*OLD*/
+#eval-form-tab-container .tab-pane {
+	min-height: 100%;
+	padding-top: 20px;
+}
+
+.pager-button-container {
+	max-width: 300px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 20px;
+}
+
+.eval-form-panel {
+	max-width: 800px;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.eval-form-textarea {
+	width: 100% !important;
+}

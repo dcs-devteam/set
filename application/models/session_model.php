@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Session_model extends CI_Model {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 	}
 
@@ -13,7 +13,7 @@ class Session_model extends CI_Model {
 *
 *	@return	array		query result on success, else FALSE
 */
-	function login($email, $password) {
+	public function login($email, $password) {
 		$this->db->select('user_id, email_address, first_name, last_name, email_address, role, office_id');
 		$this->db->from('user');
 		$this->db->where('email_address', $email);
@@ -22,8 +22,21 @@ class Session_model extends CI_Model {
 		$this->db->limit(1);
 
 		$query = $this->db->get();
-		if($query->num_rows() == 1) {
-			return $query->result();
+		if ($query->num_rows() == 1) {
+			return $query->row();
+		}	else {
+			return FALSE;
+		}
+	}
+
+	public function verify_code($code) {
+		$this->db->from('access_code');
+		$this->db->where('access_code', $code);
+		$this->db->limit(1);
+
+		$query = $this->db->get();
+		if ($query->num_rows() == 1) {
+			return $query->row();
 		}	else {
 			return FALSE;
 		}
