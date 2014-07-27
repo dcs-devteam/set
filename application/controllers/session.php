@@ -51,7 +51,7 @@ class Session extends CI_Controller {
 		$this->load->library('form_validation');
 
 		//validation rules. password validation calls the verify login function
-		$this->form_validation->set_rules('code', 'Access Code', 'trim|required|xss_clean|callback_verify_code');
+		$this->form_validation->set_rules('code', 'Access Code', 'trim|required|xss_clean|callback_active_class|callback_code_exists|callback_is_not_used');
 
 		if ($this->form_validation->run() == FALSE) {
 			//get email errors
@@ -88,9 +88,34 @@ class Session extends CI_Controller {
 		}
 	}
 
-	public function verify_code($code) {
-		$result = $this->session_model->verify_code($code);
+	public function active_class($code) {
+		$this->load->model('class_model');
+		$this->load->model('access_code_model');
+		$class_id = $this->access_code_model->get_class_id($code);
+		echo $code.' '.$class_id;
+		if (is_numeric($class_id)) {
+			if ($this->class_model->is_active($class_id)) {
+				return TRUE;
+			} else {
+				$this->form_validation->set_message('active_class','Evaluation for this class is not yet enabled.');
+				return FALSE;
+			}
+		}
+	}
+
+	public function code_exists($code) {
+		$result = $this->access_code_model->code_exists($code);
 		if ($result) {
+			return TRUE;
+		} else {
+			$this->form_validation->set_message('code_exists','Invalid access code.');
+			return FALSE;
+		}
+	}
+
+	public function is_not_used($code) {
+		if (!($this->access_code_model->is_used($code))) {
+			$result = $this->access_code_model->get_by_code($code);
 			//verify success, session creation
 			$sess_array = array(
 				'class_id' => $result->class_id,
@@ -99,7 +124,7 @@ class Session extends CI_Controller {
 			$this->session->set_userdata($sess_array);
 			return TRUE;
 		} else {
-			$this->form_validation->set_message('verify_code','Invalid access code.');
+			$this->form_validation->set_message('is_not_used','Access code is already used.');
 			return FALSE;
 		}
 	}
@@ -124,7 +149,7 @@ class Session extends CI_Controller {
 	private function redirect_to_form() {
 		$class_id = $this->session->userdata('class_id');
 		if (!empty($class_id)) {
-			redirect('evaluation/evaluate/'.$class_id);
+			redirect('evaluation/evaluate');
 		} else {
 			$this->session->sess_destroy();
 			redirect(base_url(),'refresh');

@@ -84,8 +84,7 @@ class Evaluation extends CI_Controller {
 			if ($confirm !== 'TRUE') {
 							//confirmation dialog
 							$stop_confirm_data = array(
-								'class_id' => $class_id,
-								'class_name' => $result->class_name
+								'class' => $result
 								);
 
 				$data['body_content'] = $this->load->view('contents/admin/evaluation/stop_confirm',$stop_confirm_data,TRUE);
@@ -133,8 +132,7 @@ class Evaluation extends CI_Controller {
 			if ($confirm !== 'TRUE') {
 				//confirmation dialog
 				$delete_confirm_data = array(
-					'class_id' => $class_id,
-					'class_name' => $result->class_name
+					'class' => $result
 					);
 
 				$data['body_content'] = $this->load->view('contents/admin/evaluation/cancel_confirm',$delete_confirm_data,TRUE);

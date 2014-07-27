@@ -28,19 +28,6 @@ class Session_model extends CI_Model {
 			return FALSE;
 		}
 	}
-
-	public function verify_code($code) {
-		$this->db->from('access_code');
-		$this->db->where('access_code', $code);
-		$this->db->limit(1);
-
-		$query = $this->db->get();
-		if ($query->num_rows() == 1) {
-			return $query->row();
-		}	else {
-			return FALSE;
-		}
-	}
 }
 
 /* End of file session_model.php */
