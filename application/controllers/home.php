@@ -16,7 +16,9 @@ class Home extends CI_Controller {
 	}
 	public function index() {
 		$data['page_title'] = "eValuation";
-		$data['body_content'] = $this->load->view('contents/code','',TRUE);
+		// $data['body_content'] = $this->load->view('contents/code','',TRUE);
+		// $this->parser->parse('layouts/homepage', $data);
+		$data['body_content'] = $this->load->view('contents/code_old','',TRUE);
 		$this->parser->parse('layouts/default', $data);
 	}
 	public function login() {
