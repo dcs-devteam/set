@@ -16,15 +16,12 @@ class Home extends CI_Controller {
 	}
 	public function index() {
 		$data['page_title'] = "eValuation";
-		// $data['body_content'] = $this->load->view('contents/code','',TRUE);
-		// $this->parser->parse('layouts/homepage', $data);
-		$data['body_content'] = $this->load->view('contents/code_old','',TRUE);
-		$this->parser->parse('layouts/default', $data);
-	}
+		$data['body_content'] = $this->load->view('contents/code','',TRUE);
+		$this->parser->parse('layouts/homepage', $data);
 	public function login() {
 		$data['page_title'] = "eValuation";
 		$data['body_content'] = $this->load->view('contents/login','',TRUE);
-		$this->parser->parse('layouts/default', $data);
+		$this->parser->parse('layouts/homepage', $data);
 	}
 }
 

@@ -129,7 +129,7 @@ class Evaluation extends CI_Controller {
 				$message = 'Failed to submit evaluation form.';
 				$error = $this->db->_error_message();
 			}
-			$set_data = array('message' => $message, 'error' => $error);
+			$set_data = array('message' => $message, 'error' => $error, 'success' => $success);
 			$data['body_content'] = $this->load->view('contents/student/evaluation/submit_result',$set_data,TRUE);
 		}
 

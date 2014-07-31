@@ -62,17 +62,7 @@
 									<td><?php echo form_error('answers['.$index.']',' <span class="label label-danger">','</span> '); ?><?php echo $index.'. '.$question?></td>
 									<td>
 										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '5'); ?> name="answers[<?php echo $index?>]" value="5" >&nbsp;
-										</label>
-									</td>
-									<td>
-										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '4'); ?> name="answers[<?php echo $index?>]" value="4">&nbsp;
-										</label>
-									</td>
-									<td>
-										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '3'); ?> name="answers[<?php echo $index?>]" value="3">&nbsp;
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '1'); ?> name="answers[<?php echo $index?>]" value="1" >&nbsp;
 										</label>
 									</td>
 									<td>
@@ -82,7 +72,17 @@
 									</td>
 									<td>
 										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '1'); ?> name="answers[<?php echo $index?>]" value="1">&nbsp;
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '3'); ?> name="answers[<?php echo $index?>]" value="3">&nbsp;
+										</label>
+									</td>
+									<td>
+										<label class="radio-inline">
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '4'); ?> name="answers[<?php echo $index?>]" value="4">&nbsp;
+										</label>
+									</td>
+									<td>
+										<label class="radio-inline">
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '5'); ?> name="answers[<?php echo $index?>]" value="5">&nbsp;
 										</label>
 									</td>
 								</tr>
@@ -114,17 +114,7 @@
 									<td><?php echo form_error('answers['.$index.']',' <span class="label label-danger">','</span> '); ?><?php echo ($index).'. '.$question?></td>
 									<td>
 										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '5'); ?> name="answers[<?php echo $index?>]" value="5" >&nbsp;
-										</label>
-									</td>
-									<td>
-										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '4'); ?> name="answers[<?php echo $index?>]" value="4">&nbsp;
-										</label>
-									</td>
-									<td>
-										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '3'); ?> name="answers[<?php echo $index?>]" value="3">&nbsp;
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '1'); ?> name="answers[<?php echo $index?>]" value="1" >&nbsp;
 										</label>
 									</td>
 									<td>
@@ -134,7 +124,17 @@
 									</td>
 									<td>
 										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '1'); ?> name="answers[<?php echo $index?>]" value="1">&nbsp;
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '3'); ?> name="answers[<?php echo $index?>]" value="3">&nbsp;
+										</label>
+									</td>
+									<td>
+										<label class="radio-inline">
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '4'); ?> name="answers[<?php echo $index?>]" value="4">&nbsp;
+										</label>
+									</td>
+									<td>
+										<label class="radio-inline">
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '5'); ?> name="answers[<?php echo $index?>]" value="5">&nbsp;
 										</label>
 									</td>
 								</tr>
@@ -166,17 +166,7 @@
 									<td><?php echo form_error('answers['.$index.']',' <span class="label label-danger">','</span> '); ?><?php echo ($index).'. '.$question?></td>
 									<td>
 										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '5'); ?> name="answers[<?php echo $index?>]" value="5" >&nbsp;
-										</label>
-									</td>
-									<td>
-										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '4'); ?> name="answers[<?php echo $index?>]" value="4">&nbsp;
-										</label>
-									</td>
-									<td>
-										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '3'); ?> name="answers[<?php echo $index?>]" value="3">&nbsp;
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '1'); ?> name="answers[<?php echo $index?>]" value="1" >&nbsp;
 										</label>
 									</td>
 									<td>
@@ -186,7 +176,17 @@
 									</td>
 									<td>
 										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '1'); ?> name="answers[<?php echo $index?>]" value="1">&nbsp;
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '3'); ?> name="answers[<?php echo $index?>]" value="3">&nbsp;
+										</label>
+									</td>
+									<td>
+										<label class="radio-inline">
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '4'); ?> name="answers[<?php echo $index?>]" value="4">&nbsp;
+										</label>
+									</td>
+									<td>
+										<label class="radio-inline">
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '5'); ?> name="answers[<?php echo $index?>]" value="5">&nbsp;
 										</label>
 									</td>
 								</tr>
@@ -218,17 +218,7 @@
 									<td><?php echo form_error('answers['.$index.']',' <span class="label label-danger">','</span> '); ?><?php echo ($index).'. '.$question?></td>
 									<td>
 										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '5'); ?> name="answers[<?php echo $index?>]" value="5" >&nbsp;
-										</label>
-									</td>
-									<td>
-										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '4'); ?> name="answers[<?php echo $index?>]" value="4">&nbsp;
-										</label>
-									</td>
-									<td>
-										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '3'); ?> name="answers[<?php echo $index?>]" value="3">&nbsp;
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '1'); ?> name="answers[<?php echo $index?>]" value="1" >&nbsp;
 										</label>
 									</td>
 									<td>
@@ -238,7 +228,17 @@
 									</td>
 									<td>
 										<label class="radio-inline">
-											<input type="radio" required <?php echo set_radio('answers['.$index.']', '1'); ?> name="answers[<?php echo $index?>]" value="1">&nbsp;
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '3'); ?> name="answers[<?php echo $index?>]" value="3">&nbsp;
+										</label>
+									</td>
+									<td>
+										<label class="radio-inline">
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '4'); ?> name="answers[<?php echo $index?>]" value="4">&nbsp;
+										</label>
+									</td>
+									<td>
+										<label class="radio-inline">
+											<input type="radio" required <?php echo set_radio('answers['.$index.']', '5'); ?> name="answers[<?php echo $index?>]" value="5">&nbsp;
 										</label>
 									</td>
 								</tr>
@@ -269,17 +269,7 @@
 								<td><?php echo form_error('answers[36]',' <span class="label label-danger">','</span> '); ?><?php echo '36. '.$questions['2']['content']['36']?></td>
 								<td>
 									<label class="radio-inline">
-										<input type="radio" required <?php echo set_radio('answers[36]', '5'); ?> name="answers[36]" value="5" >&nbsp;
-									</label>
-								</td>
-								<td>
-									<label class="radio-inline">
-										<input type="radio" required <?php echo set_radio('answers[36]', '4'); ?> name="answers[36]" value="4">&nbsp;
-									</label>
-								</td>
-								<td>
-									<label class="radio-inline">
-										<input type="radio" required <?php echo set_radio('answers[36]', '3'); ?> name="answers[36]" value="3">&nbsp;
+										<input type="radio" required <?php echo set_radio('answers[36]', '1'); ?> name="answers[36]" value="1" >&nbsp;
 									</label>
 								</td>
 								<td>
@@ -289,7 +279,17 @@
 								</td>
 								<td>
 									<label class="radio-inline">
-										<input type="radio" required <?php echo set_radio('answers[36]', '1'); ?> name="answers[36]" value="1">&nbsp;
+										<input type="radio" required <?php echo set_radio('answers[36]', '3'); ?> name="answers[36]" value="3">&nbsp;
+									</label>
+								</td>
+								<td>
+									<label class="radio-inline">
+										<input type="radio" required <?php echo set_radio('answers[36]', '4'); ?> name="answers[36]" value="4">&nbsp;
+									</label>
+								</td>
+								<td>
+									<label class="radio-inline">
+										<input type="radio" required <?php echo set_radio('answers[36]', '5'); ?> name="answers[36]" value="5">&nbsp;
 									</label>
 								</td>
 							</tr>

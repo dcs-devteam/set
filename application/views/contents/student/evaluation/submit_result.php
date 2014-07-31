@@ -16,10 +16,14 @@
 		<div id="message-content">
 			<p><?php echo $message;?></p>
 			<p class="text-error"><?php echo $error;?></p>
+			<?php if(!empty($success)):?>
+				<?php if($success == TRUE):?>
+					<p>Thank you for your participation.</p>
+				<?php endif;?>
+			<?php endif;?>
 		</div>
 	</div>
 	<div class="panel-footer">
-		<a class="btn btn-primary" href="<?php echo base_url()?>">Return to Home</a>
-		<button class="btn btn-default" onClick="window.name='autoreload';history.go(-1);window.close();">Back</button>
+		<a class="btn btn-success" href="<?php echo base_url()?>">Return to Home</a>
 	</div>
 </div>

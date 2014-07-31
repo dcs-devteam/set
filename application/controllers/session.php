@@ -20,10 +20,10 @@ class Session extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE) {
 			//get email errors
-			$email_error = form_error('email','<p class="text-error">','</p>');
+			$email_error = form_error('email','<p class="text-danger">','</p>');
 			$this->session->set_flashdata('email_error', $email_error);
 			//password errors
-			$password_error = form_error('password','<p class="text-error">','</p>');
+			$password_error = form_error('password','<p class="text-danger">','</p>');
 			$this->session->set_flashdata('password_error', $password_error);
 			//pass email and password for data repopulation
 			$this->session->set_flashdata('email', $this->input->post('email'));
@@ -55,7 +55,7 @@ class Session extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE) {
 			//get email errors
-			$code_error = form_error('code','<p class="text-error">','</p>');
+			$code_error = form_error('code','<p class="text-danger">','</p>');
 			$this->session->set_flashdata('code_error', $code_error);
 			//code for data repopulation
 			$this->session->set_flashdata('code', $this->input->post('code'));

@@ -1,13 +1,7 @@
-/*homepage-student*/
 body {
 	padding-bottom: 10px;
 	background-color: #FFFFFF; //#f5f5f5
 }
-
-#main-content {
-	margin-top: 70px;
-}
-
 #main-header #up-seal {
 	height: 80px;
 	width: 80px;
@@ -36,64 +30,20 @@ body {
 	color: #8E171A;
 }
 
-#code-form-container.form-signin {
-	/*position: absolute;*/
-	/*right: 80px;*/
-
-	min-height: 125px;
-	/*width: 260px;*/
-	padding: 19px;
-	padding-bottom: 0px;
-	/*margin: 50px auto 0px;*/
-	background-color: #fff;
-	border: 1px solid #e5e5e5;
-	-webkit-border-radius: 5px;
-		 -moz-border-radius: 5px;
-					border-radius: 5px;
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-		 -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-					box-shadow: 0 1px 2px rgba(0,0,0,.05);
+#main-content {
+	margin-top: 50px;
 }
 
-#code-form-container #evaluate-button {
+
+/*homepage-student*/
+#code-form-container {
 	text-align: center;
-}
-
-#code-notes.notes {
-	/*position: absolute;*/
-	/*left: 80px;*/
-	/*width: 400px;*/
-	max-height: 800px;
-	/*margin-top: 50px;*/
-	/*margin-right: 30px;*/
-	padding: 19px 19px 19px;
-	background-color: #fff;
-	border: 1px solid #e5e5e5;
-	-webkit-border-radius: 5px;
-		 -moz-border-radius: 5px;
-					border-radius: 5px;
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-		 -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-					box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 
 /*homepage-user*/
-/*.form-signin {
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	max-width: 500px;
-	padding: 19px 19px 19px;
-	background-color: #fff;
-	border: 1px solid #e5e5e5;
-	-webkit-border-radius: 5px;
-		 -moz-border-radius: 5px;
-					border-radius: 5px;
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-		 -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-					box-shadow: 0 1px 2px rgba(0,0,0,.05);
-}
-.form-signin-heading {
+
+#login-form .panel-title {
 	text-align: center;
-	padding-left: 20px;
-}*/
+	/*font-weight: bold;*/
+	font-size: 17.5px;
+}
