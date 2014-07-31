@@ -97,7 +97,8 @@ class Session extends CI_Controller {
 			if ($this->class_model->is_active($class_id)) {
 				return TRUE;
 			} else {
-				$this->form_validation->set_message('active_class','Evaluation for this class is not yet enabled.');
+				$this->form_validation->set_message('active_class','Invalid access code.');
+				// $this->form_validation->set_message('active_class','Evaluation for this class is not yet enabled.');
 				return FALSE;
 			}
 		}

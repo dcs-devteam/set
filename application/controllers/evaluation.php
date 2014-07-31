@@ -144,7 +144,6 @@ class Evaluation extends CI_Controller {
 		$access_code = $this->session->userdata('access_code');
 		$content = $this->input->post('answers');
 
-		print_r($content[36]);
 		$result = $this->evaluation_model->submit($class_id, $access_code, $content);
 
 		if ($result) {

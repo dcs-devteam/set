@@ -3,6 +3,7 @@ class Class_model extends CI_Model {
 
 	function __construct() {
 		parent::__construct();
+		$this->load->model('course_model');
 	}
 
 /**
@@ -10,73 +11,122 @@ class Class_model extends CI_Model {
 * Returns false if no active class found.
 */
 	function get_active($office_id) {
-		$this->db->from('class');
-		$this->db->where('office_id', $office_id);
+		$result = $this->course_model->get_by_office($office_id);
+		$courses = array();
+		foreach ($result as $key => $row) {
+			$courses[$key] = $row->course_id;
+		}
+		$this->db->where_in('course_id', $courses);
+
 		$this->db->where('is_active', TRUE);
 		$this->db->where('is_done', FALSE);
 
-		$query = $this->db->get();
+		$query = $this->db->get('class');
 		if($query->num_rows() >= 1) {
-			return $query->result();
+			$result = $query->result();
+
+			//add class_name attribute
+			foreach ($result as $key => $row) {
+				$row->class_name = $this->course_model->get_name($row->course_id);
+			}
+
+			return $result;
 		}	else {
 			return FALSE;
 		}
 	}
 
 	function get_done($office_id) {
-		$this->db->from('class');
-		$this->db->where('office_id', $office_id);
+		$result = $this->course_model->get_by_office($office_id);
+		$courses = array();
+		foreach ($result as $key => $row) {
+			$courses[$key] = $row->course_id;
+		}
+		$this->db->where_in('course_id', $courses);
+
 		$this->db->where('is_active', FALSE);
 		$this->db->where('is_done', TRUE);
 
-		$query = $this->db->get();
+		$query = $this->db->get('class');
 		if($query->num_rows() >= 1) {
-			return $query->result();
+			$result = $query->result();
+
+			//add class_name attribute
+			foreach ($result as $key => $row) {
+				$row->class_name = $this->course_model->get_name($row->course_id);
+			}
+
+			return $result;
 		}	else {
 			return FALSE;
 		}
 	}
 
 	function get_todo($office_id) {
-		$this->db->from('class');
-		$this->db->where('office_id', $office_id);
+		$result = $this->course_model->get_by_office($office_id);
+		$courses = array();
+		foreach ($result as $key => $row) {
+			$courses[$key] = $row->course_id;
+		}
+		$this->db->where_in('course_id', $courses);
+
 		$this->db->where('is_active', FALSE);
 		$this->db->where('is_done', FALSE);
 
-		$query = $this->db->get();
+		$query = $this->db->get('class');
 		if($query->num_rows() >= 1) {
-			return $query->result();
+			$result = $query->result();
+
+			//add class_name attribute
+			foreach ($result as $key => $row) {
+				$row->class_name = $this->course_model->get_name($row->course_id);
+			}
+
+			return $result;
 		}	else {
 			return FALSE;
 		}
 	}
 
 	function get($office_id) {
-		$this->db->from('class');
-		$this->db->where('office_id', $office_id);
+		$result = $this->course_model->get_by_office($office_id);
+		$courses = array();
+		foreach ($result as $key => $row) {
+			$courses[$key] = $row->course_id;
+		}
+		$this->db->where_in('course_id', $courses);
 
 		$this->db->order_by("year", "desc");
 		$this->db->order_by("semester", "desc");
-		$this->db->order_by("class_name", "asc");
 
-		$query = $this->db->get();
-
+		$query = $this->db->get('class');
 		if($query->num_rows() >= 1) {
-			return $query->result();
+			$result = $query->result();
+
+			//add class_name attribute
+			foreach ($result as $key => $row) {
+				$row->class_name = $this->course_model->get_name($row->course_id);
+			}
+
+			return $result;
 		}	else {
 			return FALSE;
 		}
 	}
 
 	function get_by_id($class_id) {
-		$this->db->from('class');
 		$this->db->where('class_id', $class_id);
 		$this->db->limit(1);
 
-		$query = $this->db->get();
+		$query = $this->db->get('class');
 
 		if($query->num_rows() >= 1) {
-			return $query->row();
+			$result = $query->row();
+
+			//add class_name attribute
+			$result->class_name = $this->course_model->get_name($result->course_id);
+
+			return $result;
 		}	else {
 			return FALSE;
 		}

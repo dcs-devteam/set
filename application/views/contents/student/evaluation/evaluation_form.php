@@ -339,7 +339,7 @@
 	</div> <!-- PART III -->
 	<hr>
 	<div class="btn-container">
-		<button class="btn btn-primary eval-form-submit" type="submit">SUBMIT FORM</button>
+		<button class="btn btn-primary eval-form-submit" type="submit" id="submit-form">SUBMIT FORM</button>
 	</div>
 	</form>
 </div>

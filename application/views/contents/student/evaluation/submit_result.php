@@ -1,4 +1,4 @@
-<div id="function-result-container" class="panel
+<div id="submit-result-container" class="panel
 	<?php if(!empty($success)):?>
 		<?php if($success == TRUE):?>
 			 panel-success

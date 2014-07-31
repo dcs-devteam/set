@@ -7,7 +7,7 @@ class Evaluation_model extends CI_Model {
 
 	public function submit($class_id, $access_code, $content) {
 		//insert content
-		$content_id = $this->add_content($content);
+		$content_id = $this->add_content($content, $class_id);
 		if ($content_id) {
 			$data = array(
 				'class_id' => $class_id,
@@ -21,8 +21,9 @@ class Evaluation_model extends CI_Model {
 		}
 	}
 
-	private function add_content($content) {
+	private function add_content($content, $class_id) {
 		$content_data = array();
+		$content_data['class_id'] = $class_id;
 		for ($i=1; $i <= 36; $i++) { 
 			$content_data['i'.$i] = $content[$i][0];
 		}

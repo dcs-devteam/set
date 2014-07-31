@@ -18,6 +18,7 @@ class Home extends CI_Controller {
 		$data['page_title'] = "eValuation";
 		$data['body_content'] = $this->load->view('contents/code','',TRUE);
 		$this->parser->parse('layouts/homepage', $data);
+	}
 	public function login() {
 		$data['page_title'] = "eValuation";
 		$data['body_content'] = $this->load->view('contents/login','',TRUE);
