@@ -1,0 +1,9 @@
+/*report/generate*/
+#report-page-1 {
+	/*letter size*/
+	border: 1px solid #E7E7E7;
+	width: 203mm;
+	height: 267mm;
+	padding: 12.7mm;
+	padding-top: 25.4mm;
+}

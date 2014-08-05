@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div id="main-wrapper" class="default container-fluid">
-			<div id="main-header"><?php $this->load->view('partials/header');?></div>
+			<div id="main-header" class="hidden-print"><?php $this->load->view('partials/header');?></div>
 			<div id="main-content" class="row">{body_content}</div>
 		</div>
 	</body>

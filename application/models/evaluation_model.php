@@ -82,6 +82,20 @@ class Evaluation_model extends CI_Model {
 		$this->db->trans_complete();
 		return $this->db->trans_status();
 	}
+
+	public function get_content($evaluation_id) {
+		$this->db->from('evaluation_content');
+		$this->db->where('content_id', $evaluation_id);
+		$this->db->limit(1);
+
+		$query = $this->db->get();
+
+		if($query->num_rows() >= 1) {
+			return $query->row();
+		}	else {
+			return FALSE;
+		}
+	}
 }
 
 /* End of file evaluation_model.php */

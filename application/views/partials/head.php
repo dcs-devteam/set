@@ -3,8 +3,12 @@
 <!-- <link rel="stylesheet" href="<?php //echo base_url().'assets/css/bootstrap-theme.css'?>"> -->
 <!-- Stylesheets -->
 <link rel="stylesheet" href="<?php echo base_url().'assets/css/layouts.css'?>">
-<link rel="stylesheet" href="<?php echo base_url().'assets/css/admin.css'?>">
-<link rel="stylesheet" href="<?php echo base_url().'assets/css/evaluation.css'?>">
+<?php if (($this->uri->segment(1) === 'admin')):?>
+	<link rel="stylesheet" href="<?php echo base_url().'assets/css/admin.css'?>">
+<?php endif;?>
+<?php if (($this->uri->segment(1) === 'evaluation')):?>
+	<link rel="stylesheet" href="<?php echo base_url().'assets/css/evaluation.css'?>">
+<?php endif;?>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

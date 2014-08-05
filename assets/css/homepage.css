@@ -7,27 +7,25 @@ body {
 	width: 80px;
 }
 
-#main-header h1 {
-	color: #7B1113; 
-	margin: 0; 
+#main-header #title {
+	/*color: #7B1113; */
+	margin: 0;
+	margin-top: 17px; 
 	font-family: Times; 
-	font-size: 30px;
-}
-
-#main-header h4 {
-	margin-top: 0; 
-	font-family: Times; 
-	font-size: 16px;
+	/*font-size: 30px;*/
 }
 
 #main-header #subtitle {
-	color: #335628; 
-	font-size: 14px; 
+	/*color: #335628;*/
+	/*font-size: 14px;*/
 	font-style: oblique
 }
 
 #main-header #up-name {
-	color: #8E171A;
+	margin-top: 0; 
+	font-family: Times; 
+	/*color: #8E171A;*/
+	/*font-size: 16px;*/
 }
 
 #main-content {

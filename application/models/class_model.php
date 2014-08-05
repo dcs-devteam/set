@@ -4,6 +4,7 @@ class Class_model extends CI_Model {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('course_model');
+		$this->load->model('year_semester_model');
 	}
 
 /**
@@ -11,12 +12,20 @@ class Class_model extends CI_Model {
 * Returns false if no active class found.
 */
 	function get_active($office_id) {
-		$result = $this->course_model->get_by_office($office_id);
+		//course id
+		$course_result = $this->course_model->get_by_office($office_id);
 		$courses = array();
-		foreach ($result as $key => $row) {
+		foreach ($course_result as $key => $row) {
 			$courses[$key] = $row->course_id;
 		}
+
+		//year and sem
+		$year_sem = $this->year_semester_model->get_current();
+
 		$this->db->where_in('course_id', $courses);
+
+		$this->db->where('year', $year_sem->year);
+		$this->db->where('semester', $year_sem->semester);
 
 		$this->db->where('is_active', TRUE);
 		$this->db->where('is_done', FALSE);
@@ -37,12 +46,21 @@ class Class_model extends CI_Model {
 	}
 
 	function get_done($office_id) {
-		$result = $this->course_model->get_by_office($office_id);
+		//course id
+		$course_result = $this->course_model->get_by_office($office_id);
 		$courses = array();
-		foreach ($result as $key => $row) {
+		foreach ($course_result as $key => $row) {
 			$courses[$key] = $row->course_id;
 		}
+
+		//year and sem
+		$year_sem = $this->year_semester_model->get_current();
+
 		$this->db->where_in('course_id', $courses);
+
+		$this->db->where('year', $year_sem->year);
+		$this->db->where('semester', $year_sem->semester);
+
 
 		$this->db->where('is_active', FALSE);
 		$this->db->where('is_done', TRUE);
@@ -63,12 +81,21 @@ class Class_model extends CI_Model {
 	}
 
 	function get_todo($office_id) {
-		$result = $this->course_model->get_by_office($office_id);
+		//course id
+		$course_result = $this->course_model->get_by_office($office_id);
 		$courses = array();
-		foreach ($result as $key => $row) {
+		foreach ($course_result as $key => $row) {
 			$courses[$key] = $row->course_id;
 		}
+
+		//year and sem
+		$year_sem = $this->year_semester_model->get_current();
+
 		$this->db->where_in('course_id', $courses);
+
+		$this->db->where('year', $year_sem->year);
+		$this->db->where('semester', $year_sem->semester);
+
 
 		$this->db->where('is_active', FALSE);
 		$this->db->where('is_done', FALSE);
@@ -89,12 +116,21 @@ class Class_model extends CI_Model {
 	}
 
 	function get($office_id) {
-		$result = $this->course_model->get_by_office($office_id);
+		//course id
+		$course_result = $this->course_model->get_by_office($office_id);
 		$courses = array();
-		foreach ($result as $key => $row) {
+		foreach ($course_result as $key => $row) {
 			$courses[$key] = $row->course_id;
 		}
+
+		//year and sem
+		$year_sem = $this->year_semester_model->get_current();
+
 		$this->db->where_in('course_id', $courses);
+
+		$this->db->where('year', $year_sem->year);
+		$this->db->where('semester', $year_sem->semester);
+
 
 		$this->db->order_by("year", "desc");
 		$this->db->order_by("semester", "desc");

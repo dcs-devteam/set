@@ -23,10 +23,10 @@
 						<li class="<?php if (($this->uri->segment(2) === 'evaluation') OR ($this->uri->uri_string() === 'admin')) echo 'active'?>">
 							<a href="<?php echo base_url('admin/evaluation')?>">Evaluation</a>
 						</li>
-						<li class="<?php if (($this->uri->segment(2) === 'reports')) echo 'active'?>"><a href="#">Reports</a></li>
-						<li class="<?php if (($this->uri->segment(2) === 'classes')) echo 'active'?>"><a href="#">Classes</a></li>
-						<li class="<?php if (($this->uri->segment(2) === 'teachers')) echo 'active'?>"><a href="#">Teachers</a></li>
-						<li class="<?php if (($this->uri->segment(2) === 'accounts')) echo 'active'?>"><a href="#">Accounts</a></li>
+						<li class="<?php if (($this->uri->segment(2) === 'report')) echo 'active'?>"><a href="<?php echo base_url('admin/report')?>">Reports</a></li>
+						<li class="<?php if (($this->uri->segment(2) === 'classe')) echo 'active'?>"><a href="#">Classes</a></li>
+						<li class="<?php if (($this->uri->segment(2) === 'teacher')) echo 'active'?>"><a href="#">Teachers</a></li>
+						<li class="<?php if (($this->uri->segment(2) === 'account')) echo 'active'?>"><a href="#">Accounts</a></li>
 					</ul>
 				<?php endif;?>
 				<ul class="nav navbar-nav navbar-right">

@@ -1,0 +1,99 @@
+/*report/generate*/
+#report-container {
+	margin-left: auto;
+	margin-right: auto;
+	/*width: 600px;*/
+}
+
+.page {
+
+	font-family: Times;
+	margin-bottom: 50px;
+	/*border: 1px solid #E7E7E7;*/
+
+	/*width: 203mm;*/
+	/*height: 267mm;*/
+	/*padding: 12.7mm;*/
+	/*padding-top: 25.4mm;*/
+}
+
+
+/*page-1 summary*/
+#report-page-1 #summary #header {
+	text-align: center;
+}
+
+#report-page-1 #summary #header #up-seal {
+	margin: 10px;
+}
+
+
+#report-page-1 #summary #title,
+#report-page-1 #summary #summary-content {
+	margin-top: 50px;
+}
+
+#report-page-1 #summary #summary-content .eval-report-table th,
+#report-page-1 #summary #summary-content .eval-report-table td {
+	white-space: nowrap;
+	width: 12.5%;
+}
+
+#report-page-1 #summary #summary-content li {
+	margin-bottom: 10px;
+}
+
+#report-page-1 #summary #summary-content .l1 {
+	width: 100px;
+}
+
+#report-page-1 #summary #summary-content .l2-list {
+	list-style-type:upper-alpha;
+}
+
+#report-page-1 #summary #summary-content .l2 {
+	width: 200px;
+	display: table-cell;
+}
+
+#report-page-1 #summary #summary-content .l2-value {
+	width: 100px;
+	display: table-cell;
+}
+
+#report-page-1 #summary #summary-content .scale-list {
+	list-style-type:none;
+}
+
+#report-page-1 #summary #summary-content .l3 {
+	width: 175px;
+	display: table-cell;
+}
+
+#report-page-1 #summary #summary-content .l3-value {
+	width: 100px;
+	display: table-cell;
+}
+
+#report-page-1 #summary #summary-content .list-unstyled li label {
+	width: 170px;
+	margin-bottom: 0;
+}
+
+/*detail*/
+
+.page .detail .eval-report-table .progress {
+	margin-bottom: 0px;
+}
+
+.page .detail .eval-report-table td {
+	/*white-space: nowrap;*/
+}
+
+.page .detail .eval-report-table td:nth-child(2) {	
+	width: 7%;
+}
+
+.page .detail .eval-report-table td:nth-child(3) {
+	width: 22%;
+}

@@ -12,10 +12,8 @@
 		<div id="main-header" class="media" style="margin-bottom: 15px">
 			<img id="up-seal" class="pull-left media-object" src="<?php echo base_url('assets/img/up-seal.png')?>">
 			<div class="media-body">
-				<h1>eValuation</h1>
-				<h4><span id="subtitle">An Online Evaluation Tool</span>
-				<br/>
-				<span id="up-name">UNIVERSITY OF THE PHILIPPINES - CEBU</span></h4>
+				<h3 id="title">eValuation<small> <span id="subtitle">An Online Evaluation Tool</span></small></h3>
+				<h4 id="up-name"><span id="up-name">University of the Philippines Cebu</span></h4>
 			</div>
 		</div>
 		<div id="main-content" class="row">{body_content}</div>
