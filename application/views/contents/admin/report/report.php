@@ -1,5 +1,4 @@
-<div class="" id="report-container">
-	<div class=" page" id="report-page-1">
+<div class="" id="report-container">	<div class=" page" id="report-page-1">
 		<div class="" id="summary">
 			<div class="" id="header">
 				<div id="up-block">
@@ -44,7 +43,7 @@
 						<li>
 							<label>Quantitative/Qualitative Rating Scale</label>
 						</li>
-						<ol class="scale-list">
+						<ol class="unstyled">
 							<li>
 								<label class="l2">1.49 and below</label>
 								<span class="l2-value">Excellent</span>
@@ -70,7 +69,7 @@
 							<label class="l3">Name of Faculty Member:</label>
 							<span class="l3-value"><?php echo $teacher->last_name.', '.$teacher->first_name?></span>
 						</li>
-						<ol class="scale-list">
+						<ol class="unstyled">
 							<li>
 								<label class="l2">Semester:</label>
 								<span class="l2-value"><?php echo format_semester($class->semester)?></span>
@@ -168,6 +167,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div class=" page" id="report-page-3">
 		<div class=" detail" id="detail-2">
 			<div class="" id="part-c">
@@ -228,6 +228,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div class=" page" id="report-page-4">
 		<div class=" comments" id="comment-1">
 			<div class="" id="strong-points">
@@ -266,6 +267,401 @@
 					<?php endforeach;?>
 				</ol>
 			</div>
+		</div>
+	</div>
+
+
+	
+	<div id="report-page-5">
+		<div class=" evaluation-forms">
+			<?php for ($e_index = 0; $e_index < sizeof($evaluations); $e_index+=2):?>
+				<div class="eval-form-page">
+					<div class="evaluation-form">
+						<div class="header">
+							<label><?php echo $evaluations[$e_index]->date?></label>
+							<ol class="unstyled">
+								<li>
+									<label class="eval-form-label">
+										Teacher's Name:
+									</label>
+									<span class="eval-form-value"><?php echo $teacher->last_name.', '.$teacher->first_name?></span>
+								</li>
+								<li>
+									<label class="eval-form-label">
+										Subject/Section:
+									</label>
+									<span class="eval-form-value"><?php echo $class->class_name.' '.$class->section?></span>
+								</li>
+								<li>
+									<label class="eval-form-label">
+										Day/Time:
+									</label>
+									<span class="eval-form-value"><?php echo $class->schedule?></span>
+								</li>
+								<li>
+									<label class="eval-form-label">
+										Sem./School Yr.:
+									</label>
+									<span class="eval-form-value"><?php echo format_semester($class->semester).' Sem/A.Y. '.format_year($class->year)?></span>
+								</li>
+							</ol>
+							<div class="title">
+								<p><strong>FACULTY EVALUATION INSTRUMENT</strong></p>
+							</div>
+						</div>
+						<div class="content">
+							<table class="eval-form-table">
+								<thead>
+									<tr>
+										<th class="no-border">I. A.</th>
+										<th>E</th>
+										<th>VG</th>
+										<th>G</th>
+										<th>F</th>
+										<th>P</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php for ($i = 1; $i <= 10; $i++):?>
+										<tr>
+											<td class="no-border"><?php echo $i?>.</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+											</td>
+										</tr>
+									<?php endfor;?>
+								</tbody>
+							</table>
+							<table class="eval-form-table">
+								<thead>
+									<tr>
+										<th class="no-border">B.</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php for ($i = 11; $i <= 20; $i++):?>
+										<tr>
+											<td class="no-border"><?php echo $i?>.</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+											</td>
+										</tr>
+									<?php endfor;?>
+								</tbody>
+							</table>
+							<table class="eval-form-table">
+								<thead>
+									<tr>
+										<th class="no-border">C.</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php for ($i = 21; $i <= 30; $i++):?>
+										<tr>
+											<td class="no-border"><?php echo $i?>.</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+											</td>
+										</tr>
+									<?php endfor;?>
+								</tbody>
+							</table>
+							<table class="eval-form-table">
+								<thead>
+									<tr>
+										<th class="no-border">D.</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php for ($i = 31; $i <= 35; $i++):?>
+										<tr>
+											<td class="no-border"><?php echo $i?>.</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+											</td>
+										</tr>
+									<?php endfor;?>
+								</tbody>
+							</table>
+							<table class="eval-form-table">
+								<thead>
+									<tr>
+										<th class="no-border">II.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="no-border">36.</td>
+										<td><?php if ($evaluations[$e_index]->i36 == 1) echo '5'?></td>
+										<td><?php if ($evaluations[$e_index]->i36 == 2) echo '4'?></td>
+										<td><?php if ($evaluations[$e_index]->i36 == 3) echo '3'?></td>
+										<td><?php if ($evaluations[$e_index]->i36 == 4) echo '2'?></td>
+										<td><?php if ($evaluations[$e_index]->i36 == 5) echo '1'?></td>
+									</tr>
+									</tbody>
+							</table>
+							<div class="comments">
+								<label class="part3"><strong>III.</strong></label>
+								<ol class="contents">
+									<li class="strong_points">
+										<label><strong><?php echo $questions['3']['content']['1']?></strong></label>
+										<span><?php echo $evaluations[$e_index]->strong_points?>&nbsp;</span>
+									</li>
+									<li class="weak_points">
+										<label><strong><?php echo $questions['3']['content']['2']?></strong></label>
+										<span><?php echo $evaluations[$e_index]->weak_points?>&nbsp;</span>
+									</li>
+									<li class="recommendations">
+										<label><strong><?php echo $questions['3']['content']['3']?></strong></label>
+										<span><?php echo $evaluations[$e_index]->recommendations?>&nbsp;</span>
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<?php if (!empty($evaluations[$e_index+1])):?>
+					<div class="evaluation-form">
+						<div class="header">
+							<label><?php echo $evaluations[$e_index]->date?></label>
+							<ol class="unstyled">
+								<li>
+									<label class="eval-form-label">
+										Teacher's Name:
+									</label>
+									<span class="eval-form-value"><?php echo $teacher->last_name.', '.$teacher->first_name?></span>
+								</li>
+								<li>
+									<label class="eval-form-label">
+										Subject/Section:
+									</label>
+									<span class="eval-form-value"><?php echo $class->class_name.' '.$class->section?></span>
+								</li>
+								<li>
+									<label class="eval-form-label">
+										Day/Time:
+									</label>
+									<span class="eval-form-value"><?php echo $class->schedule?></span>
+								</li>
+								<li>
+									<label class="eval-form-label">
+										Sem./School Yr.:
+									</label>
+									<span class="eval-form-value"><?php echo format_semester($class->semester).' Sem/A.Y. '.format_year($class->year)?></span>
+								</li>
+							</ol>
+							<div class="title">
+								<p><strong>FACULTY EVALUATION INSTRUMENT</strong></p>
+							</div>
+						</div>
+						<div class="content">
+							<table class="eval-form-table">
+								<thead>
+									<tr>
+										<th class="no-border">I. A.</th>
+										<th>E</th>
+										<th>VG</th>
+										<th>G</th>
+										<th>F</th>
+										<th>P</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php for ($i = 1; $i <= 10; $i++):?>
+										<tr>
+											<td class="no-border"><?php echo $i?>.</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+											</td>
+										</tr>
+									<?php endfor;?>
+								</tbody>
+							</table>
+							<table class="eval-form-table">
+								<thead>
+									<tr>
+										<th class="no-border">B.</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php for ($i = 11; $i <= 20; $i++):?>
+										<tr>
+											<td class="no-border"><?php echo $i?>.</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+											</td>
+										</tr>
+									<?php endfor;?>
+								</tbody>
+							</table>
+							<table class="eval-form-table">
+								<thead>
+									<tr>
+										<th class="no-border">C.</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php for ($i = 21; $i <= 30; $i++):?>
+										<tr>
+											<td class="no-border"><?php echo $i?>.</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+											</td>
+										</tr>
+									<?php endfor;?>
+								</tbody>
+							</table>
+							<table class="eval-form-table">
+								<thead>
+									<tr>
+										<th class="no-border">D.</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php for ($i = 31; $i <= 35; $i++):?>
+										<tr>
+											<td class="no-border"><?php echo $i?>.</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+											</td>
+											<td class="check-td">
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+											</td>
+										</tr>
+									<?php endfor;?>
+								</tbody>
+							</table>
+							<table class="eval-form-table">
+								<thead>
+									<tr>
+										<th class="no-border">II.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="no-border">36.</td>
+										<td><?php if ($evaluations[$e_index+1]->i36 == 1) echo '5'?></td>
+										<td><?php if ($evaluations[$e_index+1]->i36 == 2) echo '4'?></td>
+										<td><?php if ($evaluations[$e_index+1]->i36 == 3) echo '3'?></td>
+										<td><?php if ($evaluations[$e_index+1]->i36 == 4) echo '2'?></td>
+										<td><?php if ($evaluations[$e_index+1]->i36 == 5) echo '1'?></td>
+									</tr>
+									</tbody>
+							</table>
+							<div class="comments">
+								<label class="part3"><strong>III.</strong></label>
+								<ol class="contents">
+									<li class="strong_points">
+										<label><strong><?php echo $questions['3']['content']['1']?></strong></label>
+										<span><?php echo $evaluations[$e_index+1]->strong_points?>&nbsp;</span>
+									</li>
+									<li class="weak_points">
+										<label><strong><?php echo $questions['3']['content']['2']?></strong></label>
+										<span><?php echo $evaluations[$e_index+1]->weak_points?>&nbsp;</span>
+									</li>
+									<li class="recommendations">
+										<label><strong><?php echo $questions['3']['content']['3']?></strong></label>
+										<span><?php echo $evaluations[$e_index+1]->recommendations?>&nbsp;</span>
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<?php endif;?>
+				</div>
+			<?php endfor;?>
 		</div>
 	</div>
 </div>

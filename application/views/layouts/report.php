@@ -2,7 +2,8 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="<?php echo base_url().'assets/css/report.css'?>">
 		<!-- Bootstrap -->
@@ -20,7 +21,7 @@
 			if ( isset($pdf) ) {
 
 				$font = Font_Metrics::get_font("verdana", "bold");
-				$pdf->page_text($pdf->get_width() - 36, $pdf->get_height() - 36, "{PAGE_NUM} of {PAGE_COUNT}", $font, 6, array(0,0,0));
+				$pdf->page_text($pdf->get_width() - 24, $pdf->get_height() - 18, "{PAGE_NUM} of {PAGE_COUNT}", $font, 6, array(0,0,0));
 
 			}
 		</script>

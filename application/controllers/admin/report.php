@@ -40,6 +40,13 @@ class Report extends CI_Controller {
 			'teacher' => $this->teacher_model->get($class->teacher_id),
 			);
 
+		//individual forms
+		$view_data['evaluations'] = array();
+		foreach ($evaluations as $key => $evaluation) {
+			$view_data['evaluations'][$key] = $this->evaluation_model->get_content($evaluation->content_id);
+			$view_data['evaluations'][$key]->date = $evaluation->date;
+		}
+
 		//detail
 		$view_data['detail'] = array();
 		//initialize
@@ -48,10 +55,9 @@ class Report extends CI_Controller {
 		}
 
 		//add
-		foreach ($evaluations as $key => $evaluation) {
-			$evaluation_content = $this->evaluation_model->get_content($evaluation->content_id);
+		foreach ($view_data['evaluations'] as $key => $evaluation) {
 			for ($i=1; $i <= 35; $i++) {
-				$view_data['detail'][$i] += $evaluation_content->{'i'.$i};
+				$view_data['detail'][$i] += $evaluation->{'i'.$i};
 			}
 		}
 
@@ -110,10 +116,9 @@ class Report extends CI_Controller {
 		$view_data['strong_points'] = array();
 
 		$s_index = 1;
-		foreach ($evaluations as $key => $evaluation) {
-			$evaluation_content = $this->evaluation_model->get_content($evaluation->content_id);
-			if (!empty($evaluation_content->strong_points)) {
-				$view_data['strong_points'][$s_index] = $evaluation_content->strong_points;
+		foreach ($view_data['evaluations'] as $key => $evaluation) {
+			if (!empty($evaluation->strong_points)) {
+				$view_data['strong_points'][$s_index] = $evaluation->strong_points;
 				$s_index++;
 			}
 		}
@@ -122,10 +127,9 @@ class Report extends CI_Controller {
 		$view_data['weak_points'] = array();
 
 		$w_index = 1;
-		foreach ($evaluations as $key => $evaluation) {
-			$evaluation_content = $this->evaluation_model->get_content($evaluation->content_id);
-			if (!empty($evaluation_content->weak_points)) {
-				$view_data['weak_points'][$w_index] = $evaluation_content->weak_points;
+		foreach ($view_data['evaluations'] as $key => $evaluation) {
+			if (!empty($evaluation->weak_points)) {
+				$view_data['weak_points'][$w_index] = $evaluation->weak_points;
 				$w_index++;
 			}
 		}
@@ -134,10 +138,9 @@ class Report extends CI_Controller {
 		$view_data['recommendations'] = array();
 
 		$r_index = 1;
-		foreach ($evaluations as $key => $evaluation) {
-			$evaluation_content = $this->evaluation_model->get_content($evaluation->content_id);
-			if (!empty($evaluation_content->recommendations)) {
-				$view_data['recommendations'][$r_index] = $evaluation_content->recommendations;
+		foreach ($view_data['evaluations'] as $key => $evaluation) {
+			if (!empty($evaluation->recommendations)) {
+				$view_data['recommendations'][$r_index] = $evaluation->recommendations;
 				$r_index++;
 			}
 		}
@@ -146,7 +149,7 @@ class Report extends CI_Controller {
 		$data['body_content'] = $this->load->view('contents/admin/report/report',$view_data,TRUE);
 
 		//render webpage
-		// $this->parser->parse('layouts/report', $data);
+		$this->parser->parse('layouts/report', $data);
 
 		//pdf
 		$this->load->helper(array('dompdf', 'file'));

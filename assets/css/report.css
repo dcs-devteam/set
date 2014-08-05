@@ -1,7 +1,10 @@
 * {
 	box-sizing: border-box;
 }
-
+html {
+	margin: 0px !important;
+	margin-top: 18px !important;
+}
 /*report/generate*/
 #report-container {
 	margin-left: auto;
@@ -10,7 +13,7 @@
 }
 
 .page {
-	font-size: 10pt;
+	font-size: 14px;
 	font-family: Times;
 	page-break-after: always;
 	/*margin-bottom: 30px;*/
@@ -20,6 +23,8 @@
 	/*height: 267mm;*/
 	/*padding: 12.7mm;*/
 	/*padding-top: 25.4mm;*/
+	margin: 36px;
+	margin-top: 18px;
 }
 
 .page:last-child {
@@ -116,93 +121,212 @@ th, td {
 	box-shadow:none;
 }
 
+
+
+ol.unstyled,
+ul.unstyled {
+	list-style-type:none;
+}
+
 /*page-1 summary*/
-#report-page-1 #summary #header {
+#summary #header {
 	text-align: center;
 }
 
-#report-page-1 #summary #header #up-seal {
+#summary #header #up-seal {
 	margin: 10px;
 }
 
 
-#report-page-1 #summary #title,
-#report-page-1 #summary #summary-content {
+#summary #title,
+#summary #summary-content {
 	margin-top: 10px;
 }
 
-#report-page-1 #summary #summary-content .eval-report-table th,
-#report-page-1 #summary #summary-content .eval-report-table td {
+#summary #summary-content .eval-report-table th,
+#summary #summary-content .eval-report-table td {
 	/*white-space: nowrap;*/
 	width: 12.5%;
 	vertical-align: text-bottom;
 }
 
-#report-page-1 #summary #summary-content li {
+#summary #summary-content li {
 	margin-bottom: 10px;
 }
 
-#report-page-1 #summary #summary-content .l1 {
+#summary #summary-content .l1 {
 	width: 200px;
 	display: inline-block;
 }
 
-#report-page-1 #summary #summary-content .l1-value {
+#summary #summary-content .l1-value {
 	width: 200px;
 	/*display: table-cell;*/
 }
 
-#report-page-1 #summary #summary-content .l2-list {
+#summary #summary-content .l2-list {
 	list-style-type:upper-alpha;
 }
 
-#report-page-1 #summary #summary-content .l2 {
+#summary #summary-content .l2 {
 	width: 200px;
 	display: inline-block;
 	/*display: table-cell;*/
 }
 
-#report-page-1 #summary #summary-content .l2-value {
+#summary #summary-content .l2-value {
 	width: 100px;
 	/*display: table-cell;*/
 }
 
-#report-page-1 #summary #summary-content .scale-list {
-	list-style-type:none;
-}
-
-#report-page-1 #summary #summary-content .l3 {
+#summary #summary-content .l3 {
 	width: 200px;
 	display: inline-block;
 	/*display: table-cell;*/
 }
 
-#report-page-1 #summary #summary-content .l3-value {
+#summary #summary-content .l3-value {
 	width: 100px;
 	/*display: table-cell;*/
 }
 
 /*detail*/
 
-.page .detail .eval-report-table .progress {
+.detail .eval-report-table .progress {
 	margin-bottom: 0px;
 }
 
-.page .detail .eval-report-table td {
+.detail .eval-report-table td {
 	/*white-space: nowrap;*/
+	font-size: 13px;
 }
 
-.page .detail .eval-report-table td:nth-child(2) {	
+.detail .eval-report-table td:nth-child(2) {	
 	width: 7%;
 }
 
-.page .detail .eval-report-table td:nth-child(3) {
+.detail .eval-report-table td:nth-child(3) {
 	width: 22%;
 }
 
 /*comments*/
 
-.page .comments li {
+.comments li {
 	margin-bottom: 15px;
 	word-wrap: break-word;
+}
+
+/*evaluation forms*/
+.eval-form-page {
+	font-size: 8.5px;
+	line-height: 8px;
+	font-family: Times;
+	page-break-after: always;
+	line-height: 1;
+	margin: 0px;
+}
+
+.eval-form-page:last-child {
+	page-break-after: none;
+}
+
+.evaluation-forms .evaluation-form {
+	display: inline-block;
+	/*width: 48%;*/
+
+	border-right: 1px solid black;
+
+	padding: 5px;
+	padding-top: 0px;
+	margin: 0px;
+	margin-top: -8px;
+	vertical-align: top;
+	height: 1000px;
+	width: 395px;
+}
+
+.evaluation-forms .evaluation-form ol {
+	margin-bottom: 5px;
+}
+
+.evaluation-forms .evaluation-form li {
+	margin-bottom: 5px;
+}
+
+.evaluation-forms .evaluation-form .title {
+	text-align: center;
+}
+
+.evaluation-forms .evaluation-form .header .eval-form-label {
+	font-weight: bold;
+	width: 100px;
+	display: inline-block;
+}
+
+.evaluation-forms .evaluation-form .header .eval-form-value {
+	border-bottom: 1px solid black;	
+	width: 150px;
+	padding-left: 5px;
+	display: inline-block;
+}
+
+.evaluation-forms .evaluation-form .content {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.evaluation-forms .evaluation-form .content .eval-form-table {
+	margin-bottom: 0px;
+	border: none;
+}
+
+.evaluation-forms .evaluation-form .content .eval-form-table td,
+.evaluation-forms .evaluation-form .content .eval-form-table th {
+	border: 1px solid black;
+	text-align: center;
+	padding: 1px;
+	width: 16.66666667%;
+	height: 15px;
+	vertical-align: bottom;
+}
+
+.evaluation-forms .evaluation-form .content .eval-form-table td.check-td {
+	font-family: 'dejavu sans';
+	font-size: 12px;
+	line-height: 8px;
+}
+
+.evaluation-forms .evaluation-form .content .eval-form-table td.no-border,
+.evaluation-forms .evaluation-form .content .eval-form-table th.no-border {
+	border: none;
+	text-align: right;
+	padding-right: 5px;
+}
+
+.evaluation-forms .evaluation-form .content .eval-form-table th.no-border {
+	padding-right: 15px;
+}
+
+.evaluation-forms .evaluation-form .content .comments .contents ol {
+	width: 100%;
+}
+.evaluation-forms .evaluation-form .content .part3 {
+	margin-left: 23px;
+}
+.evaluation-forms .evaluation-form .content .comments .contents label {
+	display: block;
+}
+
+.evaluation-forms .evaluation-form .content .comments .contents span {
+	display: block;
+	border-bottom: 1px solid black;
+	font-weight: normal;
+	margin-top: 2px;
+	padding-left: 3px;
+	padding-right: 3px;
+
+	max-height: 25px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

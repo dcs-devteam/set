@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="<?php echo base_url().'assets/css/bootstrap.min.css'?>">
 <!-- <link rel="stylesheet" href="<?php //echo base_url().'assets/css/bootstrap-theme.css'?>"> -->
 <!-- Stylesheets -->
+<link rel="stylesheet" href="<?php echo base_url().'assets/css/fonts.css'?>">
 <link rel="stylesheet" href="<?php echo base_url().'assets/css/layouts.css'?>">
 <?php if (($this->uri->segment(1) === 'admin')):?>
 	<link rel="stylesheet" href="<?php echo base_url().'assets/css/admin.css'?>">
