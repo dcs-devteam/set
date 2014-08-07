@@ -152,10 +152,15 @@ class Report extends CI_Controller {
 		$this->parser->parse('layouts/report', $data);
 
 		//pdf
-		$this->load->helper(array('dompdf', 'file'));
+		$this->load->helper(array('wkhtmltopdf', 'file'));
 		$html = $this->parser->parse('layouts/report', $data, TRUE);
-		$filename = $class->year.'-'.format_semester($class->semester).' - '.$view_data['teacher']->last_name.', '.$view_data['teacher']->first_name.' - '.$class->class_name.' '.$class->section;
-		pdf_create($html, $filename);
+
+		if (write_file('assets/temp/report.php', $html)) {
+			$filename = $class->year.'-'.format_semester($class->semester).' - '.$view_data['teacher']->last_name.', '.$view_data['teacher']->first_name.' - '.$class->class_name.' '.$class->section;
+			pdf_create($html, $filename);
+		}
+
+		
 	}
 }
 

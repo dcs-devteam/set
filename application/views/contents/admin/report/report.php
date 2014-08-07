@@ -123,14 +123,19 @@
 								<td><?php echo $i.'. '.$questions['1']['a']['content'][$i]?></td>
 								<td><?php echo format_rating($detail[$i])?></td>
 								<td>
-									<table class="progress-table">
+									<!-- <table class="progress-table">
 										<tr>
 											<td data-value="<?php echo format_percentage($detail[$i])?>" style="width: <?php echo format_percentage($detail[$i])?>%;">
 												&nbsp;
 											</td>
 											<td></td>
 										</tr>
-									</table>
+									</table> -->
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo format_percentage($detail[$i])?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo format_percentage($detail[$i])?>%;">
+											
+										</div>
+									</div>
 								</td>
 							</tr>
 						<?php endfor;?>
@@ -151,14 +156,19 @@
 								<td><?php echo $i.'. '.$questions['1']['b']['content'][$i]?></td>
 								<td><?php echo format_rating($detail[$i])?></td>
 								<td>
-									<table class="progress-table">
+									<!-- <table class="progress-table">
 										<tr>
 											<td data-value="<?php echo format_percentage($detail[$i])?>" style="width: <?php echo format_percentage($detail[$i])?>%;">
 												&nbsp;
 											</td>
 											<td></td>
 										</tr>
-									</table>
+									</table> -->
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo format_percentage($detail[$i])?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo format_percentage($detail[$i])?>%;">
+											
+										</div>
+									</div>
 								</td>
 							</tr>
 						<?php endfor;?>
@@ -184,14 +194,19 @@
 								<td><?php echo $i.'. '.$questions['1']['c']['content'][$i]?></td>
 								<td><?php echo format_rating($detail[$i])?></td>
 								<td>
-									<table class="progress-table">
+									<!-- <table class="progress-table">
 										<tr>
 											<td data-value="<?php echo format_percentage($detail[$i])?>" style="width: <?php echo format_percentage($detail[$i])?>%;">
 												&nbsp;
 											</td>
 											<td></td>
 										</tr>
-									</table>
+									</table> -->
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo format_percentage($detail[$i])?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo format_percentage($detail[$i])?>%;">
+											
+										</div>
+									</div>
 								</td>
 							</tr>
 						<?php endfor;?>
@@ -212,14 +227,19 @@
 								<td><?php echo $i.'. '.$questions['1']['d']['content'][$i]?></td>
 								<td><?php echo format_rating($detail[$i])?></td>
 								<td>
-									<table class="progress-table">
+									<!-- <table class="progress-table">
 										<tr>
 											<td data-value="<?php echo format_percentage($detail[$i])?>" style="width: <?php echo format_percentage($detail[$i])?>%;">
 												&nbsp;
 											</td>
 											<td></td>
 										</tr>
-									</table>
+									</table> -->
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo format_percentage($detail[$i])?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo format_percentage($detail[$i])?>%;">
+											
+										</div>
+									</div>
 								</td>
 							</tr>
 						<?php endfor;?>
