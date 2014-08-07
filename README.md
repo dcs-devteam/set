@@ -20,3 +20,8 @@ PHP
 set allow_url_include=On in php.ini
 
 make sure mbstring extension is enabled
+
+Dependencies
+===
+uses https://github.com/mikehaertl/phpwkhtmltopdf to generate pdf files
+(include also h4cc/wkhtmltopdf-i386 when installing through composer (https://getcomposer.org/))
