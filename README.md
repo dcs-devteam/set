@@ -23,5 +23,12 @@ make sure mbstring extension is enabled
 
 Dependencies
 ===
-uses https://github.com/mikehaertl/phpwkhtmltopdf to generate pdf files
-(include also h4cc/wkhtmltopdf-i386 when installing through composer (https://getcomposer.org/))
+uses wkhtmltopdf (http://wkhtmltopdf.org/) to generate pdf files
+
+install also https://github.com/KnpLabs/snappy through composer (https://getcomposer.org/)
+
+you will need to edit wkhtmltopdf_helper.php in application/helpers folder. change the line to where the wkhtmltopdf.exe resides
+
+```sh
+$snappy->setBinary('C:\wkhtmltopdf\bin\wkhtmltopdf.exe');
+```
