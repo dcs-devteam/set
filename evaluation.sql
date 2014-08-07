@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2014 at 07:27 PM
+-- Generation Time: Aug 07, 2014 at 07:33 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -36,11 +36,6 @@ CREATE TABLE IF NOT EXISTS `access_code` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Truncate table before insert `access_code`
---
-
-TRUNCATE TABLE `access_code`;
---
 -- Dumping data for table `access_code`
 --
 
@@ -71,11 +66,6 @@ CREATE TABLE IF NOT EXISTS `class` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
--- Truncate table before insert `class`
---
-
-TRUNCATE TABLE `class`;
---
 -- Dumping data for table `class`
 --
 
@@ -101,11 +91,6 @@ CREATE TABLE IF NOT EXISTS `class_evaluator` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Truncate table before insert `class_evaluator`
---
-
-TRUNCATE TABLE `class_evaluator`;
---
 -- Dumping data for table `class_evaluator`
 --
 
@@ -127,11 +112,6 @@ CREATE TABLE IF NOT EXISTS `course` (
   KEY `office_id` (`office_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
---
--- Truncate table before insert `course`
---
-
-TRUNCATE TABLE `course`;
 --
 -- Dumping data for table `course`
 --
@@ -159,11 +139,6 @@ CREATE TABLE IF NOT EXISTS `evaluation` (
   KEY `class_id` (`class_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
---
--- Truncate table before insert `evaluation`
---
-
-TRUNCATE TABLE `evaluation`;
 --
 -- Dumping data for table `evaluation`
 --
@@ -224,11 +199,6 @@ CREATE TABLE IF NOT EXISTS `evaluation_content` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
 
 --
--- Truncate table before insert `evaluation_content`
---
-
-TRUNCATE TABLE `evaluation_content`;
---
 -- Dumping data for table `evaluation_content`
 --
 
@@ -248,11 +218,6 @@ CREATE TABLE IF NOT EXISTS `office` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
---
--- Truncate table before insert `office`
---
-
-TRUNCATE TABLE `office`;
 --
 -- Dumping data for table `office`
 --
@@ -276,11 +241,6 @@ CREATE TABLE IF NOT EXISTS `teacher` (
   KEY `office_id` (`office_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
---
--- Truncate table before insert `teacher`
---
-
-TRUNCATE TABLE `teacher`;
 --
 -- Dumping data for table `teacher`
 --
@@ -308,11 +268,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Truncate table before insert `user`
---
-
-TRUNCATE TABLE `user`;
---
 -- Dumping data for table `user`
 --
 
@@ -336,11 +291,6 @@ CREATE TABLE IF NOT EXISTS `year_semester` (
   PRIMARY KEY (`year`,`semester`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Truncate table before insert `year_semester`
---
-
-TRUNCATE TABLE `year_semester`;
 --
 -- Dumping data for table `year_semester`
 --
