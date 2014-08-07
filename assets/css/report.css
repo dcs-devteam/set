@@ -13,8 +13,8 @@ html {
 }
 
 .page {
-	font-size: 14px;
-	font-family: Times;
+	font-size: 13pt;
+	font-family: Times, Georgia;
 	page-break-after: always;
 	/*margin-bottom: 30px;*/
 	/*border: 1px solid #E7E7E7;*/
@@ -23,12 +23,12 @@ html {
 	/*height: 267mm;*/
 	/*padding: 12.7mm;*/
 	/*padding-top: 25.4mm;*/
-	margin: 36px;
-	margin-top: 18px;
+	/*margin: 36px;*/
+	/*margin-top: 18px;*/
 }
 
 .page:last-child {
-	page-break-after: none;
+	page-break-after: auto;
 }
 
 table {
@@ -46,6 +46,91 @@ th, td {
 	padding: 8px;
 	line-height: 1.4;
 	vertical-align: top;
+}
+
+ol.unstyled,
+ul.unstyled {
+	list-style-type:none;
+}
+
+/*page-1 summary*/
+#summary #header {
+	text-align: center;
+}
+
+#summary #header #up-seal {
+	margin: 10px;
+}
+
+
+#summary #title,
+#summary #summary-content {
+	margin-top: 50px;
+}
+
+#summary #summary-content .eval-report-table th,
+#summary #summary-content .eval-report-table td {
+	/*white-space: nowrap;*/
+	width: 12.5%;
+	vertical-align: text-bottom;
+}
+
+#summary #summary-content li {
+	margin-bottom: 10px;
+}
+
+#summary #summary-content .l1 {
+	width: 200px;
+	display: inline-block;
+}
+
+#summary #summary-content .l1-value {
+	width: 200px;
+	/*display: table-cell;*/
+}
+
+#summary #summary-content .l2-list {
+	list-style-type:upper-alpha;
+}
+
+#summary #summary-content .l2 {
+	width: 200px;
+	display: inline-block;
+	/*display: table-cell;*/
+}
+
+#summary #summary-content .l2-value {
+	width: 100px;
+	/*display: table-cell;*/
+}
+
+#summary #summary-content .l3 {
+	width: 200px;
+	display: inline-block;
+	/*display: table-cell;*/
+}
+
+#summary #summary-content .l3-value {
+	width: 100px;
+	/*display: table-cell;*/
+}
+
+/*detail*/
+
+.detail .eval-report-table .progress {
+	margin-bottom: 0px;
+}
+
+.detail .eval-report-table td {
+	/*white-space: nowrap;*/
+}
+
+.detail .eval-report-table td:nth-child(2) {	
+	width: 7%;
+}
+
+.detail .eval-report-table td:nth-child(3) {
+	width: 22%;
 }
 
 .progress-table {
@@ -122,93 +207,6 @@ th, td {
 }
 
 
-
-ol.unstyled,
-ul.unstyled {
-	list-style-type:none;
-}
-
-/*page-1 summary*/
-#summary #header {
-	text-align: center;
-}
-
-#summary #header #up-seal {
-	margin: 10px;
-}
-
-
-#summary #title,
-#summary #summary-content {
-	margin-top: 10px;
-}
-
-#summary #summary-content .eval-report-table th,
-#summary #summary-content .eval-report-table td {
-	/*white-space: nowrap;*/
-	width: 12.5%;
-	vertical-align: text-bottom;
-}
-
-#summary #summary-content li {
-	margin-bottom: 10px;
-}
-
-#summary #summary-content .l1 {
-	width: 200px;
-	display: inline-block;
-}
-
-#summary #summary-content .l1-value {
-	width: 200px;
-	/*display: table-cell;*/
-}
-
-#summary #summary-content .l2-list {
-	list-style-type:upper-alpha;
-}
-
-#summary #summary-content .l2 {
-	width: 200px;
-	display: inline-block;
-	/*display: table-cell;*/
-}
-
-#summary #summary-content .l2-value {
-	width: 100px;
-	/*display: table-cell;*/
-}
-
-#summary #summary-content .l3 {
-	width: 200px;
-	display: inline-block;
-	/*display: table-cell;*/
-}
-
-#summary #summary-content .l3-value {
-	width: 100px;
-	/*display: table-cell;*/
-}
-
-/*detail*/
-
-.detail .eval-report-table .progress {
-	margin-bottom: 0px;
-}
-
-.detail .eval-report-table td {
-	/*white-space: nowrap;*/
-	font-size: 13px;
-}
-
-.detail .eval-report-table td:nth-child(2) {	
-	width: 7%;
-}
-
-.detail .eval-report-table td:nth-child(3) {
-	width: 22%;
-}
-
 /*comments*/
 
 .comments li {
@@ -218,31 +216,37 @@ ul.unstyled {
 
 /*evaluation forms*/
 .eval-form-page {
-	font-size: 8.5px;
-	line-height: 8px;
-	font-family: Times;
+	font-size: 10pt;
+	/*line-height: 8px;*/
+	font-family: Times, Georgia;
 	page-break-after: always;
 	line-height: 1;
 	margin: 0px;
 }
 
 .eval-form-page:last-child {
-	page-break-after: none;
+	page-break-after: auto;
 }
 
 .evaluation-forms .evaluation-form {
 	display: inline-block;
-	/*width: 48%;*/
+	width: 49%;
 
 	border-right: 1px solid black;
 
 	padding: 5px;
 	padding-top: 0px;
-	margin: 0px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
 	margin-top: -8px;
 	vertical-align: top;
-	height: 1000px;
-	width: 395px;
+	height: 1280px;
+	/*width: 395px;*/
+}
+
+.evaluation-forms .evaluation-form:nth-child(even) {
+	border-right: none;
 }
 
 .evaluation-forms .evaluation-form ol {
@@ -259,14 +263,15 @@ ul.unstyled {
 
 .evaluation-forms .evaluation-form .header .eval-form-label {
 	font-weight: bold;
-	width: 100px;
+	width: 120px;
 	display: inline-block;
 }
 
 .evaluation-forms .evaluation-form .header .eval-form-value {
 	border-bottom: 1px solid black;	
-	width: 150px;
+	width: 250px;
 	padding-left: 5px;
+	padding-bottom: 3px;
 	display: inline-block;
 }
 
@@ -288,12 +293,11 @@ ul.unstyled {
 	padding: 1px;
 	width: 16.66666667%;
 	height: 15px;
-	vertical-align: bottom;
+	vertical-align: middle;
 }
 
 .evaluation-forms .evaluation-form .content .eval-form-table td.check-td {
 	font-family: 'dejavu sans';
-	font-size: 12px;
 	line-height: 8px;
 }
 
@@ -323,10 +327,9 @@ ul.unstyled {
 	border-bottom: 1px solid black;
 	font-weight: normal;
 	margin-top: 2px;
-	padding-left: 3px;
-	padding-right: 3px;
+	padding: 3px;
 
-	max-height: 25px;
+	max-height: 72px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }

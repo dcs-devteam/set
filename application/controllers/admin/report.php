@@ -158,6 +158,7 @@ class Report extends CI_Controller {
 		if (write_file('assets/temp/report.php', $html)) {
 			$filename = $class->year.'-'.format_semester($class->semester).' - '.$view_data['teacher']->last_name.', '.$view_data['teacher']->first_name.' - '.$class->class_name.' '.$class->section;
 			pdf_create($html, $filename);
+			delete_files('assets/temp/');
 		}
 
 		

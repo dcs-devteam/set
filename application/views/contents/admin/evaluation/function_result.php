@@ -19,7 +19,17 @@
 		</div>
 	</div>
 	<div class="panel-footer">
-		<a class="btn btn-primary" href="<?php echo base_url('admin/evaluation/view')?>">View Evaluation</a>
+		<a class="btn
+			<?php if(!empty($success)):?>
+				<?php if($success == TRUE):?>
+					 btn-success
+				<?php else:?>
+					 btn-danger
+				<?php endif;?>
+			<?php else:?>
+				 btn-primary
+			<?php endif;?>
+		 " href="<?php echo base_url('admin/evaluation/view')?>">View Evaluation</a>
 		<button class="btn btn-default" onClick="window.name='autoreload';history.go(-1);window.close();">Back</button>
 	</div>
 </div>
