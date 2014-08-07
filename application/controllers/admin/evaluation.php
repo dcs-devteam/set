@@ -111,7 +111,7 @@ class Evaluation extends CI_Controller {
 						$error = $this->db->_error_message();
 					}
 				} else {
-					$message = 'Class evaluation stop failed.';
+					$message = 'Class evaluation stop not allowed.';
 					$error = 'There are no submitted evaluation forms. In order to generate the evaluation report, at least one evaluation form must be submitted.';
 				}
 				$stop_data = array('message' => $message, 'error' => $error, 'success' => $success);
