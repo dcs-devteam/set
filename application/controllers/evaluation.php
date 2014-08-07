@@ -71,6 +71,10 @@ class Evaluation extends CI_Controller {
 		$access_code = $this->session->userdata('access_code');
 		$content = $this->input->post('answers');
 
+		$content['strong_points'] = base64_encode(nl2br($content['strong_points']));
+		$content['weak_points'] = base64_encode(nl2br($content['weak_points']));
+		$content['recommendations'] = base64_encode(nl2br($content['recommendations']));
+
 		$result = $this->evaluation_model->submit($class_id, $access_code, $content);
 
 		if ($result) {

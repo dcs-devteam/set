@@ -1,5 +1,5 @@
 <div id="function-result-container" class="panel
-	<?php if(!empty($success)):?>
+	<?php if(!is_null($success)):?>
 		<?php if($success == TRUE):?>
 			 panel-success
 		<?php else:?>
@@ -19,17 +19,22 @@
 		</div>
 	</div>
 	<div class="panel-footer">
-		<a class="btn
-			<?php if(!empty($success)):?>
-				<?php if($success == TRUE):?>
-					 btn-success
+		<?php if ($success && !empty($class_id)):?>
+		 		<a class="btn btn-success" href="<?php echo base_url('admin/evaluation/code/'.$class_id)?>">Access Codes</a>
+		 		<a class="btn btn-default" href="<?php echo base_url('admin/evaluation/view')?>">View Evaluation</a>
+	 	<?php else:?>
+			<a class="btn
+				<?php if(!is_null($success)):?>
+					<?php if($success == TRUE):?>
+						 btn-success
+					<?php else:?>
+						 btn-danger
+					<?php endif;?>
 				<?php else:?>
-					 btn-danger
+					 btn-primary
 				<?php endif;?>
-			<?php else:?>
-				 btn-primary
-			<?php endif;?>
-		 " href="<?php echo base_url('admin/evaluation/view')?>">View Evaluation</a>
-		<button class="btn btn-default" onClick="window.name='autoreload';history.go(-1);window.close();">Back</button>
+			 " href="<?php echo base_url('admin/evaluation/view')?>">View Evaluation</a>			 
+			<button class="btn btn-default" onClick="window.name='autoreload';history.go(-1);window.close();">Back</button>
+	 	<?php endif;?>
 	</div>
 </div>

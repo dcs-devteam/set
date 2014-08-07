@@ -1,4 +1,5 @@
-<div class="" id="report-container">	<div class=" page" id="report-page-1">
+<div class="" id="report-container">
+	<div class=" page" id="report-page-1">
 		<div class="" id="summary">
 			<div class="" id="header">
 				<div id="up-block">
@@ -460,11 +461,11 @@
 								<tbody>
 									<tr>
 										<td class="no-border">36.</td>
-										<td><?php if ($evaluations[$e_index]->i36 == 1) echo '5'?></td>
-										<td><?php if ($evaluations[$e_index]->i36 == 2) echo '4'?></td>
-										<td><?php if ($evaluations[$e_index]->i36 == 3) echo '3'?></td>
-										<td><?php if ($evaluations[$e_index]->i36 == 4) echo '2'?></td>
-										<td><?php if ($evaluations[$e_index]->i36 == 5) echo '1'?></td>
+										<td class="check-td"><?php if ($evaluations[$e_index]->i36 == 1) echo '5'?></td>
+										<td class="check-td"><?php if ($evaluations[$e_index]->i36 == 2) echo '4'?></td>
+										<td class="check-td"><?php if ($evaluations[$e_index]->i36 == 3) echo '3'?></td>
+										<td class="check-td"><?php if ($evaluations[$e_index]->i36 == 4) echo '2'?></td>
+										<td class="check-td"><?php if ($evaluations[$e_index]->i36 == 5) echo '1'?></td>
 									</tr>
 									</tbody>
 							</table>
@@ -652,11 +653,11 @@
 								<tbody>
 									<tr>
 										<td class="no-border">36.</td>
-										<td><?php if ($evaluations[$e_index+1]->i36 == 1) echo '5'?></td>
-										<td><?php if ($evaluations[$e_index+1]->i36 == 2) echo '4'?></td>
-										<td><?php if ($evaluations[$e_index+1]->i36 == 3) echo '3'?></td>
-										<td><?php if ($evaluations[$e_index+1]->i36 == 4) echo '2'?></td>
-										<td><?php if ($evaluations[$e_index+1]->i36 == 5) echo '1'?></td>
+										<td class="check-td"><?php if ($evaluations[$e_index+1]->i36 == 1) echo '5'?></td>
+										<td class="check-td"><?php if ($evaluations[$e_index+1]->i36 == 2) echo '4'?></td>
+										<td class="check-td"><?php if ($evaluations[$e_index+1]->i36 == 3) echo '3'?></td>
+										<td class="check-td"><?php if ($evaluations[$e_index+1]->i36 == 4) echo '2'?></td>
+										<td class="check-td"><?php if ($evaluations[$e_index+1]->i36 == 5) echo '1'?></td>
 									</tr>
 									</tbody>
 							</table>

@@ -58,9 +58,6 @@ class Evaluation_model extends CI_Model {
 		$this->db->from('evaluation');
 		$this->db->where('class_id', $class_id);
 
-		//dompdf test
-		// $this->db->limit(10);
-
 		$query = $this->db->get();
 
 		if($query->num_rows() >= 1) {

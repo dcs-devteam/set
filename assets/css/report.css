@@ -216,7 +216,7 @@ ul.unstyled {
 
 /*evaluation forms*/
 .eval-form-page {
-	font-size: 10pt;
+	font-size: 9pt;
 	/*line-height: 8px;*/
 	font-family: Times, Georgia;
 	page-break-after: always;
@@ -241,7 +241,7 @@ ul.unstyled {
 	margin-right: auto;
 	margin-top: -8px;
 	vertical-align: top;
-	height: 1280px;
+	height: 1200px;
 	/*width: 395px;*/
 }
 
@@ -297,7 +297,6 @@ ul.unstyled {
 }
 
 .evaluation-forms .evaluation-form .content .eval-form-table td.check-td {
-	font-family: 'dejavu sans';
 	line-height: 8px;
 }
 
@@ -329,7 +328,7 @@ ul.unstyled {
 	margin-top: 2px;
 	padding: 3px;
 
-	max-height: 72px;
+	max-height: 66px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }

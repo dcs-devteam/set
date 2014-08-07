@@ -23,8 +23,9 @@
 					<td><?php $teacher = $this->teacher_model->get($class->teacher_id);echo $teacher->last_name.', '.$teacher->first_name?></td>
 					<td>
 						<?php if($this->evaluator_model->get_evaluator($class->class_id)->evaluator_id == $this->session->userdata('user_id')):?>
-							<a class="btn btn-warning btn-xs" href="<?php echo base_url('admin/evaluation/stop/'.$class->class_id)?>">Stop Evaluation</a>
-							<a class="btn btn-danger btn-xs" href="<?php echo base_url('admin/evaluation/cancel/'.$class->class_id)?>">Cancel Evaluation</a>
+							<a class="btn btn-success btn-xs" href="<?php echo base_url('admin/evaluation/code/'.$class->class_id)?>">Access Codes</a>
+							<a class="btn btn-warning btn-xs" href="<?php echo base_url('admin/evaluation/stop/'.$class->class_id)?>">Stop</a>
+							<a class="btn btn-danger btn-xs" href="<?php echo base_url('admin/evaluation/cancel/'.$class->class_id)?>">Cancel</a>
 						<?php endif;?>
 					</td>
 				</tr>
@@ -62,4 +63,6 @@
 			<?php endforeach;?>
 		</tbody>
 	</table>
+<?php else:?>
+	<div class="alert alert-warning" role="alert">No classes found. Create a class by clicking on this <a href="<?php echo base_url('admin/class/create')?>">link.</a></div>
 <?php endif;?>

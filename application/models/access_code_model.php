@@ -5,6 +5,20 @@ class Access_code_model extends CI_Model {
 		parent::__construct();
 	}
 
+	public function add($class_id, $access_code) {
+		$this->load->model('class_model');
+		if ($this->class_model->get_by_id($class_id)) {
+			$data = array(
+				'class_id' => $class_id,
+				'access_code' => $access_code
+				);
+			$result = $this->db->insert('access_code',$data);
+			return $result;
+		} else {
+			return FALSE;
+		}
+	}
+
 	public function get_by_code($code) {
 		$this->db->from('access_code');
 		$this->db->where('access_code', $code);
@@ -13,6 +27,18 @@ class Access_code_model extends CI_Model {
 		$query = $this->db->get();
 		if ($query->num_rows() == 1) {
 			return $query->row();
+		}	else {
+			return FALSE;
+		}
+	}
+
+	public function get_by_class($class_id) {
+		$this->db->from('access_code');
+		$this->db->where('class_id', $class_id);
+
+		$query = $this->db->get();
+		if ($query->num_rows() >= 1) {
+			return $query->result();
 		}	else {
 			return FALSE;
 		}
@@ -59,6 +85,28 @@ class Access_code_model extends CI_Model {
 		$this->db->trans_start();
 
 		$result = $this->db->delete('access_code',array('class_id' => $class_id));
+
+		$this->db->trans_complete();
+		return $this->db->trans_status();
+	}
+
+	public function delete_unused($class_id) {
+		$codes = $this->get_by_class($class_id);
+		$this->db->trans_start();
+
+		//find unused codes
+		$this->load->model('evaluation_model');
+
+		$unused_codes = array();
+		foreach ($codes as $code) {
+			if (!$this->is_used($code->access_code)) {
+				array_push($unused_codes, $code->access_code);
+			}
+		}
+
+		$this->db->where_in('access_code', $unused_codes);
+
+		$result = $this->db->delete('access_code');
 
 		$this->db->trans_complete();
 		return $this->db->trans_status();

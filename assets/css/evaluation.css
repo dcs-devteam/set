@@ -38,4 +38,12 @@
 
 #submit-result-container {
 	margin-top: 50px;
+	max-width: 600px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#submit-result-container .panel-heading,
+#submit-result-container .panel-footer {
+	text-align: center;
 }

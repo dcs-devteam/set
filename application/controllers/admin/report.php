@@ -45,6 +45,9 @@ class Report extends CI_Controller {
 		foreach ($evaluations as $key => $evaluation) {
 			$view_data['evaluations'][$key] = $this->evaluation_model->get_content($evaluation->content_id);
 			$view_data['evaluations'][$key]->date = $evaluation->date;
+			$view_data['evaluations'][$key]->strong_points = base64_decode($view_data['evaluations'][$key]->strong_points);
+			$view_data['evaluations'][$key]->weak_points = base64_decode($view_data['evaluations'][$key]->weak_points);
+			$view_data['evaluations'][$key]->recommendations = base64_decode($view_data['evaluations'][$key]->recommendations);
 		}
 
 		//detail
@@ -149,13 +152,13 @@ class Report extends CI_Controller {
 		$data['body_content'] = $this->load->view('contents/admin/report/report',$view_data,TRUE);
 
 		//render webpage
-		$this->parser->parse('layouts/report', $data);
+		// $this->parser->parse('layouts/report', $data);
 
 		//pdf
 		$this->load->helper(array('wkhtmltopdf', 'file'));
 		$html = $this->parser->parse('layouts/report', $data, TRUE);
 
-		if (write_file('assets/temp/report.php', $html)) {
+		if (write_file('assets/temp/temp.php', $html)) {
 			$filename = $class->year.'-'.format_semester($class->semester).' - '.$view_data['teacher']->last_name.', '.$view_data['teacher']->first_name.' - '.$class->class_name.' '.$class->section;
 			pdf_create($html, $filename);
 			delete_files('assets/temp/');

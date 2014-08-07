@@ -1,5 +1,5 @@
 <div id="submit-result-container" class="panel
-	<?php if(!empty($success)):?>
+	<?php if(!is_null($success)):?>
 		<?php if($success == TRUE):?>
 			 panel-success
 		<?php else:?>
@@ -16,7 +16,7 @@
 		<div id="message-content">
 			<p><?php echo $message;?></p>
 			<p class="text-error"><?php echo $error;?></p>
-			<?php if(!empty($success)):?>
+			<?php if(!is_null($success)):?>
 				<?php if($success == TRUE):?>
 					<p>Thank you for your participation.</p>
 				<?php endif;?>

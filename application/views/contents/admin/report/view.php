@@ -28,4 +28,6 @@
 			<?php endforeach;?>
 		</tbody>
 	</table>
+<?php else:?>
+	<div class="alert alert-info" role="alert">No classes evaluated yet.</div>
 <?php endif;?>
