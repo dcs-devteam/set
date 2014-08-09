@@ -14,6 +14,7 @@
 	cursor: pointer;
 	color: #333 !important;	
 	border: 1px solid transparent;
+	border-radius: 2px;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current,
@@ -31,6 +32,12 @@
 
 .dataTables_wrapper label {
 	font-weight: normal;
+}
+
+.dataTables_wrapper input,
+.dataTables_wrapper select {
+	border: 1px solid #ccc;
+	border-radius: 2px;
 }
 
 .dataTable {

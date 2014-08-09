@@ -15,10 +15,15 @@ body {
 	/*font-size: 30px;*/
 }
 
+#main-header #home-link {
+	text-decoration: none;
+	color: black;
+}
+
 #main-header #subtitle {
 	/*color: #335628;*/
 	/*font-size: 14px;*/
-	font-style: oblique
+	font-style: oblique;
 }
 
 #main-header #up-name {

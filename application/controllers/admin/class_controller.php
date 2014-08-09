@@ -250,6 +250,54 @@ class Class_controller extends CI_Controller {
 		}
 	}
 
+	public function delete($class_id) {
+		$class = $this->class_model->get_by_id($class_id);
+		if ($class === FALSE) {
+			$error_data = array(
+				'error_title' => 'No Such Class Exists',
+				'error_message' => 'Record for the given class ID does not exist in the database.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		} else {
+			//must go through delete-confirm form
+			$confirm = $this->input->post('confirm');
+
+			if ($confirm !== 'TRUE') {
+				//confirmation dialog
+				$delete_confirm_data = array(
+					'class' => $class
+					);
+
+				$data['body_content'] = $this->load->view('contents/admin/class/delete_confirm',$delete_confirm_data,TRUE);
+			} else {
+				$delete_result = $this->delete_class($class_id);
+
+				$message = '';
+				$error = '';
+				$success = FALSE;
+				if ($delete_result) {
+					$message = 'Class was successfully deleted.';
+					$success = TRUE;
+				} else {
+					$message = 'Class delete failed.';
+					$error = $this->db->_error_message();
+				}
+				$delete_data = array('message' => $message, 'error' => $error, 'success' => $success);
+				$data['body_content'] = $this->load->view('contents/admin/class/function_result',$delete_data,TRUE);
+			}
+		}
+		$data['page_title'] = "eValuation";
+		$this->parser->parse('layouts/default', $data);
+	}
+
+	private function delete_class($class_id) {
+		if ($this->class_model->delete($class_id)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
 	public function unique_class($section) {
 		$year = $this->input->post('year');
 		$semester = $this->input->post('semester');

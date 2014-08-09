@@ -315,6 +315,15 @@ class Class_model extends CI_Model {
 		}
 	}
 
+	public function delete($class_id) {
+		$this->db->trans_start();
+
+		$result = $this->db->delete('class',array('class_id' => $class_id));
+
+		$this->db->trans_complete();
+		return $this->db->trans_status();
+	}
+
 	public function class_exists($course_id, $section, $year, $semester) {
 		$this->db->where('course_id', $course_id);
 		$this->db->where('section', $section);
