@@ -251,42 +251,54 @@
 	</div>
 
 	<div class=" page" id="report-page-4">
-		<div class=" comments" id="comment-1">
-			<div class="" id="strong-points">
-				<p><strong>Comments: Strong Points</strong></p>
-				<ol>
-					<?php foreach($strong_points as $key => $comment):?>
-						<?php if(!empty($comment)):?>
-							<li>
-								<?php echo $comment?>
-							</li>
-						<?php endif;?>
-					<?php endforeach;?>
-				</ol>
+		<div class="" id="comment-1">
+			<div class="comments" id="strong-points">
+				<p><strong>Strong Points:</strong></p>
+				<?php if(!empty($strong_points)):?>
+					<ol>
+						<?php foreach($strong_points as $key => $comment):?>
+							<?php if(!empty($comment)):?>
+								<li>
+									<?php echo $comment?>
+								</li>
+							<?php endif;?>
+						<?php endforeach;?>
+					</ol>
+				<?php else:?>
+					<p><i>No comments</i></p>
+				<?php endif;?>
 			</div>
-			<div class="" id="weak-points">
-				<p><strong>Comments: Weak Points</strong></p>
-				<ol>
-					<?php foreach($weak_points as $key => $comment):?>
-						<?php if(!empty($comment)):?>
-							<li>
-								<?php echo $comment?>
-							</li>
-						<?php endif;?>
-					<?php endforeach;?>
-				</ol>
+			<div class="comments" id="weak-points">
+				<p><strong>Weak Points:</strong></p>
+				<?php if(!empty($weak_points)):?>
+					<ol>
+						<?php foreach($weak_points as $key => $comment):?>
+							<?php if(!empty($comment)):?>
+								<li>
+									<?php echo $comment?>
+								</li>
+							<?php endif;?>
+						<?php endforeach;?>
+					</ol>
+				<?php else:?>
+					<p><i>No comments</i></p>
+				<?php endif;?>
 			</div>
-			<div class="" id="recommendations">
-				<p><strong>Comments: Recommendations for Improvement</strong></p>
-				<ol>
-					<?php foreach($recommendations as $key => $comment):?>
-						<?php if(!empty($comment)):?>
-							<li>
-								<?php echo $comment?>
-							</li>
-						<?php endif;?>
-					<?php endforeach;?>
-				</ol>
+			<div class="comments" id="recommendations">
+				<p><strong>Recommendations for Improvement:</strong></p>
+				<?php if(!empty($recommendations)):?>
+					<ol>
+						<?php foreach($recommendations as $key => $comment):?>
+							<?php if(!empty($comment)):?>
+								<li>
+									<?php echo $comment?>
+								</li>
+							<?php endif;?>
+						<?php endforeach;?>
+					</ol>
+				<?php else:?>
+					<p><i>No comments</i></p>
+				<?php endif;?>
 			</div>
 		</div>
 	</div>

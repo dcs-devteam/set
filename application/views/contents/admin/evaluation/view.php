@@ -1,10 +1,10 @@
 <?php if(!empty($classes_currently_evaluated)):?>
 	<h2>Currently Evaluated</h2>
-	<table class="table table-striped table-hover table-bordered class-eval-table">
+	<table class="table table-striped table-hover table-bordered class-table data-table">
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Class</th>
+				<th>Course</th>
 				<th>Section</th>
 				<th>Schedule</th>
 				<th>Students</th>
@@ -35,7 +35,7 @@
 <?php endif;?>
 <?php if(!empty($classes_not_evaluated)):?>
 	<h2>To be Evaluated</h2>
-	<table class="table table-striped table-hover table-bordered class-eval-table">
+	<table class="table table-striped table-hover table-bordered class-table data-table">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -64,5 +64,9 @@
 		</tbody>
 	</table>
 <?php else:?>
-	<div class="alert alert-warning" role="alert">No classes found. Create a class by clicking on this <a href="<?php echo base_url('admin/class/create')?>">link.</a></div>
+	<?php if ($this->session->userdata('role') === 'admin'):?>
+		<div class="alert alert-warning" role="alert">No classes found. Create a class by clicking on this <a href="<?php echo base_url('admin/class/create')?>">link.</a></div>
+	<?php elseif ($this->session->userdata('role') === 'evaluator'):?>
+		<div class="alert alert-warning" role="alert">No classes found. Contact the administrator about this.</a></div>
+	<?php endif;?>
 <?php endif;?>

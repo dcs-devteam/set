@@ -1,6 +1,13 @@
+.tooltip-wrapper {
+	position: absolute;
+	top: 0;
+	left: 15px;
+	height: 100%;
+	width: calc(100% - 30px);
+	cursor: not-allowed;
+}
+
 /*evaluation/set*/
-#set-eval-period-form,
-#edit-eval-period-form,
 .form-container {
 	max-width: 500px;
 	margin-left: auto;
@@ -8,40 +15,40 @@
 }
 
 /*evaluation/view*/
-.class-eval-table th,
-.class-eval-table td {
+.class-table th,
+.class-table td {
 	/*white-space: nowrap;*/
 }
 
-.class-eval-table th:first-child,
-.class-eval-table td:first-child {
+.class-table th:first-child,
+.class-table td:first-child {
 	text-align: right;
-	width: 50px;
+	width: 1px !important;
 }
 
-.class-eval-table th:nth-child(2),
-.class-eval-table td:nth-child(2) {
+.class-table th:nth-child(2),
+.class-table td:nth-child(2) {
 	width: 200px;
 }
 
-.class-eval-table th:nth-child(3),
-.class-eval-table td:nth-child(3) {
-	width: 70px;
+.class-table th:nth-child(3),
+.class-table td:nth-child(3) {
+	width: 1px !important;
 }
 
-.class-eval-table th:nth-child(4),
-.class-eval-table td:nth-child(4) {
-	width: 300px;
+.class-table th:nth-child(4),
+.class-table td:nth-child(4) {
+	width: 200px;
 }
 
-.class-eval-table th:nth-child(5),
-.class-eval-table td:nth-child(5) {
-	width: 80px;
+.class-table th:nth-child(5),
+.class-table td:nth-child(5) {
+	width: 1px !important;
 }
 
-.class-eval-table th:nth-child(6),
-.class-eval-table td:nth-child(6) {
-	width: 300px;
+.class-table th:nth-child(6),
+.class-table td:nth-child(6) {
+	width: 250px;
 }
 
 
@@ -53,6 +60,8 @@
 	margin-left: auto;
 }
 
+.form-container.panel .panel-heading,
+.form-container.panel .panel-footer,
 .confirm-container.panel .panel-heading,
 .confirm-container.panel .panel-footer,
 .result-container .panel-heading,

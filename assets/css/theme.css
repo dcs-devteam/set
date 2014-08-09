@@ -1,0 +1,83 @@
+/*DataTables*/
+.dataTables_wrapper {
+	width: calc(100% - 1px);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	box-sizing: border-box;
+	display: inline-block;
+	min-width: 1.5em;
+	padding: 5px 10px !important;
+	margin-left: 2px;
+	text-align: center;
+	text-decoration: none !important;
+	cursor: pointer;
+	color: #333 !important;	
+	border: 1px solid transparent;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+	color: #333 !important;
+	border: 1px solid #CACACA;
+	background: linear-gradient(to bottom, #F9F9F9 0%, #F9F9F9 100%) repeat scroll 0% 0% transparent;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+	color: #FFF !important;
+	border: 1px solid rgba(122, 122, 122, 1);
+	background: linear-gradient(to bottom, rgba(162, 162, 162, 1) 0%, rgba(162, 162, 162, 1) 100%) repeat scroll 0% 0% transparent;
+}
+
+.dataTables_wrapper label {
+	font-weight: normal;
+}
+
+.dataTable {
+	border: 1px solid #DDD !important;
+	border-spacing: 0px !important;
+	border-collapse: collapse !important;
+}
+
+.dataTable td,
+.dataTable th {
+	border: 1px solid #DDD !important;
+}
+
+.dataTable thead > tr > th {
+	border-bottom-width: 2px !important;
+}
+
+/*Panels*/
+.panel-success {
+	border-color: rgba(68, 157, 68, 1);
+}
+.panel-success>.panel-heading {
+	background-color: rgba(68, 157, 68, 1);
+	border-color: rgba(68, 157, 68, 1);
+	color: #FFF;
+}
+.panel-warning {
+	border-color: rgba(240, 173, 78, 1);
+}
+.panel-warning>.panel-heading {
+	background-color: rgba(240, 173, 78, 1);
+	border-color: rgba(240, 173, 78, 1);
+	color: #FFF;
+}
+.panel-info {
+	border-color: rgba(91, 192, 222, 1);
+}
+.panel-info>.panel-heading {
+	background-color: rgba(91, 192, 222, 1);
+	border-color: rgba(91, 192, 222, 1);
+	color: #FFF;
+}
+.panel-danger {
+	border-color: rgba(217, 83, 79, 1);
+}
+.panel-danger>.panel-heading {
+	background-color: rgba(217, 83, 79, 1);
+	border-color: rgba(217, 83, 79, 1);
+	color: #FFF;
+}

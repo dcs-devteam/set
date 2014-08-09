@@ -208,6 +208,9 @@ ul.unstyled {
 
 
 /*comments*/
+.comments {
+	margin-bottom: 50px;
+}
 
 .comments li {
 	margin-bottom: 15px;

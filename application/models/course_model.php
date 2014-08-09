@@ -28,6 +28,45 @@ class Course_model extends CI_Model {
 			return FALSE;
 		}
 	}
+
+	public function get_id($course_name) {
+		$this->db->select('course_id');
+		$this->db->where('course_name', $course_name);
+		$this->db->limit(1);
+
+		$query = $this->db->get('course');
+		if($query->num_rows() >= 1) {
+			return $query->row()->course_id;
+		}	else {
+			return FALSE;
+		}
+	}
+
+	public function course_exists($course_name) {
+		$this->db->where('course_name', $course_name);
+		$this->db->limit(1);
+
+		$query = $this->db->get('course');
+		if ($query->num_rows() == 1) {
+			return TRUE;
+		}	else {
+			return FALSE;
+		}
+	}
+
+	public function add($course_name, $office_id) {
+		$data = array(
+			'course_name' => $course_name,
+			'office_id' => $office_id
+		);		
+		$this->db->insert('course',$data);
+		
+		if ($this->db->affected_rows() >= 0) {
+			return $this->db->insert_id();
+		} else {
+			return FALSE;
+		}
+	}
 }
 
 /* End of file course_model.php */

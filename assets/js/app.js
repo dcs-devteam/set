@@ -1,5 +1,11 @@
 $(document).ready(function() {
 	evaluation_form.initialize();
+ 	tables.initialize();
+	$(".tooltip-wrapper").tooltip({
+		placement:"right",
+		container:"body",
+		trigger:"hover"
+	});
 });
 
 var evaluation_form = {
@@ -11,6 +17,16 @@ var evaluation_form = {
 			} else {
 				event.preventDefault();
 			}
+		});
+	}
+}
+
+var tables = {
+	initialize: function() {
+		$('.data-table').DataTable({
+			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+			"pageLength": 10,
+			"order": [[1,'asc']]
 		});
 	}
 }

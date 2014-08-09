@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Class_model extends CI_Model {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 		$this->load->model('course_model');
 		$this->load->model('year_semester_model');
@@ -11,7 +11,7 @@ class Class_model extends CI_Model {
 *	Get active class from the database.
 * Returns false if no active class found.
 */
-	function get_active($office_id) {
+	public function get_active($office_id) {
 		//course id
 		$course_result = $this->course_model->get_by_office($office_id);
 		if ($course_result) {
@@ -23,7 +23,7 @@ class Class_model extends CI_Model {
 			//year and sem
 			$year_sem = $this->year_semester_model->get_current();
 
-			$this->db->where_in('course_id', $courses);
+			$this->db->where_in('class.course_id', $courses);
 
 			$this->db->where('year', $year_sem->year);
 			$this->db->where('semester', $year_sem->semester);
@@ -31,15 +31,20 @@ class Class_model extends CI_Model {
 			$this->db->where('is_active', TRUE);
 			$this->db->where('is_done', FALSE);
 
+			$this->db->join('course', 'course.course_id = class.course_id');
+
+			$this->db->order_by('year', 'desc');
+			$this->db->order_by('semester', 'desc');
+			$this->db->order_by('course.course_name', 'asc');
+			$this->db->order_by('class.section', 'asc');
+
 			$query = $this->db->get('class');
 			if($query->num_rows() >= 1) {
 				$result = $query->result();
-
 				//add class_name attribute
 				foreach ($result as $key => $row) {
-					$row->class_name = $this->course_model->get_name($row->course_id);
+					$row->class_name = $row->course_name;
 				}
-
 				return $result;
 			}	else {
 				return FALSE;
@@ -49,7 +54,7 @@ class Class_model extends CI_Model {
 		}
 	}
 
-	function get_done($office_id) {
+	public function get_done($office_id) {
 		//course id
 		$course_result = $this->course_model->get_by_office($office_id);
 		if ($course_result) {
@@ -61,24 +66,28 @@ class Class_model extends CI_Model {
 			//year and sem
 			$year_sem = $this->year_semester_model->get_current();
 
-			$this->db->where_in('course_id', $courses);
+			$this->db->where_in('class.course_id', $courses);
 
 			$this->db->where('year', $year_sem->year);
 			$this->db->where('semester', $year_sem->semester);
-
 
 			$this->db->where('is_active', FALSE);
 			$this->db->where('is_done', TRUE);
 
+			$this->db->join('course', 'course.course_id = class.course_id');
+
+			$this->db->order_by('year', 'desc');
+			$this->db->order_by('semester', 'desc');
+			$this->db->order_by('course.course_name', 'asc');
+			$this->db->order_by('class.section', 'asc');
+
 			$query = $this->db->get('class');
 			if($query->num_rows() >= 1) {
 				$result = $query->result();
-
 				//add class_name attribute
 				foreach ($result as $key => $row) {
-					$row->class_name = $this->course_model->get_name($row->course_id);
+					$row->class_name = $row->course_name;
 				}
-
 				return $result;
 			}	else {
 				return FALSE;
@@ -88,7 +97,7 @@ class Class_model extends CI_Model {
 		}
 	}
 
-	function get_todo($office_id) {
+	public function get_todo($office_id) {
 		//course id
 		$course_result = $this->course_model->get_by_office($office_id);
 		if ($course_result) {
@@ -100,22 +109,27 @@ class Class_model extends CI_Model {
 			//year and sem
 			$year_sem = $this->year_semester_model->get_current();
 
-			$this->db->where_in('course_id', $courses);
+			$this->db->where_in('class.course_id', $courses);
 
 			$this->db->where('year', $year_sem->year);
 			$this->db->where('semester', $year_sem->semester);
-
 
 			$this->db->where('is_active', FALSE);
 			$this->db->where('is_done', FALSE);
 
+			$this->db->join('course', 'course.course_id = class.course_id');
+
+			$this->db->order_by('year', 'desc');
+			$this->db->order_by('semester', 'desc');
+			$this->db->order_by('course.course_name', 'asc');
+			$this->db->order_by('class.section', 'asc');
+
 			$query = $this->db->get('class');
 			if($query->num_rows() >= 1) {
 				$result = $query->result();
-
 				//add class_name attribute
 				foreach ($result as $key => $row) {
-					$row->class_name = $this->course_model->get_name($row->course_id);
+					$row->class_name = $row->course_name;
 				}
 
 				return $result;
@@ -127,7 +141,7 @@ class Class_model extends CI_Model {
 		}
 	}
 
-	function get($office_id) {
+	public function get($office_id) {
 		//course id
 		$course_result = $this->course_model->get_by_office($office_id);
 		if ($course_result) {
@@ -139,24 +153,25 @@ class Class_model extends CI_Model {
 			//year and sem
 			$year_sem = $this->year_semester_model->get_current();
 
-			$this->db->where_in('course_id', $courses);
+			$this->db->where_in('class.course_id', $courses);
 
 			$this->db->where('year', $year_sem->year);
 			$this->db->where('semester', $year_sem->semester);
 
+			$this->db->join('course', 'course.course_id = class.course_id');
 
-			$this->db->order_by("year", "desc");
-			$this->db->order_by("semester", "desc");
+			$this->db->order_by('year', 'desc');
+			$this->db->order_by('semester', 'desc');
+			$this->db->order_by('course.course_name', 'asc');
+			$this->db->order_by('class.section', 'asc');
 
 			$query = $this->db->get('class');
 			if($query->num_rows() >= 1) {
 				$result = $query->result();
-
 				//add class_name attribute
 				foreach ($result as $key => $row) {
-					$row->class_name = $this->course_model->get_name($row->course_id);
+					$row->class_name = $row->course_name;
 				}
-
 				return $result;
 			}	else {
 				return FALSE;
@@ -166,7 +181,7 @@ class Class_model extends CI_Model {
 		}
 	}
 
-	function get_by_id($class_id) {
+	public function get_by_id($class_id) {
 		$this->db->where('class_id', $class_id);
 		$this->db->limit(1);
 
@@ -184,7 +199,7 @@ class Class_model extends CI_Model {
 		}
 	}
 
-	function stop_evaluation($class_id) {
+	public function stop_evaluation($class_id) {
 		$this->db->trans_start();
 		//delete unused codes
 		$this->load->model('access_code_model');
@@ -202,7 +217,7 @@ class Class_model extends CI_Model {
 		return $this->db->trans_status();
 	}
 
-	function start_evaluation($class_id, $evaluator_id) {
+	public function start_evaluation($class_id, $evaluator_id) {
 		$this->load->model('evaluator_model');
 		$result = $this->evaluator_model->add($class_id, $evaluator_id);
 
@@ -213,14 +228,13 @@ class Class_model extends CI_Model {
 				);
 			$this->db->where('class_id',$class_id);
 			$result2 = $this->db->update('class',$start_data);
-			return $result2;
+			return $this->db->affected_rows();
 		} else {
 			return FALSE;
 		}
 	}
 
-//TODO delete submitted evaluation forms
-	function cancel_evaluation($class_id, $evaluator_id) {
+	public function cancel_evaluation($class_id, $evaluator_id) {
 		$this->db->trans_start();
 		//delete evaluator
 		$this->load->model('evaluator_model');
@@ -247,16 +261,70 @@ class Class_model extends CI_Model {
 		return $this->db->trans_status();
 	}
 
-	function is_active($class_id) {
+	public function is_active($class_id) {
 		$this->db->select('is_active');
-		$this->db->from('class');
 		$this->db->where('class_id', $class_id);
 		$this->db->limit(1);
 
-		$query = $this->db->get();
+		$query = $this->db->get('class');
 
 		if($query->num_rows() >= 1) {
 			return $query->row()->is_active;
+		}	else {
+			return FALSE;
+		}
+	}
+
+	public function add($course_id, $teacher_id, $section, $year, $semester, $schedule, $number_of_students) {
+		$data = array(
+			'course_id' => $course_id,
+			'teacher_id' => $teacher_id,
+			'section' => $section,
+			'year' => $year,
+			'semester' => $semester,
+			'schedule' => $schedule,
+			'number_of_students' => $number_of_students
+		);		
+		$this->db->insert('class',$data);
+		
+		if ($this->db->affected_rows() >= 0) {
+			return $this->db->insert_id();
+		} else {
+			return FALSE;
+		}
+	}
+
+	public function edit($class_id, $course_id, $teacher_id, $section, $year, $semester, $schedule, $number_of_students) {
+		$data = array(
+			'course_id' => $course_id,
+			'teacher_id' => $teacher_id,
+			'section' => $section,
+			'year' => $year,
+			'semester' => $semester,
+			'schedule' => $schedule,
+			'number_of_students' => $number_of_students
+		);
+
+		$this->db->where('class_id', $class_id);
+		$result = $this->db->update('class',$data);
+		
+		if ($this->db->affected_rows() >= 0) {
+			return $result;
+		} else {
+			return FALSE;
+		}
+	}
+
+	public function class_exists($course_id, $section, $year, $semester) {
+		$this->db->where('course_id', $course_id);
+		$this->db->where('section', $section);
+		$this->db->where('year', $year);
+		$this->db->where('semester', $semester);
+		$this->db->limit(1);
+
+		$query = $this->db->get('class');
+		if ($query->num_rows() == 1) {
+			return $query->row();
 		}	else {
 			return FALSE;
 		}

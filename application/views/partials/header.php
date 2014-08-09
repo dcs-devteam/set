@@ -24,7 +24,13 @@
 							<a href="<?php echo base_url('admin/evaluation')?>">Evaluation</a>
 						</li>
 						<li class="<?php if (($this->uri->segment(2) === 'report')) echo 'active'?>"><a href="<?php echo base_url('admin/report')?>">Reports</a></li>
-						<li class="<?php if (($this->uri->segment(2) === 'classe')) echo 'active'?>"><a href="#">Classes</a></li>
+						<li class="dropdown <?php if (($this->uri->segment(2) === 'class')) echo 'active'?>">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Classes <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li class="<?php if (($this->uri->uri_string() === 'admin/class') OR ($this->uri->uri_string() === 'admin/class/view')) echo 'active'?>"><a href="<?php echo base_url('admin/class/view')?>">View Classes</a></li>
+								<li class="<?php if (($this->uri->uri_string() === 'admin/class/add')) echo 'active'?>"><a href="<?php echo base_url('admin/class/add')?>">Add Class</a></li>
+							</ul>
+						</li>
 						<li class="<?php if (($this->uri->segment(2) === 'teacher')) echo 'active'?>"><a href="#">Teachers</a></li>
 						<li class="<?php if (($this->uri->segment(2) === 'account')) echo 'active'?>"><a href="#">Accounts</a></li>
 					</ul>

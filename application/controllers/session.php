@@ -39,7 +39,7 @@ class Session extends CI_Controller {
 		echo 'LOGGING OUT...';
 
 		$this->session->sess_destroy();
-		redirect(base_url(),'refresh');
+		redirect(base_url('login'),'refresh');
 	}
 
 	public function code() {

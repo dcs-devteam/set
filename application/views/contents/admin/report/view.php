@@ -1,10 +1,10 @@
 <?php if(!empty($classes_already_evaluated)):?>
 	<h2>Already Evaluated</h2>
-	<table class="table table-striped table-hover table-bordered class-eval-table">
+	<table class="table table-striped table-hover table-bordered class-table data-table">
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Class</th>
+				<th>Course</th>
 				<th>Section</th>
 				<th>Schedule</th>
 				<th>Students</th>

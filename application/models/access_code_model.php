@@ -13,7 +13,7 @@ class Access_code_model extends CI_Model {
 				'access_code' => $access_code
 				);
 			$result = $this->db->insert('access_code',$data);
-			return $result;
+			return $this->db->affected_rows();
 		} else {
 			return FALSE;
 		}

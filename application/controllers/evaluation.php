@@ -5,7 +5,7 @@ class Evaluation extends CI_Controller {
 		parent::__construct();
 		//refuse access when not logged in as student
 		if (empty($this->session->userdata('class_id'))) {
-			$message_403 = "You don't have permission to access the URL you are trying to reach.";
+			$message_403 = 'You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.';
 			$heading = '403 Forbidden';
 			show_error($message_403,403,$heading);
 		}
