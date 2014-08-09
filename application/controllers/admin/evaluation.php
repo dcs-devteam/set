@@ -210,11 +210,12 @@ class Evaluation extends CI_Controller {
 
 		$codes = array();
 
-		for ($i=0; $i < $class->number_of_students; $i++) { 
-			//length of code is 10
-			$codes[$i] = bin2hex(openssl_random_pseudo_bytes(5));
+		//resulting length of code is $len * 2
+		$len = 8;
+		for ($i=0; $i < $class->number_of_students; $i++) {
+			$codes[$i] = bin2hex(openssl_random_pseudo_bytes($len));
 			while ($this->access_code_model->code_exists($codes[$i])) {
-				$codes[$i] = bin2hex(openssl_random_pseudo_bytes(5));
+				$codes[$i] = bin2hex(openssl_random_pseudo_bytes($len));
 			}
 			$this->access_code_model->add($class->class_id, $codes[$i]);
 		}
