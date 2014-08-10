@@ -30,5 +30,5 @@
 		</tbody>
 	</table>
 <?php else:?>
-	<div class="alert alert-warning" role="alert">No classes found. Create a class by clicking on this <a href="<?php echo base_url('admin/class/create')?>">link.</a></div>
+	<div class="alert alert-warning" role="alert">No classes found. Create a class by clicking on this <a href="<?php echo base_url('admin/class/add')?>">link.</a></div>
 <?php endif;?>

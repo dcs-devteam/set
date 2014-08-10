@@ -112,7 +112,19 @@ ul.unstyled {
 
 #summary #summary-content .l3-value {
 	width: 100px;
+	font-weight: bold;
 	/*display: table-cell;*/
+}
+
+#summary #summary-content .average {
+	font-weight: bold;
+	text-align: right;
+	margin-top: 30px;
+	margin-right: 25px;
+}
+
+#summary #summary-content .average .rating {
+	margin-left: 53px;
 }
 
 /*detail*/

@@ -50,6 +50,7 @@ class Report extends CI_Controller {
 		$view_data = array(
 			'class' => $class,
 			'teacher' => $this->teacher_model->get($class->teacher_id),
+			'office' => $this->office_model->get($this->office_id)->name,
 			);
 
 		//individual forms
@@ -163,7 +164,7 @@ class Report extends CI_Controller {
 		$data['page_title'] = $class->year.'-'.format_semester($class->semester).' - '.$view_data['teacher']->last_name.', '.$view_data['teacher']->first_name.' - '.$class->class_name.' '.$class->section;
 		$data['body_content'] = $this->load->view('contents/admin/report/report',$view_data,TRUE);
 
-		//render webpage (for testing)
+		//render webpage (for testing). comment out pdf_create line below
 		// $this->parser->parse('layouts/report', $data);
 
 		//pdf

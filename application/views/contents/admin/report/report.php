@@ -4,7 +4,7 @@
 			<div class="" id="header">
 				<div id="up-block">
 					<img id="up-seal" height="100px" src="<?php echo base_url('assets/img/up-seal-bw.jpg')?>" alt="UP Seal">
-					<p><strong>Department of Computer Science</strong></p>
+					<p><strong><?php echo $office?></strong></p>
 					<p>University of the Philippines Cebu</p>
 					<p>Lahug, Cebu City</p>
 				</div>
@@ -25,19 +25,19 @@
 						</li>
 						<ol class="l2-list">
 							<li>
-								<label class="l2">Instructional Skills</label>
+								<label class="l2"><?php echo $questions['1']['a']['name']?></label>
 								<span class="l2-value">70%</span>
 							</li>
 							<li>
-								<label class="l2">Class Management</label>
+								<label class="l2"><?php echo $questions['1']['b']['name']?></label>
 								<span class="l2-value">20%</span>
 							</li>
 							<li>
-								<label class="l2">Personal Qualities</label>
+								<label class="l2"><?php echo $questions['1']['c']['name']?></label>
 								<span class="l2-value">5%</span>
 							</li>
 							<li>
-								<label class="l2">Student-Faculty Relations</label>
+								<label class="l2"><?php echo $questions['1']['d']['name']?></label>
 								<span class="l2-value">5%</span>
 							</li>
 						</ol>
@@ -58,7 +58,7 @@
 								<span class="l2-value">Good</span>
 							</li>
 							<li>
-								<label class="l2">3.50 0 4.49</label>
+								<label class="l2">3.50 - 4.49</label>
 								<span class="l2-value">Conditional</span>
 							</li>
 							<li>
@@ -103,6 +103,10 @@
 								<td><strong><?php echo $summary['rating']?></strong></td>
 							</tr>
 					</table>
+					<div class="average">
+							<label class="average">Average Rating: <?php echo format_rating($summary['average']['grand'])?></label>
+							<label class="rating"><?php echo $summary['rating']?></label>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -111,7 +115,7 @@
 	<div class=" page" id="report-page-2">
 		<div class=" detail" id="detail-1">
 			<div class="" id="part-a">
-				<p><strong>A. Instructional Materials</strong></p>
+				<p><strong>A. <?php echo $questions['1']['a']['name']?></strong></p>
 				<table class="table table-bordered eval-report-table">
 					<tbody>
 							<tr>
@@ -124,14 +128,6 @@
 								<td><?php echo $i.'. '.$questions['1']['a']['content'][$i]?></td>
 								<td><?php echo format_rating($detail[$i])?></td>
 								<td>
-									<!-- <table class="progress-table">
-										<tr>
-											<td data-value="<?php echo format_percentage($detail[$i])?>" style="width: <?php echo format_percentage($detail[$i])?>%;">
-												&nbsp;
-											</td>
-											<td></td>
-										</tr>
-									</table> -->
 									<div class="progress">
 										<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo format_percentage($detail[$i])?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo format_percentage($detail[$i])?>%;">
 											
@@ -144,7 +140,7 @@
 				</table>
 			</div>
 			<div class="" id="part-b">
-				<p><strong>B. Class Management</strong></p>
+				<p><strong>B. <?php echo $questions['1']['b']['name']?></strong></p>
 				<table class="table table-bordered eval-report-table">
 					<tbody>
 							<tr>
@@ -157,14 +153,6 @@
 								<td><?php echo $i.'. '.$questions['1']['b']['content'][$i]?></td>
 								<td><?php echo format_rating($detail[$i])?></td>
 								<td>
-									<!-- <table class="progress-table">
-										<tr>
-											<td data-value="<?php echo format_percentage($detail[$i])?>" style="width: <?php echo format_percentage($detail[$i])?>%;">
-												&nbsp;
-											</td>
-											<td></td>
-										</tr>
-									</table> -->
 									<div class="progress">
 										<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo format_percentage($detail[$i])?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo format_percentage($detail[$i])?>%;">
 											
@@ -182,7 +170,7 @@
 	<div class=" page" id="report-page-3">
 		<div class=" detail" id="detail-2">
 			<div class="" id="part-c">
-				<p><strong>C. Personal Qualities</strong></p>
+				<p><strong>C. <?php echo $questions['1']['c']['name']?></strong></p>
 				<table class="table table-bordered eval-report-table">
 					<tbody>
 							<tr>
@@ -195,14 +183,6 @@
 								<td><?php echo $i.'. '.$questions['1']['c']['content'][$i]?></td>
 								<td><?php echo format_rating($detail[$i])?></td>
 								<td>
-									<!-- <table class="progress-table">
-										<tr>
-											<td data-value="<?php echo format_percentage($detail[$i])?>" style="width: <?php echo format_percentage($detail[$i])?>%;">
-												&nbsp;
-											</td>
-											<td></td>
-										</tr>
-									</table> -->
 									<div class="progress">
 										<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo format_percentage($detail[$i])?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo format_percentage($detail[$i])?>%;">
 											
@@ -215,7 +195,7 @@
 				</table>
 			</div>
 			<div class="" id="part-d">
-				<p><strong>D. Student-Faculty Relations</strong></p>
+				<p><strong>D. <?php echo $questions['1']['d']['name']?></strong></p>
 				<table class="table table-bordered eval-report-table">
 					<tbody>
 							<tr>
@@ -228,14 +208,6 @@
 								<td><?php echo $i.'. '.$questions['1']['d']['content'][$i]?></td>
 								<td><?php echo format_rating($detail[$i])?></td>
 								<td>
-									<!-- <table class="progress-table">
-										<tr>
-											<td data-value="<?php echo format_percentage($detail[$i])?>" style="width: <?php echo format_percentage($detail[$i])?>%;">
-												&nbsp;
-											</td>
-											<td></td>
-										</tr>
-									</table> -->
 									<div class="progress">
 										<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo format_percentage($detail[$i])?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo format_percentage($detail[$i])?>%;">
 											
