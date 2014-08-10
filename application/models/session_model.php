@@ -8,7 +8,7 @@ class Session_model extends CI_Model {
 /**
 *	Get user details from database
 *
-*	@param	string 	$email must exist
+*	@param	string 	$email 		must exist
 *	@param	string 	$password
 *
 *	@return	array		query result on success, else FALSE

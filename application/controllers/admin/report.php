@@ -18,10 +18,17 @@ class Report extends CI_Controller {
 		$this->office_id = $this->session->userdata('office_id');
 	}
 
+/**
+ * Default function when there is no URI segment after evaluation/admin/report.
+ * Calls the view function.
+ */
 	public function index() {
 		$this->view();
 	}
 
+/**
+ * Displays all classes already evaluated of the office of user.
+ */
 	public function view() {
 		$view_data = array(
 			'classes_already_evaluated' => $this->class_model->get_done($this->office_id),
@@ -31,6 +38,11 @@ class Report extends CI_Controller {
 		$this->parser->parse('layouts/default', $data);
 	}
 
+/**
+ * Generates PDF file containing the evaluation report of
+ * given class.
+ * @param  int $class_id	valid class ID
+ */
 	public function generate($class_id) {
 		$class = $this->class_model->get_by_id($class_id);
 		$evaluations = $this->evaluation_model->get_by_class($class_id);
@@ -151,7 +163,7 @@ class Report extends CI_Controller {
 		$data['page_title'] = $class->year.'-'.format_semester($class->semester).' - '.$view_data['teacher']->last_name.', '.$view_data['teacher']->first_name.' - '.$class->class_name.' '.$class->section;
 		$data['body_content'] = $this->load->view('contents/admin/report/report',$view_data,TRUE);
 
-		//render webpage
+		//render webpage (for testing)
 		// $this->parser->parse('layouts/report', $data);
 
 		//pdf
@@ -163,8 +175,6 @@ class Report extends CI_Controller {
 			pdf_create($html, $filename);
 			delete_files('assets/temp/');
 		}
-
-		
 	}
 }
 

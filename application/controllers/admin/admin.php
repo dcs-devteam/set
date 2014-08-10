@@ -12,6 +12,11 @@ class Admin extends CI_Controller {
 			show_error($message_403,403,$heading);
 		}
 	}
+
+/**
+ * Default function when there is no URI segment after evaluation/admin.
+ * Redirects to admin/evaluation.
+ */
 	public function index() {
 		redirect('admin/evaluation');
 	}

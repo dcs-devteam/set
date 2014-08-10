@@ -6,6 +6,11 @@ class Session extends CI_Controller {
         $this->load->model('session_model');
     }	
 
+/**
+ * Displays the login form and runs form validation.
+ * Redirects users to their respective homepages after
+ * successful login.
+ */
 	public function login() {
 		//check whether user is already logged in
 		if ($this->session->userdata('email_address')) {
@@ -35,6 +40,9 @@ class Session extends CI_Controller {
 		}
 	}
 
+/**
+ * Destroys user's session.
+ */
 	public function logout()  {
 		echo 'LOGGING OUT...';
 
@@ -42,6 +50,11 @@ class Session extends CI_Controller {
 		redirect(base_url('login'),'refresh');
 	}
 
+/**
+ * Displays the Access Code form and runs form validation.
+ * Redirects students to their respective evaluation forms
+ * after successful code verification.
+ */
 	public function code() {
 		//destroy session if already present
 		if ($this->session->userdata('access_code')) {
@@ -66,7 +79,12 @@ class Session extends CI_Controller {
 		}
 	}
 
-	//runs when email and password are validated
+/**
+ * Form Validation rule. Verifies login information and creates
+ * a session for the user.
+ * @param  string $password	value from password field in login form
+ * @return boolean					TRUE if verification success. Else, FALSE.
+ */
 	public function verify_login($password) {
 		$email = $this->input->post('email');
 		$result = $this->session_model->login($email,$password);
@@ -88,6 +106,12 @@ class Session extends CI_Controller {
 		}
 	}
 
+/**
+ * Form Validation rule. Checks if class for given code
+ * is open for evaluation.
+ * @param  string $code value of code field in access code form
+ * @return boolean			TRUE if class open for evaluation. Else, FALSE.
+ */
 	public function active_class($code) {
 		$this->load->model('class_model');
 		$this->load->model('access_code_model');
@@ -104,6 +128,12 @@ class Session extends CI_Controller {
 		}
 	}
 
+/**
+ * Form Validation rule. Checks if code is valid and exists
+ * in the database.
+ * @param  string $code	value of code field in access code form
+ * @return boolean			TRUE if code exists in the database. Else, FALSE.
+ */
 	public function code_exists($code) {
 		$result = $this->access_code_model->code_exists($code);
 		if ($result) {
@@ -114,6 +144,12 @@ class Session extends CI_Controller {
 		}
 	}
 
+/**
+ * Final Form Validation rule for access codes. Checks if code is not
+ * already used for evaluation and creates a session for the student.
+ * @param  string  $code	value of code field in access code form
+ * @return boolean				TRUE if code not already used. Else, FALSE.
+ */
 	public function is_not_used($code) {
 		if (!($this->access_code_model->is_used($code))) {
 			$result = $this->access_code_model->get_by_code($code);
@@ -130,7 +166,10 @@ class Session extends CI_Controller {
 		}
 	}
 
-	//accepts role string and redirects to role's home
+/**
+ * Redirects users to their respective homepages based
+ * on their user roles.
+ */
 	private function redirect_to_home() {
 		$role = $this->session->userdata('role');
 		if ($role === 'admin') {
@@ -147,6 +186,10 @@ class Session extends CI_Controller {
 		}
 	}
 
+/**
+ * Redirects students to the respective evaluation
+ * forms based on the class ID.
+ */
 	private function redirect_to_form() {
 		$class_id = $this->session->userdata('class_id');
 		if (!empty($class_id)) {

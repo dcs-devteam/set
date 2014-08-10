@@ -19,10 +19,17 @@ class Class_controller extends CI_Controller {
 		$this->office_id = $this->session->userdata('office_id');
 	}
 
+/**
+ * Default function when there is no URI segment after evaluation/admin/class.
+ * Calls the view function.
+ */
 	public function index() {
 		$this->view();
 	}
 
+/**
+ * Displays all classes of the office of user.
+ */
 	public function view() {
 		$view_data = array(
 			'classes' => $this->class_model->get($this->office_id),
@@ -32,6 +39,12 @@ class Class_controller extends CI_Controller {
 		$this->parser->parse('layouts/default', $data);
 	}
 
+/**
+ * Displays the Add Class form and calls form validation.
+ * After successful form validation, it calls the add_class function that
+ * does passes the data for insertion to the database.
+ * It then displays whether the add_class function is successful or not.
+ */
 	public function add() {
 		$this->load->library('form_validation');
 		//set validation rules
@@ -103,6 +116,12 @@ class Class_controller extends CI_Controller {
 		$this->parser->parse('layouts/default', $data);
 	}
 
+/**
+ * Passes course_id, teacher_id, section, year, semester, schedule,
+ * and number_of_students to class_model->add function for insertion
+ * to the database.
+ * @return boolean TRUE if class was successfully added. Else, FALSE.
+ */
 	private function add_class() {
 		$year = $this->input->post('year');
 		$semester = $this->input->post('semester');
@@ -135,6 +154,12 @@ class Class_controller extends CI_Controller {
 		}
 	}
 
+/**
+ * Displays the Edit Class form and calls form validation.
+ * Calls the edit_class function after successful validation.
+ * Displays also the function result of the edit_class function.
+ * @param  int $class_id	valid class ID
+ */
 	public function edit($class_id) {
 		$class = $this->class_model->get_by_id($class_id);
 		if ($class === FALSE) {
@@ -217,6 +242,11 @@ class Class_controller extends CI_Controller {
 		$this->parser->parse('layouts/default', $data);
 	}
 
+/**
+ * Passes data to the class_model->edit function for database update.
+ * @param  int $class_id	valid class ID
+ * @return boolean 				TRUE if class was successfully edited. Else, FALSE.
+ */
 	private function edit_class($class_id) {
 		$year = $this->input->post('year');
 		$semester = $this->input->post('semester');
@@ -250,6 +280,12 @@ class Class_controller extends CI_Controller {
 		}
 	}
 
+/**
+ * Displays the delete confirmation form for a given class.
+ * Calls the delete_class function and displays whether the function
+ * was successful or not.
+ * @param  int $class_id	valid class ID
+ */
 	public function delete($class_id) {
 		$class = $this->class_model->get_by_id($class_id);
 		if ($class === FALSE) {
@@ -290,6 +326,11 @@ class Class_controller extends CI_Controller {
 		$this->parser->parse('layouts/default', $data);
 	}
 
+/**
+ * Passes the class ID to class_model->delete for database deletion
+ * @param  int $class_id	valid class ID
+ * @return boolean 				TRUE if class was successfully deleted. Else, FALSE.
+ */
 	private function delete_class($class_id) {
 		if ($this->class_model->delete($class_id)) {
 			return TRUE;
@@ -298,6 +339,12 @@ class Class_controller extends CI_Controller {
 		}
 	}
 
+/**
+ * Form Validation rule. A given year, semester, course, and section
+ * must be unique and not found in the database.
+ * @param  string $section	value from the section field in form
+ * @return boolean					TRUE if given combination is unique. Else, FALSE.
+ */
 	public function unique_class($section) {
 		$year = $this->input->post('year');
 		$semester = $this->input->post('semester');
@@ -316,6 +363,15 @@ class Class_controller extends CI_Controller {
 		}
 	}
 
+/**
+ * Form Validation rule. A given year, semester, course, and section
+ * must be unique or the same as the year, semester, course, and section
+ * of the current class to be edited.
+ * @param  string $section	value from section field in form
+ * @param  int $class_id		current class ID of class to be edited
+ * @return boolean					TRUE if given combination is unique or the same as
+ * 													old values. Else, FALSE.
+ */
 	public function unique_new_class($section, $class_id) {
 		$year = $this->input->post('year');
 		$semester = $this->input->post('semester');

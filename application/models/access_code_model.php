@@ -5,6 +5,12 @@ class Access_code_model extends CI_Model {
 		parent::__construct();
 	}
 
+/**
+ * Insert access code to database.
+ * @param int $class_id				valid class ID
+ * @param string $access_code	access code
+ * @return boolean 						TRUE if insert successful. Else, FALSE.
+ */
 	public function add($class_id, $access_code) {
 		$this->load->model('class_model');
 		if ($this->class_model->get_by_id($class_id)) {
@@ -19,6 +25,12 @@ class Access_code_model extends CI_Model {
 		}
 	}
 
+/**
+ * Get access code row.
+ * @param  string $code	access code
+ * @return object				access code row (as object)
+ * 											FALSE if code not found
+ */
 	public function get_by_code($code) {
 		$this->db->from('access_code');
 		$this->db->where('access_code', $code);
@@ -32,6 +44,12 @@ class Access_code_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns all access codes for given class
+ * @param  int $class_id	valid class ID
+ * @return array					array of access code rows (as objects)
+ * 												FALSE if class not exists
+ */
 	public function get_by_class($class_id) {
 		$this->db->from('access_code');
 		$this->db->where('class_id', $class_id);
@@ -44,6 +62,11 @@ class Access_code_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns class ID of given access code
+ * @param  string $code	valid access code
+ * @return int					class ID
+ */
 	public function get_class_id($code) {
 		$this->db->from('access_code');
 		$this->db->where('access_code', $code);
@@ -57,6 +80,11 @@ class Access_code_model extends CI_Model {
 		}
 	}
 
+/**
+ * Checks if code is already used (is in evaluation table).
+ * @param  string  $code	valid access code
+ * @return boolean				TRUE if used. Else, FALSE.
+ */
 	public function is_used($code) {
 		$this->load->model('evaluation_model');
 		$evaluation = $this->evaluation_model->get_by_access_code($code);
@@ -68,6 +96,11 @@ class Access_code_model extends CI_Model {
 		}
 	}
 
+/**
+ * Checks if code is in database.
+ * @param  string $code	access code
+ * @return boolean			TRUE if code is in database. Else, FALSE.
+ */
 	public function code_exists($code) {
 		$this->db->from('access_code');
 		$this->db->where('access_code', $code);
@@ -81,6 +114,11 @@ class Access_code_model extends CI_Model {
 		}
 	}
 
+/**
+ * Delete all codes linked to given class.
+ * @param  int $class_id	valid class ID
+ * @return boolean				TRUE if delete successful. Else, FALSE.
+ */
 	public function delete_by_class($class_id) {
 		$this->db->trans_start();
 
@@ -90,6 +128,12 @@ class Access_code_model extends CI_Model {
 		return $this->db->trans_status();
 	}
 
+/**
+ * Delete all unused codes linked to given class 
+ * (codes not in evaluation table).
+ * @param  int $class_id	valid class ID
+ * @return boolean				TRUE if delete successful. Else, FALSE.
+ */
 	public function delete_unused($class_id) {
 		$codes = $this->get_by_class($class_id);
 		$this->db->trans_start();

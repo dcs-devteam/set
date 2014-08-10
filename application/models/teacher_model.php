@@ -4,7 +4,13 @@ class Teacher_model extends CI_Model {
 	public function __construct() {
 		parent::__construct();
 	}
-	
+
+/**
+ * Returns teacher row.
+ * @param  int $id	valid teacher ID
+ * @return object		teacher row (as object)
+ * 									FALSE if teacher not found
+ */
 	public function get($id) {
 		$this->db->where('teacher_id',$id);
 		$this->db->limit(1);
@@ -17,6 +23,12 @@ class Teacher_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns all teachers given an office ID
+ * @param  int $office_id	valid office ID
+ * @return array					teacher rows (as object)
+ * 												FALSE if teacher not found
+ */
 	public function get_by_office($office_id) {
 		$this->db->where('office_id', $office_id);
 
@@ -31,6 +43,12 @@ class Teacher_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns teacher ID given first and last names.
+ * @param  string $first_name	valid first name
+ * @param  string $last_name	valid last name
+ * @return int								teacher ID
+ */
 	public function get_id($first_name, $last_name) {
 		$this->db->where('first_name', $first_name);
 		$this->db->where('last_name', $last_name);
@@ -45,6 +63,14 @@ class Teacher_model extends CI_Model {
 		}
 	}
 
+/**
+ * Inserts teacher.
+ * @param string $first_name
+ * @param string $last_name
+ * @param int $office_id			valid office ID
+ * @return int 								ID of successfully inserted teacher
+ * 														FALSE if insert failed
+ */
 	public function add($first_name, $last_name, $office_id) {
 		$data = array(
 			'first_name' => $first_name,
@@ -60,6 +86,12 @@ class Teacher_model extends CI_Model {
 		}
 	}
 
+/**
+ * Checks if teacher exists.
+ * @param  string $first_name
+ * @param  string $last_name
+ * @return boolean						TRUE if teacher exists. Else, FALSE.
+ */
 	public function teacher_exists($first_name, $last_name) {
 		$this->db->where('first_name', $first_name);
 		$this->db->where('last_name', $last_name);

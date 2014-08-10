@@ -15,6 +15,19 @@ class Evaluation extends CI_Controller {
 		$this->class_id = $this->session->userdata('class_id');
 	}
 
+/**
+ * Default function when there is no URI segment after evaluation/evaluation.
+ * Calls the evaluate function.
+ */
+	public function index() {
+		$this->evaluate();
+	}
+
+/**
+ * Display the evaluation form and runs form validation.
+ * If validation is successful, runs the submit_evaluation function
+ * and displays the function result.
+ */
 	public function evaluate() {
 		$this->load->model('teacher_model');
 
@@ -64,6 +77,10 @@ class Evaluation extends CI_Controller {
 		$this->parser->parse('layouts/evaluation_form', $data);
 	}
 
+/**
+ * Passes data to the evaluation_model->submit function for storage.
+ * @return boolean	TRUE if submit is successful. Else, FALSE.
+ */
 	private function submit_evaluation() {
 		$this->load->model('evaluation_model');
 

@@ -21,10 +21,21 @@
 		return date('M j Y',strtotime($str));
 	}
 
+/**
+ * Format a rating string into a string with
+ * 2 decimal places.
+ * @param  int $str	number to format
+ * @return int			processed number
+ */
 	function format_rating($str) {
 		return number_format($str,2,'.','');
 	}
 
+/**
+ * Format a semester number for display.
+ * @param  int $str	semester number
+ * @return string		'1st', '2nd', or 'Summer'
+ */
 	function format_semester($str) {
 		if ($str == 1) {
 			return '1st';
@@ -35,14 +46,29 @@
 		}
 	}
 
+/**
+ * Formats a YEAR string to academic years.
+ * @param  int $str	YEAR string
+ * @return string		'YEAR - (YEAR+1)'
+ */
 	function format_year($str) {
 		return $str.'-'.($str + 1);
 	}
 
+/**
+ * Converts the item values (1-5) in evaluation forms
+ * to percentages. 5 -> 0%, 1 -> 100%.
+ * @param  double $str	evaluation form item value
+ * @return double				percentage
+ */
 	function format_percentage($str) {
 		return ((5 - $str) / 4) * 100;
 	}
 
+/**
+ * Generates evaluation form questions in array form.
+ * @return array	evaluation questions
+ */
 	function evaluation_questions() {
 		return array(
 				'1' => array(

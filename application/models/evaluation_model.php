@@ -1,10 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Evaluation_model extends CI_Model {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 	}
 
+/**
+ * Inserts evaluation details to database.
+ * Calls add_content to insert evaluation content.
+ * @param  int $class_id				valid class ID
+ * @param  string $access_code	valid access code
+ * @param  array $content				evaluation form content
+ * @return boolean							TRUE if insert successful. Else, FALSE.
+ */
 	public function submit($class_id, $access_code, $content) {
 		//insert content
 		$content_id = $this->add_content($content, $class_id);
@@ -21,6 +29,13 @@ class Evaluation_model extends CI_Model {
 		}
 	}
 
+/**
+ * Inserts evaluation content to database.
+ * @param array $content		evaluation form content
+ * @param int $class_id			valid class ID
+ * @return int 							ID of successfully inserted content
+ * 													FALSE if insert failed
+ */
 	private function add_content($content, $class_id) {
 		$content_data = array();
 		$content_data['class_id'] = $class_id;
@@ -40,6 +55,12 @@ class Evaluation_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns evaluation row, given access code.
+ * @param  string $code	valid access code
+ * @return object				evaluation row (as object)
+ * 											FALSE if evaluation not found
+ */
 	public function get_by_access_code($code) {
 		$this->db->from('evaluation');
 		$this->db->where('access_code', $code);
@@ -54,6 +75,12 @@ class Evaluation_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns all evaluations of given class.
+ * @param  int $class_id	valid class ID
+ * @return array					evaluation rows (as object)
+ * 												FALSE if no evaluation found
+ */
 	public function get_by_class($class_id) {
 		$this->db->from('evaluation');
 		$this->db->where('class_id', $class_id);
@@ -67,6 +94,11 @@ class Evaluation_model extends CI_Model {
 		}
 	}
 
+/**
+ * Deletes all evaluations of given class
+ * @param  int $class_id	valid class ID
+ * @return boolean				TRUE if delete successful. Else, FALSE.
+ */
 	public function delete_by_class($class_id) {
 		$this->db->trans_start();
 		//delete evaluation content
@@ -83,6 +115,12 @@ class Evaluation_model extends CI_Model {
 		return $this->db->trans_status();
 	}
 
+/**
+ * Returns evaluation content given evaluation ID.
+ * @param  int $evaluation_id	valid evaluation ID
+ * @return object							evaluation content row (as object)
+ * 														FALSE if no content found
+ */
 	public function get_content($evaluation_id) {
 		$this->db->from('evaluation_content');
 		$this->db->where('content_id', $evaluation_id);

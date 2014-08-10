@@ -1,11 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Evaluator_model extends CI_Model {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 	}
 	
-	function get_evaluator($class_id) {
+/**
+ * Returns evaluator of given class.
+ * @param  int $class_id	valid class ID.
+ * @return object					class_evaluator row (as object)
+ * 												FALSE if evaluator not found
+ */
+	public function get_evaluator($class_id) {
 		$this->db->from('class_evaluator');
 		$this->db->where('class_id',$class_id);
 		$this->db->limit(1);
@@ -18,7 +24,13 @@ class Evaluator_model extends CI_Model {
 		}
 	}
 
-	function add($class_id, $evaluator_id) {
+/**
+ * Links evaluator and class.
+ * @param int $class_id			valid class ID
+ * @param int $evaluator_id	valid user ID
+ * @return boolean 					TRUE if insert successful. Else, FALSE.
+ */
+	public function add($class_id, $evaluator_id) {
 		$data = array(
 			'class_id' => $class_id,
 			'evaluator_id' => $evaluator_id
@@ -33,7 +45,13 @@ class Evaluator_model extends CI_Model {
 		return $result;
 	}
 
-	function delete($class_id, $evaluator_id) {
+/**
+ * Unlinks evaluator and class.
+ * @param  int $class_id			valid class ID
+ * @param  int $evaluator_id	valid user ID
+ * @return boolean						TRUE if delete successful. Else, FALSE.
+ */
+	public function delete($class_id, $evaluator_id) {
 		$this->db->trans_start();
 		$data = array(
 			'class_id' => $class_id,

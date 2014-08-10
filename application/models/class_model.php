@@ -8,8 +8,10 @@ class Class_model extends CI_Model {
 	}
 
 /**
-*	Get active class from the database.
-* Returns false if no active class found.
+*	Returns active classes from the database, given an office ID.
+*	@param int $office_id	valid office ID
+* @return array					class rows (as object) of active classes
+* 											FALSE if no active class found
 */
 	public function get_active($office_id) {
 		//course id
@@ -54,6 +56,12 @@ class Class_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns classes already evaluated, given an office ID.
+ * @param  int $office_id	valid office ID
+ * @return array					class rows (as object) of classes already evaluated
+ * 												FALSE if no done classes found
+ */
 	public function get_done($office_id) {
 		//course id
 		$course_result = $this->course_model->get_by_office($office_id);
@@ -97,6 +105,12 @@ class Class_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns classes not yet evaluated, given an office ID.
+ * @param  int $office_id	valid office ID.
+ * @return array					class rows (as object) of classes to evaluate
+ * 												FALSE if no to do classes found
+ */
 	public function get_todo($office_id) {
 		//course id
 		$course_result = $this->course_model->get_by_office($office_id);
@@ -141,6 +155,12 @@ class Class_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns all classes, given office ID.
+ * @param  int $office_id	valid office ID.
+ * @return array					class rows (as object)
+ * 												FALSE if no class found
+ */
 	public function get($office_id) {
 		//course id
 		$course_result = $this->course_model->get_by_office($office_id);
@@ -181,6 +201,12 @@ class Class_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns class row of given class ID.
+ * @param  int $class_id	valid class ID.
+ * @return object					class row (as object)
+ * 												FALSE if class not found
+ */
 	public function get_by_id($class_id) {
 		$this->db->where('class_id', $class_id);
 		$this->db->limit(1);
@@ -199,6 +225,12 @@ class Class_model extends CI_Model {
 		}
 	}
 
+/**
+ * Stops class evaluation. Sets is_active to FALSE and
+ * is_done to TRUE. Also deletes unused access codes.
+ * @param  int $class_id	valid class ID.
+ * @return boolean				TRUE if stop successful. Else, FALSE.
+ */
 	public function stop_evaluation($class_id) {
 		$this->db->trans_start();
 		//delete unused codes
@@ -217,6 +249,14 @@ class Class_model extends CI_Model {
 		return $this->db->trans_status();
 	}
 
+/**
+ * Starts class evaluation. Sets is_active to TRUE
+ * and is_done to FALSE. Links evaluator ID to class ID
+ * in class_evaluator table.
+ * @param  int $class_id			valid class ID
+ * @param  int $evaluator_id	valid user ID
+ * @return boolean						TRUE if start successful. Else, FALSE.
+ */
 	public function start_evaluation($class_id, $evaluator_id) {
 		$this->load->model('evaluator_model');
 		$result = $this->evaluator_model->add($class_id, $evaluator_id);
@@ -234,6 +274,14 @@ class Class_model extends CI_Model {
 		}
 	}
 
+/**
+ * Cancels class evaluation. Sets is_active and is_done to FALSE.
+ * Unlinks evaluator ID and class ID in class_evaluator table.
+ * Deletes all access codes and evaluation forms linked to class.
+ * @param  int $class_id			valid class ID
+ * @param  int $evaluator_id	valid user ID
+ * @return boolean						TRUE if cancel successful. Else, FALSE.
+ */
 	public function cancel_evaluation($class_id, $evaluator_id) {
 		$this->db->trans_start();
 		//delete evaluator
@@ -261,6 +309,11 @@ class Class_model extends CI_Model {
 		return $this->db->trans_status();
 	}
 
+/**
+ * Checks if given class' is_active is TRUE.
+ * @param  int  $class_id	valid class ID
+ * @return boolean				TRUE if is_active is TRUE. Else, FALSE.
+ */
 	public function is_active($class_id) {
 		$this->db->select('is_active');
 		$this->db->where('class_id', $class_id);
@@ -275,6 +328,18 @@ class Class_model extends CI_Model {
 		}
 	}
 
+/**
+ * Inserts class row.
+ * @param int 		$course_id					valid course ID
+ * @param int 		$teacher_id					valid teacher ID
+ * @param string	$section						section
+ * @param int			$year								year
+ * @param int			$semester						semester
+ * @param string	$schedule						schedule
+ * @param int			$number_of_students	number of students
+ * @return int												ID of successfully inserted class
+ * 																		FALSE if insert failed
+ */
 	public function add($course_id, $teacher_id, $section, $year, $semester, $schedule, $number_of_students) {
 		$data = array(
 			'course_id' => $course_id,
@@ -294,6 +359,18 @@ class Class_model extends CI_Model {
 		}
 	}
 
+/**
+ * Updates class row.
+ * @param int 		$class_id						valid class ID
+ * @param int 		$course_id					valid course ID
+ * @param int 		$teacher_id					valid teacher ID
+ * @param string	$section						section
+ * @param int			$year								year
+ * @param int			$semester						semester
+ * @param string	$schedule						schedule
+ * @param int			$number_of_students	number of students
+ * @return boolean										TRUE if update successful. Else, FALSE.
+ */
 	public function edit($class_id, $course_id, $teacher_id, $section, $year, $semester, $schedule, $number_of_students) {
 		$data = array(
 			'course_id' => $course_id,
@@ -315,6 +392,11 @@ class Class_model extends CI_Model {
 		}
 	}
 
+/**
+ * Deletes class.
+ * @param  int $class_id	valid class ID.
+ * @return boolean				TRUE is delete successful. Else, FALSE.
+ */
 	public function delete($class_id) {
 		$this->db->trans_start();
 
@@ -324,6 +406,14 @@ class Class_model extends CI_Model {
 		return $this->db->trans_status();
 	}
 
+/**
+ * Checks if class exists in database.
+ * @param  int			$course_id	valid course ID
+ * @param  string		$section		section
+ * @param  int			$year				year
+ * @param  int			$semester		semester
+ * @return boolean							TRUE if exists. Else, FALSE.
+ */
 	public function class_exists($course_id, $section, $year, $semester) {
 		$this->db->where('course_id', $course_id);
 		$this->db->where('section', $section);
