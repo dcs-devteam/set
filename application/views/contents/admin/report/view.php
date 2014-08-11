@@ -1,5 +1,5 @@
+<h2>Already Evaluated (<?php $year_sem=$this->year_semester_model->get_current(); echo format_semester($year_sem->semester).' Semester/A.Y. '.format_year($year_sem->year)?>)</h2>
 <?php if(!empty($classes_already_evaluated)):?>
-	<h2>Already Evaluated</h2>
 	<table class="table table-striped table-hover table-bordered class-table data-table">
 		<thead>
 			<tr>

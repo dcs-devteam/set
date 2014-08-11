@@ -15,7 +15,6 @@ class Class_controller extends CI_Controller {
 		$this->load->model('office_model');
 		$this->load->model('teacher_model');
 		$this->load->model('course_model');
-		$this->load->model('year_semester_model');
 		$this->office_id = $this->session->userdata('office_id');
 	}
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2014 at 07:33 PM
+-- Generation Time: Aug 11, 2014 at 06:10 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS `access_code` (
 --
 
 INSERT INTO `access_code` (`class_id`, `access_code`) VALUES
-(2, '1819bfa86c');
+(12, '030c5aa223ab8a47'),
+(15, '14c7adda9c86e354');
 
 -- --------------------------------------------------------
 
@@ -63,19 +64,21 @@ CREATE TABLE IF NOT EXISTS `class` (
   UNIQUE KEY `unique_class` (`year`,`semester`,`course_id`,`section`),
   KEY `teacher_id` (`teacher_id`),
   KEY `course_id` (`course_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `class`
 --
 
 INSERT INTO `class` (`class_id`, `course_id`, `teacher_id`, `section`, `year`, `semester`, `schedule`, `number_of_students`, `is_active`, `is_done`) VALUES
-(2, 1, 1, 'A', 2014, 1, 'MTh 9:00-10:30 AM', 25, 0, 1),
-(5, 1, 1, 'B', 2014, 1, 'TF 2:30-4:00 PM', 30, 0, 0),
+(5, 1, 2, 'B', 2014, 1, 'TF 2:30-4:00 PM', 30, 0, 0),
 (6, 2, 1, 'A', 2014, 1, 'MTh 1:00-2:30 PM', 30, 0, 0),
 (7, 1, 1, 'A', 2013, 1, 'MTh 7:30-9:00 AM', 25, 0, 1),
 (11, 1, 1, 'B', 2013, 1, 'W 7:30-10:30 AM', 25, 0, 1),
-(12, 3, 1, 'A', 2014, 1, 'TF 7:30-9:00 AM', 25, 0, 0);
+(12, 3, 4, 'A', 2014, 1, 'TF 7:30-9:00 AM', 25, 0, 1),
+(15, 1, 1, 'A', 2014, 1, 'MTh 7:30-9:00 AM', 30, 0, 1),
+(16, 4, 2, 'A', 2014, 1, 'MTh 9:00-10:30 AM', 25, 0, 0),
+(17, 5, 3, 'A', 2014, 1, 'TF 2:30-4:00 PM', 30, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -95,7 +98,8 @@ CREATE TABLE IF NOT EXISTS `class_evaluator` (
 --
 
 INSERT INTO `class_evaluator` (`class_id`, `evaluator_id`) VALUES
-(2, 4);
+(15, 4),
+(12, 8);
 
 -- --------------------------------------------------------
 
@@ -110,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `course` (
   PRIMARY KEY (`course_id`),
   UNIQUE KEY `course_name` (`course_name`),
   KEY `office_id` (`office_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `course`
@@ -119,7 +123,9 @@ CREATE TABLE IF NOT EXISTS `course` (
 INSERT INTO `course` (`course_id`, `course_name`, `office_id`) VALUES
 (1, 'CMSC 123', 1),
 (2, 'CMSC 127', 1),
-(3, 'Bio 1', 2);
+(3, 'Bio 1', 2),
+(4, 'CMSC 22', 1),
+(5, 'Envi Sci 10', 2);
 
 -- --------------------------------------------------------
 
@@ -137,14 +143,15 @@ CREATE TABLE IF NOT EXISTS `evaluation` (
   UNIQUE KEY `access_code` (`access_code`),
   UNIQUE KEY `content_id` (`content_id`),
   KEY `class_id` (`class_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
 
 --
 -- Dumping data for table `evaluation`
 --
 
 INSERT INTO `evaluation` (`evaluation_id`, `class_id`, `content_id`, `access_code`, `date`) VALUES
-(39, 2, 37, '1819bfa86c', '2014-08-07 17:05:49');
+(41, 15, 39, '14c7adda9c86e354', '2014-08-09 04:42:33'),
+(42, 12, 40, '030c5aa223ab8a47', '2014-08-10 16:08:33');
 
 -- --------------------------------------------------------
 
@@ -196,14 +203,15 @@ CREATE TABLE IF NOT EXISTS `evaluation_content` (
   `recommendations` text,
   PRIMARY KEY (`content_id`),
   KEY `class_id` (`class_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
 -- Dumping data for table `evaluation_content`
 --
 
 INSERT INTO `evaluation_content` (`content_id`, `class_id`, `i1`, `i2`, `i3`, `i4`, `i5`, `i6`, `i7`, `i8`, `i9`, `i10`, `i11`, `i12`, `i13`, `i14`, `i15`, `i16`, `i17`, `i18`, `i19`, `i20`, `i21`, `i22`, `i23`, `i24`, `i25`, `i26`, `i27`, `i28`, `i29`, `i30`, `i31`, `i32`, `i33`, `i34`, `i35`, `i36`, `strong_points`, `weak_points`, `recommendations`) VALUES
-(37, 2, 1, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 'MTMxMjxiciAvPg0KMjIxMzxiciAvPg0KMzQxMg==', 'YTxiciAvPg0KZHNhPGJyIC8+DQphc2Q8YnIgLz4NCjxiciAvPg0KYXNkZmFz', 'MzEyYXNmYXNkPGJyIC8+DQphZHNmYXNkZmFzPGJyIC8+DQphc2RmYTxiciAvPg0Kc2RmPGJyIC8+DQphc2RmYTxiciAvPg0Kc2RmYTxiciAvPg0Kc2RmPGJyIC8+DQphc2RmPGJyIC8+DQphc2RmPGJyIC8+DQphc2RmPGJyIC8+DQphc2RmYXNkZmFzZGZhc2RmPGJyIC8+DQpzZDxiciAvPg0KYXNkPGJyIC8+DQpmYXM8YnIgLz4NCmRmYTxiciAvPg0Kc2RmPGJyIC8+DQphc2RmPGJyIC8+DQphc2Q8YnIgLz4NCmZhc2Q8YnIgLz4NCmZhPGJyIC8+DQpzZGZhPGJyIC8+DQpzZA==');
+(39, 15, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 'MTxiciAvPg0KMjxiciAvPg0KMw==', 'NDxiciAvPg0KNTxiciAvPg0KNg==', 'NzxiciAvPg0KODxiciAvPg0KOQ=='),
+(40, 12, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 2, 2, 2, 1, 1, 1, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 2, 1, 'Q29tZXMgdG8gY2xhc3Mgb24gdGltZS4=', 'VGFsa3MgYWJvdXQgb3RoZXIgdGhpbmdzIHRvbyBtdWNoLg==', 'TGVzc2VuIGdvc3NpcC4=');
 
 -- --------------------------------------------------------
 
@@ -239,14 +247,17 @@ CREATE TABLE IF NOT EXISTS `teacher` (
   `last_name` varchar(256) NOT NULL,
   PRIMARY KEY (`teacher_id`),
   KEY `office_id` (`office_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `teacher`
 --
 
 INSERT INTO `teacher` (`teacher_id`, `office_id`, `first_name`, `last_name`) VALUES
-(1, 1, 'FName', 'LName');
+(1, 1, 'FName', 'LName'),
+(2, 1, 'Vincent', 'Montesclaros'),
+(3, 2, 'Jason', 'Nieva'),
+(4, 2, 'FName2', 'LName2');
 
 -- --------------------------------------------------------
 
@@ -265,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email_address` (`email_address`),
   KEY `office_id` (`office_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `user`
@@ -275,7 +286,8 @@ INSERT INTO `user` (`user_id`, `email_address`, `password`, `first_name`, `last_
 (4, 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'FName', 'LName', 'admin', 1),
 (5, 'staff@gmail.com', '1253208465b1efa876f982d8a9e73eef', 'FName', 'LName', 'staff', 1),
 (6, 'evaluator@gmail.com', '9e76d075c324f87e752db59dbcc8847c', 'FName', 'LName', 'evaluator', 1),
-(7, 'janitor', '1fa3bde30bd97db370243b33a82d3871', 'The Almighty', 'Janitor', 'superadmin', NULL);
+(7, 'janitor', '1fa3bde30bd97db370243b33a82d3871', 'The Almighty', 'Janitor', 'superadmin', NULL),
+(8, 'nsmd', '29006a4805a54b11812363e376bf38e1', 'FName', 'LName', 'admin', 2);
 
 -- --------------------------------------------------------
 
@@ -286,7 +298,7 @@ INSERT INTO `user` (`user_id`, `email_address`, `password`, `first_name`, `last_
 CREATE TABLE IF NOT EXISTS `year_semester` (
   `year` year(4) NOT NULL,
   `semester` int(1) NOT NULL,
-  `valid_until` date NOT NULL,
+  `start_date` date NOT NULL,
   `is_current` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`year`,`semester`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -295,9 +307,10 @@ CREATE TABLE IF NOT EXISTS `year_semester` (
 -- Dumping data for table `year_semester`
 --
 
-INSERT INTO `year_semester` (`year`, `semester`, `valid_until`, `is_current`) VALUES
-(2013, 1, '2014-07-30', 0),
-(2014, 1, '2014-08-10', 1);
+INSERT INTO `year_semester` (`year`, `semester`, `start_date`, `is_current`) VALUES
+(2013, 1, '2014-08-10', 0),
+(2014, 1, '2014-08-12', 1),
+(2014, 2, '2014-08-28', 0);
 
 --
 -- Constraints for dumped tables
@@ -313,8 +326,8 @@ ALTER TABLE `access_code`
 -- Constraints for table `class`
 --
 ALTER TABLE `class`
-  ADD CONSTRAINT `class_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `class_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `class_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `class_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `class_ibfk_3` FOREIGN KEY (`year`, `semester`) REFERENCES `year_semester` (`year`, `semester`) ON UPDATE CASCADE;
 
 --
@@ -328,7 +341,7 @@ ALTER TABLE `class_evaluator`
 -- Constraints for table `course`
 --
 ALTER TABLE `course`
-  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`office_id`) REFERENCES `office` (`office_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`office_id`) REFERENCES `office` (`office_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `evaluation`
@@ -348,22 +361,27 @@ ALTER TABLE `evaluation_content`
 -- Constraints for table `teacher`
 --
 ALTER TABLE `teacher`
-  ADD CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`office_id`) REFERENCES `office` (`office_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`office_id`) REFERENCES `office` (`office_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`office_id`) REFERENCES `office` (`office_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`office_id`) REFERENCES `office` (`office_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 DELIMITER $$
 --
 -- Events
 --
-CREATE DEFINER=`root`@`localhost` EVENT `update_year_sem` ON SCHEDULE EVERY 6 HOUR STARTS '2014-07-31 18:32:08' ON COMPLETION NOT PRESERVE ENABLE DO update year_semester
-set is_current=0
-where (DATEDIFF(valid_until, now()) < 0)
-  and (is_current IS TRUE)$$
+CREATE DEFINER=`root`@`localhost` EVENT `update_year_sem` ON SCHEDULE EVERY 6 HOUR STARTS '2014-07-31 18:32:08' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN 
+UPDATE year_semester 
+SET is_current=0;
+
+UPDATE year_semester 
+SET is_current=1 
+WHERE `start_date` <= now() 
+ORDER BY `start_date` DESC LIMIT 1;
+END$$
 
 DELIMITER ;
 
