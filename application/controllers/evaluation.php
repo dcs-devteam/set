@@ -32,7 +32,7 @@ class Evaluation extends CI_Controller {
 		$this->load->model('teacher_model');
 
 		$class = $this->class_model->get_by_id($this->class_id);
-		$teacher = $this->teacher_model->get($class->teacher_id);
+		$teacher = $this->teacher_model->get_by_id($class->teacher_id);
 
 		$this->load->library('form_validation');
 		//set validation rules

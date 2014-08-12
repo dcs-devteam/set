@@ -31,7 +31,13 @@
 								<li class="<?php if (($this->uri->uri_string() === 'admin/class/add')) echo 'active'?>"><a href="<?php echo base_url('admin/class/add')?>">Add Class</a></li>
 							</ul>
 						</li>
-						<li class="<?php if (($this->uri->segment(2) === 'teacher')) echo 'active'?>"><a href="#">Teachers</a></li>
+						<li class="dropdown <?php if (($this->uri->segment(2) === 'teacher')) echo 'active'?>">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Teachers <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li class="<?php if (($this->uri->uri_string() === 'admin/teacher') OR ($this->uri->uri_string() === 'admin/teacher/view')) echo 'active'?>"><a href="<?php echo base_url('admin/teacher/view')?>">View Teachers</a></li>
+								<li class="<?php if (($this->uri->uri_string() === 'admin/teacher/add')) echo 'active'?>"><a href="<?php echo base_url('admin/teacher/add')?>">Add Teacher</a></li>
+							</ul>
+						</li>
 						<li class="<?php if (($this->uri->segment(2) === 'account')) echo 'active'?>"><a href="#">Accounts</a></li>
 					</ul>
 				<?php endif;?>

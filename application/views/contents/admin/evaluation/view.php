@@ -20,7 +20,7 @@
 					<td><?php echo $class->section?></td>
 					<td><?php echo $class->schedule?></td>
 					<td><?php echo $class->number_of_students?></td>
-					<td><?php $teacher = $this->teacher_model->get($class->teacher_id);echo $teacher->last_name.', '.$teacher->first_name?></td>
+					<td><?php $teacher = $this->teacher_model->get_by_id($class->teacher_id);echo $teacher->last_name.', '.$teacher->first_name?></td>
 					<td>
 						<?php if($this->evaluator_model->get_evaluator($class->class_id)->evaluator_id == $this->session->userdata('user_id')):?>
 							<a class="btn btn-success btn-xs" href="<?php echo base_url('admin/evaluation/code/'.$class->class_id)?>">Access Codes</a>
@@ -55,7 +55,7 @@
 					<td><?php echo $class->section?></td>
 					<td><?php echo $class->schedule?></td>
 					<td><?php echo $class->number_of_students?></td>
-					<td><?php $teacher = $this->teacher_model->get($class->teacher_id);echo $teacher->last_name.', '.$teacher->first_name?></td>
+					<td><?php $teacher = $this->teacher_model->get_by_id($class->teacher_id);echo $teacher->last_name.', '.$teacher->first_name?></td>
 					<td>
 						<a class="btn btn-primary btn-xs" href="<?php echo base_url('admin/evaluation/start/'.$class->class_id)?>">Start Evaluation</a>
 					</td>

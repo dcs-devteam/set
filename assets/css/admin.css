@@ -68,3 +68,10 @@
 .result-container .panel-footer {
 	text-align: center;
 }
+
+/*teacher/view*/
+.teacher-table th:first-child,
+.teacher-table td:first-child {
+	text-align: right;
+	width: 1px !important;
+}

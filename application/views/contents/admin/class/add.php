@@ -1,8 +1,8 @@
 <div class="alert alert-info" role="alert">
-<ul>
-	<li>The Academic Year and Semester fields are automatically filled out with the current year and semester as set by the eValuation administrator. If the values are wrong, contact the administrator.</li>
-	<li>You can select an existing Course or Teacher Name by double-clicking on the respective field.</li>
-</ul>
+	<ul>
+		<li>The Academic Year and Semester fields are automatically filled out with the current year and semester as set by the eValuation administrator. If the values are wrong, contact the administrator.</li>
+		<li>You can select an existing Course or Teacher Name by double-clicking on the respective field.</li>
+	</ul>
 </div>
 <?php echo form_open('admin/class/add',array('class'=>'form-horizontal','role'=>'form'))?>
 	<div class="panel panel-primary form-container">
@@ -72,7 +72,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-					<?php echo form_error('unique_year_and_sem','<p class="text-danger">','</p>');?>
+				<?php echo form_error('unique_year_and_sem','<p class="text-danger">','</p>');?>
 				<div class="col-sm-offset-4 col-sm-8">
 					<button type="submit" class="btn btn-primary">Add Class</button>
 					<a href="<?php echo base_url('admin/class/view')?>" class="btn btn-default">Cancel</a>

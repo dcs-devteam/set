@@ -69,7 +69,6 @@
 				</div>
 			</div>
 			<div class="form-group">
-					<?php echo form_error('unique_year_and_sem','<p class="text-danger">','</p>');?>
 				<div class="col-sm-offset-4 col-sm-8">
 					<button type="submit" class="btn btn-warning">Edit Class</button>
 					<a href="<?php echo base_url('admin/class/view')?>" class="btn btn-default">Cancel</a>

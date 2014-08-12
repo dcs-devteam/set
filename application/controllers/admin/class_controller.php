@@ -41,7 +41,7 @@ class Class_controller extends CI_Controller {
 /**
  * Displays the Add Class form and calls form validation.
  * After successful form validation, it calls the add_class function that
- * does passes the data for insertion to the database.
+ * passes the data for insertion to the database.
  * It then displays whether the add_class function is successful or not.
  */
 	public function add() {
@@ -101,10 +101,10 @@ class Class_controller extends CI_Controller {
 			$error = '';
 			$success = FALSE;
 			if ($add_result) {
-				$message = 'Class evaluation was successfully added.';
+				$message = 'Class was successfully added.';
 				$success = TRUE;
 			} else {
-				$message = 'Class evaluation add failed.';
+				$message = 'Class add failed.';
 				$error = $this->db->_error_message();
 			}
 			$add_data = array('message' => $message, 'error' => $error, 'success' => $success);
@@ -216,7 +216,7 @@ class Class_controller extends CI_Controller {
 					'teachers' => $this->teacher_model->get_by_office($this->office_id),
 					'year_semester' => $this->year_semester_model->get_current(),
 					'class' => $class,
-					'current_teacher' => $this->teacher_model->get($class->teacher_id)
+					'current_teacher' => $this->teacher_model->get_by_id($class->teacher_id)
 					);
 				$data['body_content'] = $this->load->view('contents/admin/class/edit',$edit_data,TRUE);
 			} else {
@@ -226,10 +226,10 @@ class Class_controller extends CI_Controller {
 				$error = '';
 				$success = FALSE;
 				if ($edit_result) {
-					$message = 'Class evaluation was successfully edited.';
+					$message = 'Class was successfully edited.';
 					$success = TRUE;
 				} else {
-					$message = 'Class evaluation edit failed.';
+					$message = 'Class edit failed.';
 					$error = $this->db->_error_message();
 				}
 				$edit_data = array('message' => $message, 'error' => $error, 'success' => $success);

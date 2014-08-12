@@ -49,7 +49,7 @@ class Report extends CI_Controller {
 
 		$view_data = array(
 			'class' => $class,
-			'teacher' => $this->teacher_model->get($class->teacher_id),
+			'teacher' => $this->teacher_model->get_by_id($class->teacher_id),
 			'office' => $this->office_model->get($this->office_id)->name,
 			);
 
