@@ -18,6 +18,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 		$snappy->setOption('footer-right', '[page]/[toPage]');
 
 		header('Content-Type: application/pdf');
-		header('Content-Disposition: attachment; filename="'.$filename.'.pdf"');
+		//save as
+		// header('Content-Disposition: attachment; filename="'.$filename.'.pdf"');
+		// open in browser
+		header('Content-Disposition: inline; filename="'.$filename.'.pdf"');
 		echo $snappy->getOutput(base_url('assets/temp/temp.php'));
 	}

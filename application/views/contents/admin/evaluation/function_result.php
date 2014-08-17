@@ -20,7 +20,7 @@
 	</div>
 	<div class="panel-footer">
 		<?php if ($success && !empty($class_id)):?>
-		 		<a class="btn btn-success" href="<?php echo base_url('admin/evaluation/code/'.$class_id)?>">Access Codes</a>
+		 		<a class="btn btn-success" target="_blank" href="<?php echo base_url('admin/evaluation/code/'.$class_id)?>">Access Codes</a>
 		 		<a class="btn btn-default" href="<?php echo base_url('admin/evaluation/view')?>">View Evaluation</a>
 	 	<?php else:?>
 			<a class="btn
