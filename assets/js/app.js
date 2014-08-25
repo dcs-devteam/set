@@ -23,10 +23,15 @@ var evaluation_form = {
 
 var tables = {
 	initialize: function() {
-		$('.data-table').DataTable({
+		$('.data-table:not(".account-table")').DataTable({
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			"pageLength": 10,
 			"order": [[1,'asc']]
+		});
+		$('.account-table').DataTable({
+			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+			"pageLength": 10,
+			"order": [[4,'asc']]
 		});
 	}
 }

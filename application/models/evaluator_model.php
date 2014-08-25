@@ -62,6 +62,27 @@ class Evaluator_model extends CI_Model {
 		$this->db->trans_complete();
 		return $this->db->trans_status();
 	}
+
+/**
+ * Checks if evaluator is currently conducting an evaluation.
+ * @param  int $evaluator_id	valid user ID
+ * @param  int $office_id			office ID of user
+ * @return boolean						TRUE if evaluator has active evaluation. 
+ *                            Else, FALSE.
+ */
+	public function has_active_evaluation($evaluator_id, $office_id) {
+		$this->load->model('class_model');
+		$classes = $this->class_model->get_active($office_id);
+		if (!empty($classes)) {
+			foreach ($classes as $class) {
+				$result = $this->get_evaluator($class->class_id);
+				if (!empty($result) && $result->evaluator_id === $evaluator_id) {
+					return TRUE;
+				}
+			}
+		}
+		return FALSE;
+	}
 }
 
 /* End of file evaluator_model.php */

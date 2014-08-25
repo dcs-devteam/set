@@ -6,6 +6,24 @@ class Course_model extends CI_Model {
 	}
 
 /**
+ * Returns course row.
+ * @param  int $id	valid course ID
+ * @return object		course row (as object)
+ * 									FALSE if course not found
+ */
+	public function get_by_id($id) {
+		$this->db->where('course_id',$id);
+		$this->db->limit(1);
+
+		$query = $this->db->get('course');
+		if($query->num_rows() >= 1) {
+			return $query->row();
+		}	else {
+			return FALSE;
+		}
+	}
+
+/**
  * Returns courses, given an office ID.
  * @param  int $office_id	valid office ID
  * @return array					course rows (as object)
@@ -71,7 +89,7 @@ class Course_model extends CI_Model {
 
 		$query = $this->db->get('course');
 		if ($query->num_rows() == 1) {
-			return TRUE;
+			return $query->row();
 		}	else {
 			return FALSE;
 		}
@@ -96,6 +114,44 @@ class Course_model extends CI_Model {
 		} else {
 			return FALSE;
 		}
+	}
+
+/**
+ * Edits course.
+ * @param string $course_id		valid course ID
+ * @param string $course_name
+ * @param int $office_id			valid office ID
+ * @return int 								ID of successfully edited course
+ * 														FALSE if update failed
+ */
+	public function edit($course_id, $course_name, $office_id) {
+		$data = array(
+			'course_name' => $course_name,
+			'office_id' => $office_id
+		);		
+
+		$this->db->where('course_id', $course_id);
+		$result = $this->db->update('course',$data);
+		
+		if ($this->db->affected_rows() >= 0) {
+			return $result;
+		} else {
+			return FALSE;
+		}
+	}
+
+/**
+ * Deletes course.
+ * @param  int $course_id	valid course ID.
+ * @return boolean				TRUE is delete successful. Else, FALSE.
+ */
+	public function delete($course_id) {
+		$this->db->trans_start();
+
+		$result = $this->db->delete('course',array('course_id' => $course_id));
+
+		$this->db->trans_complete();
+		return $this->db->trans_status();
 	}
 }
 

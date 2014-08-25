@@ -38,6 +38,10 @@
 |
 */
 
+$route['admin/account'] = "admin/account";
+$route['admin/account/(:any)'] = "admin/account/$1";
+$route['admin/course'] = "admin/course";
+$route['admin/course/(:any)'] = "admin/course/$1";
 $route['admin/teacher'] = "admin/teacher";
 $route['admin/teacher/(:any)'] = "admin/teacher/$1";
 $route['admin/class'] = "admin/class_controller";

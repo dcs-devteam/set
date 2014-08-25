@@ -75,3 +75,23 @@
 	text-align: right;
 	width: 1px !important;
 }
+
+/*course/view*/
+.course-table th:first-child,
+.course-table td:first-child {
+	text-align: right;
+	width: 1px !important;
+}
+
+/*account/view*/
+.account-table th:first-child,
+.account-table td:first-child {
+	text-align: right;
+	width: 1px !important;
+}
+
+.account-table th:nth-child(5),
+.account-table td:nth-child(5) {
+	white-space: nowrap !important;
+	width: 1px !important;
+}
