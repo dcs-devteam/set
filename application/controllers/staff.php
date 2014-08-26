@@ -3,7 +3,7 @@
 class Staff extends CI_Controller {
 	function __construct() {
 		parent::__construct();
-		//refuse access when not logged in as evaluator
+		//refuse access when not logged in as staff
 		if (empty($this->session->userdata('role'))) {
 			redirect(base_url());
 		} else if ($this->session->userdata('role') !== 'staff') {
