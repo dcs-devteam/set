@@ -32,3 +32,7 @@ you will need to edit wkhtmltopdf_helper.php in application/helpers folder. chan
 ```sh
 $snappy->setBinary('C:\wkhtmltopdf\bin\wkhtmltopdf.exe');
 ```
+
+SMTP host
+=========
+TODO
