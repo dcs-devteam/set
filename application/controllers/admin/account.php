@@ -136,7 +136,7 @@ class Account extends CI_Controller {
 				),
 			);
 		
-		$this->email->message($this->load->view('contents/admin/account/email_new_account',$email_data, TRUE));
+		$this->email->message($this->load->view('contents/admin/account/email_add_account',$email_data, TRUE));
 		$this->email->send();
 
 		// echo $this->email->print_debugger();
@@ -322,11 +322,12 @@ class Account extends CI_Controller {
 			);
 		// name, role change
 		$this->email->message($this->load->view('contents/admin/account/email_edit_account',$email_data, TRUE));
-		$this->email->send();
 		
 		//email address change: send new account details to current email address
 		//notify old email of the account change
 		//password change
+		
+		$this->email->send();
 
 		// echo $this->email->print_debugger();
 		

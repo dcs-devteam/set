@@ -108,8 +108,8 @@ class Account_model extends CI_Model {
  * @param string $password
  * @param string $role
  * @param int $office_id				valid office ID
- * @return int 									ID of successfully edited user
- * 														  FALSE if insert failed
+ * @return int 									TRUE if edit successful
+ * 														  FALSE if edit failed
  */
 	public function edit($user_id, $first_name, $last_name, $email_address, $password = FALSE, $role, $office_id) {
 		$data = array(
@@ -130,10 +130,32 @@ class Account_model extends CI_Model {
 		}
 
 		$this->db->where('user_id', $user_id);
-		$result = $this->db->update('user',$data);
+		$this->db->update('user',$data);
 		
 		if ($this->db->affected_rows() >= 0) {
-			return $result;
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+/**
+ * Changes user password.
+ * @param int $user_id			valid user_id
+ * @param string $password	
+ * @return int 							TRUE if edit successful
+ * 													FALSE if edit failed
+ */
+	public function change_password($user_id, $password) {
+		$data = array(
+			'password' => MD5($password)
+		);
+
+		$this->db->where('user_id', $user_id);
+		$this->db->update('user',$data);
+		
+		if ($this->db->affected_rows() >= 0) {
+			return TRUE;
 		} else {
 			return FALSE;
 		}
@@ -186,6 +208,24 @@ class Account_model extends CI_Model {
 
 		if($query->num_rows() >= 1) {
 			return $query->row();
+		}	else {
+			return FALSE;
+		}
+	}
+
+/**
+ * Checks if password is the same as in the database.
+ * @param		string $password
+ * @return	boolean 					TRUE if passwords are the same. Else, FALSE.
+ */
+	public function same_passwords($user_id, $password) {
+		$this->db->where('password', MD5($password));
+		$this->db->limit(1);
+
+		$query = $this->db->get('user');
+
+		if($query->num_rows() >= 1) {
+			return TRUE;
 		}	else {
 			return FALSE;
 		}

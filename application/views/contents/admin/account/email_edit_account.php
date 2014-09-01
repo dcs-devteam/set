@@ -3,8 +3,8 @@
 <body>
 	<div>
 		<p><strong>eValuation <?php echo ucfirst($account['role'])?> Account Edition</strong></p>
-		<p>An eValuation <?php echo $account['role']?> account has been created for <?php echo $account['first_name'].' '.$account['last_name']?>.</p>
-		<p>This account was created by <?php echo $admin['first_name'].' '.$admin['last_name'].' ('.$admin['email_address'].')'?> of the University of the Philippines Cebu's <?php echo $admin['office']?>.</p>
+		<p>The eValuation <?php echo $account['role']?> account for <?php echo $account['first_name'].' '.$account['last_name']?> has been edited.</p>
+		<p>The account was changedd by <?php echo $admin['first_name'].' '.$admin['last_name'].' ('.$admin['email_address'].')'?> of the University of the Philippines Cebu's <?php echo $admin['office']?>.</p>
 		<p>Please disregard this email if you are not <?php echo $account['first_name'].' '.$account['last_name']?> or contact 
 			<a href="mailto:<?php echo $admin['email_address']?>?subject=eValuation%20Account%20Error&body=This%20is%20to%20inform%20you%20that%20the%20owner%20of%20the%20email%20address%20<?php echo $account['email_address']?>%20is%20not%20<?php echo $account['first_name'].' '.$account['last_name']?>.%20Please%20edit%20the%20account's%20email%20address%20to%20the%20correct%20one." target="_blank">
 				<?php echo $admin['email_address']?>

@@ -28,7 +28,8 @@
 <link rel="stylesheet" href="<?php echo base_url('assets/css/theme.css')?>">
 <?php if (($this->uri->segment(1) === 'admin')):?>
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/admin.css')?>">
-<?php endif;?>
-<?php if (($this->uri->segment(1) === 'evaluation')):?>
+<?php elseif (($this->uri->segment(1) === 'evaluation')):?>
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/evaluation.css')?>">
+<?php elseif (($this->uri->segment(1) === 'account')):?>
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/account.css')?>">
 <?php endif;?>

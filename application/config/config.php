@@ -224,8 +224,9 @@ $config['cache_path'] = '';
 | If you use the Encryption class or the Session class you
 | MUST set an encryption key.  See the user guide for info.
 |
+|	md5(sha1(base64_encode('eValuation')));
 */
-$config['encryption_key'] = 'evaluation';
+$config['encryption_key'] = '347eda0e8e5569300c43e7f92f3268ae';
 
 /*
 |--------------------------------------------------------------------------

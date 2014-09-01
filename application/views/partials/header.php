@@ -65,8 +65,7 @@
 							 <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Change Email</a></li>
-							<li><a href="#">Change Password</a></li>
+							<li><a href="<?php echo base_url('account/password/')?>">Change Password</a></li>
 							<li class="divider"></li>
 							<li><a href="<?php echo base_url('session/logout')?>">Logout</a></li>
 						</ul>
