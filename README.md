@@ -21,6 +21,13 @@ set allow_url_include=On in php.ini
 
 make sure mbstring extension is enabled
 
+make sure that openssl extension is enabled. Under the Dynamic Extensions section in php.ini, uncomment 
+or add the line
+
+```sh
+extension:php_openssl.dll
+```
+
 Dependencies
 ===
 uses wkhtmltopdf (http://wkhtmltopdf.org/) to generate pdf files

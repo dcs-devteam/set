@@ -3,7 +3,7 @@
 class Account extends CI_Controller {
 	function __construct() {
 		parent::__construct();
-		if (empty($this->session->userdata('role'))) {
+		if (!$this->session->userdata('role')) {
 			redirect(base_url());
 		}
 		$this->load->model('office_model');

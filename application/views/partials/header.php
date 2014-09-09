@@ -57,7 +57,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="" class="dropdown-toggle" data-toggle="dropdown">
-							<?php if (!empty($this->session->userdata('first_name'))):?>
+							<?php if ($this->session->userdata('first_name')):?>
 								<?php echo $this->session->userdata('last_name').', '.$this->session->userdata('first_name')?>
 							<?php else:?>
 								<?php echo $this->session->userdata('username')?>
