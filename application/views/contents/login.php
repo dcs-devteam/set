@@ -23,6 +23,7 @@
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-8">
 						<button type="submit" class="btn btn-success">Login</button>
+						<small id="forgot-password" class="pull-right"><a href="<?php echo base_url('account/reset_password')?>">Forgot Password?</a></small>
 					</div>
 				</div>
 			</div>

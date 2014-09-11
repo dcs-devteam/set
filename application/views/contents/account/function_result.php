@@ -29,7 +29,7 @@
 			<?php else:?>
 				 btn-primary
 			<?php endif;?>
-		 " href="<?php echo base_url()?>">Home</a>			 
+		 " href="<?php echo base_url('login')?>">Home</a>			 
 		<button class="btn btn-default" onClick="window.name='autoreload';history.go(-1);window.close();">Back</button>
 	</div>
 </div>

@@ -3,23 +3,22 @@
 class Account extends CI_Controller {
 	function __construct() {
 		parent::__construct();
-		if (!$this->session->userdata('role')) {
-			redirect(base_url());
-		}
 		$this->load->model('office_model');
 		$this->load->model('account_model');
 		$this->office_id = $this->session->userdata('office_id');		
 		$this->user_id = $this->session->userdata('user_id');
 	}
 
-// TODO generate and decode login_string
 /**
  * Displays the Edit Password form and calls form validation.
  * After successful form validation, it calls the change_password function that
  * passes the data for insertion to the database.
  * It then displays whether the change_password function is successful or not.
  */
-	public function password($login_string = FALSE) {
+	public function password() {
+		if (!$this->session->userdata('role')) {
+			redirect(base_url());
+		}
 		$this->load->library('form_validation');
 		//set validation rules
 		$validation_rules = array(
@@ -45,7 +44,7 @@ class Account extends CI_Controller {
 			//validation failure, return to form
 			$data['body_content'] = $this->load->view('contents/account/change_password','',TRUE);
 		} else {
-			//validation success, add account
+			//validation success, change password
 			$password_result = $this->change_password($this->user_id);
 			$message = '';
 			$error = '';
@@ -73,8 +72,35 @@ class Account extends CI_Controller {
 	private function change_password($user_id) {
 		$password = $this->input->post('new_password');
 
+		//old values
+		$old_account = $this->account_model->get_by_id($user_id);
+
 		$result = $this->account_model->change_password($user_id, $password);
 		if ($result) {
+			if (MD5($password) !== $old_account->password) {
+				// send email
+				$this->load->library('email');
+				//TODO change to eValuation email
+				$this->email->from('to_be_implemented@gmail.com');
+				$this->email->reply_to('to_be_implemented@gmail.com');
+				$this->email->to($old_account->email_address);
+				$this->email->subject('eValuation Account Password Change');
+
+				//email body
+				$email_data = array(
+					'account' => array(
+						'first_name' => $old_account->first_name,
+						'last_name' => $old_account->last_name,
+						'email_address' => $old_account->email_address,
+						'role' => $old_account->role,
+						),
+					);
+				
+				$this->email->message($this->load->view('contents/account/email_change_password',$email_data, TRUE));
+				$this->email->send();
+
+				// echo $this->email->print_debugger();
+			}
 			return TRUE;
 		} else {
 			return FALSE;
@@ -113,6 +139,110 @@ class Account extends CI_Controller {
 		}
 	}
 
+	public function reset_password() {
+		$this->load->library('form_validation');
+		//set validation rules
+		$validation_rules = array(
+			array(
+				'field' => 'email_address',
+				'label' => 'Email Address',
+				'rules' => 'trim|required|xss_clean'
+				)
+			);
+		$this->form_validation->set_rules($validation_rules);
+
+		if ($this->form_validation->run() == FALSE) {
+			//validation failure, return to form
+			$data['body_content'] = $this->load->view('contents/account/reset_password','',TRUE);
+		} else {
+			//validation success, send email
+			$this->send_reset_email();
+			$data['body_content'] = $this->load->view('contents/account/reset_email_sent','',TRUE);
+		}
+
+		$data['page_title'] = 'eValuation';
+		$this->parser->parse('layouts/default', $data);
+	}
+
+	private function send_reset_email() {
+		$this->load->library('encrypt');
+
+		$email_address = $this->input->post('email_address');
+		$account = $this->account_model->get_by_email($email_address);
+		//email current address
+		$this->load->library('email');
+		$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
+		$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
+		$this->email->to($email_address);
+		$this->email->subject('eValuation Reset Password Request');
+
+		//email body
+		$email_data = array();
+
+		$user_data = array(
+			'user_id' => $account->user_id,
+			'email_address' => $account->email_address
+			);
+
+		if (!empty($account->user_id)) {
+			$email_data['user_string'] = base64_encode($this->encrypt->encode(serialize($user_data)));
+		}
+
+		$this->email->message($this->load->view('contents/account/email_reset_password',$email_data, TRUE));
+		
+		$this->email->send();
+
+		// echo $this->email->print_debugger();
+	}
+
+	public function forgot_password($user_string) {
+		$this->load->library('encrypt');
+		$user_data = unserialize($this->encrypt->decode(base64_decode($user_string)));
+
+		$this->load->library('form_validation');
+		//set validation rules
+		$validation_rules = array(
+			array(
+				'field' => 'new_password',
+				'label' => 'New Password',
+				'rules' => 'trim|required|xss_clean|'
+				),
+			array(
+				'field' => 'confirm_password',
+				'label' => 'Confirm Password',
+				'rules' => 'trim|required|xss_clean|callback_same_new_passwords'
+				)
+			);
+		$this->form_validation->set_rules($validation_rules);
+
+		if ($this->form_validation->run() == FALSE) {
+			//validation failure, return to form
+			$view_data = array(
+				'user_string' => $user_string,
+				'email_address' => $user_data['email_address']
+				);
+			$data['body_content'] = $this->load->view('contents/account/forgot_password',$view_data,TRUE);
+		} else {
+			//validation success, change password
+
+			$password_result = $this->change_password($user_data['user_id']);
+			$message = '';
+			$error = '';
+			$success = FALSE;
+			if ($password_result) {
+				$message = 'Password was successfully changed.';
+				$success = TRUE;
+			} else {
+				$message = 'Password change failed.';
+				$error = $this->db->_error_message();
+			}
+			$password_data = array('message' => $message, 'error' => $error, 'success' => $success);
+			$data['body_content'] = $this->load->view('contents/account/function_result',$password_data,TRUE);
+		}
+
+		$data['page_title'] = 'eValuation';
+		$this->parser->parse('layouts/default', $data);
+	}
 }
 
 /* End of file account.php */

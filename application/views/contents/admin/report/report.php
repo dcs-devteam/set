@@ -331,19 +331,19 @@
 										<tr>
 											<td class="no-border"><?php echo $i?>.</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#9679;'?></strong>
 											</td>
 										</tr>
 									<?php endfor;?>
@@ -360,19 +360,19 @@
 										<tr>
 											<td class="no-border"><?php echo $i?>.</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#9679;'?></strong>
 											</td>
 										</tr>
 									<?php endfor;?>
@@ -389,19 +389,19 @@
 										<tr>
 											<td class="no-border"><?php echo $i?>.</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#9679;'?></strong>
 											</td>
 										</tr>
 									<?php endfor;?>
@@ -418,19 +418,19 @@
 										<tr>
 											<td class="no-border"><?php echo $i?>.</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 1) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 2) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 3) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 4) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index]->{'i'.$i} == 5) echo '&#9679;'?></strong>
 											</td>
 										</tr>
 									<?php endfor;?>
@@ -523,19 +523,19 @@
 										<tr>
 											<td class="no-border"><?php echo $i?>.</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#9679;'?></strong>
 											</td>
 										</tr>
 									<?php endfor;?>
@@ -552,19 +552,19 @@
 										<tr>
 											<td class="no-border"><?php echo $i?>.</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#9679;'?></strong>
 											</td>
 										</tr>
 									<?php endfor;?>
@@ -581,19 +581,19 @@
 										<tr>
 											<td class="no-border"><?php echo $i?>.</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#9679;'?></strong>
 											</td>
 										</tr>
 									<?php endfor;?>
@@ -610,19 +610,19 @@
 										<tr>
 											<td class="no-border"><?php echo $i?>.</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 1) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 2) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 3) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 4) echo '&#9679;'?></strong>
 											</td>
 											<td class="check-td">
-												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#10003;'?></strong>
+												<strong><?php if ($evaluations[$e_index+1]->{'i'.$i} == 5) echo '&#9679;'?></strong>
 											</td>
 										</tr>
 									<?php endfor;?>

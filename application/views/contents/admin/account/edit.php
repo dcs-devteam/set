@@ -30,12 +30,6 @@
 				<div class="col-sm-8">
 					<?php echo form_dropdown('role', $roles, $account->role, 'class="form-control"')?>
 					<?php echo form_error('role','<p class="text-danger">','</p>');?>
-					<div class="checkbox">
-						<label>
-							<input name="reset" id="reset" type="checkbox" value="TRUE">
-							Reset Password
-						</label>
-					</div>
 				</div>
 			</div>
 			<div class="form-group">

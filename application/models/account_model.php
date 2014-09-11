@@ -8,11 +8,29 @@ class Account_model extends CI_Model {
 /**
  * Returns user row.
  * @param  int $id	valid user ID
- * @return object		teacher row (as object)
+ * @return object		account row (as object)
  * 									FALSE if user not found
  */
 	public function get_by_id($id) {
 		$this->db->where('user_id',$id);
+		$this->db->limit(1);
+
+		$query = $this->db->get('user');
+		if($query->num_rows() >= 1) {
+			return $query->row();
+		}	else {
+			return FALSE;
+		}
+	}
+
+/**
+ * Returns user row.
+ * @param  string $email_address	valid email address
+ * @return object		account row (as object)
+ * 									FALSE if user not found
+ */
+	public function get_by_email($email_address) {
+		$this->db->where('email_address',$email_address);
 		$this->db->limit(1);
 
 		$query = $this->db->get('user');

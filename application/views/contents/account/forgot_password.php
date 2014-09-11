@@ -1,16 +1,10 @@
-<?php echo form_open('account/password',array('class'=>'form-horizontal','role'=>'form'))?>
+<?php echo form_open('account/forgot_password/'.$user_string,array('class'=>'form-horizontal','role'=>'form'))?>
 	<div class="panel panel-primary form-container">
 		<div class="panel-heading">
-			<h3 class="panel-title">Change Password</h3>
+			<h3 class="panel-title">Forgot Password</h3>
 		</div>
 		<div class="panel-body">
-			<div class="form-group">
-				<label for="current_password" class="col-sm-4 control-label">Current Password</label>
-				<div class="col-sm-8">
-					<input value="<?php echo set_value('current_password'); ?>" id="current_password" name="current_password" type="password" class="form-control" placeholder="Current Password">
-					<?php echo form_error('current_password','<p class="text-danger">','</p>');?>
-				</div>
-			</div>
+			<p>Please enter a new password for your <?php echo $email_address?> account.</p>
 			<div class="form-group">
 				<label for="new_password" class="col-sm-4 control-label">New Password</label>
 				<div class="col-sm-8">

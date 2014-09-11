@@ -117,7 +117,7 @@ class Account extends CI_Controller {
 		$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').'(eValuation Administrator)');
 		$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
 		$this->email->to($email_address);
-		$this->email->subject('eValuation Account Details');
+		$this->email->subject('eValuation '.ucfirst($account['role']).' Account Details');
 
 		//email body
 		$email_data = array(
@@ -283,54 +283,59 @@ class Account extends CI_Controller {
 		$last_name = $this->input->post('last_name');
 		$email_address = $this->input->post('email_address');
 		$role = $this->input->post('role');
-		$reset = $this->input->post('reset');
 		$password = FALSE;
 
 		//old values
 		$old_account = $this->account_model->get_by_id($user_id);
 
-		//reset password
-		if ($reset == 'TRUE') {
-			$password = $this->generate_password();
-		} else {
-			//old password
-			$password = $old_account->password;
+		if ( $old_account->first_name !== $first_name
+			OR $old_account->last_name !== $last_name
+			OR $old_account->email_address !== $email_address
+			OR $old_account->role !== $role
+			) {
+			//email current address
+			$this->load->library('email');
+			$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
+			$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
+			$this->email->to($email_address);
+			$this->email->subject('eValuation Account was Changed');
+
+			//email body
+			$email_data = array(
+				'admin' => array(
+					'first_name' => $this->session->userdata('first_name'),
+					'last_name' => $this->session->userdata('last_name'),
+					'email_address' => $this->session->userdata('email_address'),
+					'office' => $this->office_model->get($this->session->userdata('office_id'))->name,
+					),
+				'account' => array(
+					'first_name' => $first_name,
+					'last_name' => $last_name,
+					'email_address' => $email_address,
+					'role' => $role,
+					),
+				);
+
+			//changed values
+			if ($first_name !== $old_account->first_name) {
+				$email_data['changes']['first_name'] = TRUE;
+			}
+			if ($last_name !== $old_account->last_name) {
+				$email_data['changes']['last_name'] = TRUE;
+			}
+			if ($email_address !== $old_account->email_address) {
+				$email_data['changes']['email_address'] = TRUE;
+			}
+			if ($role !== $old_account->role) {
+				$email_data['changes']['role'] = TRUE;
+			}
+
+			$this->email->message($this->load->view('contents/admin/account/email_edit_account',$email_data, TRUE));
+			
+			$this->email->send();
+
+			// echo $this->email->print_debugger();
 		}
-
-		//email current address
-		$this->load->library('email');		
-		$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
-		$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
-		$this->email->to($email_address);
-		$this->email->subject('eValuation Account was Changed');
-
-		//email body
-		$email_data = array(
-			'admin' => array(
-				'first_name' => $this->session->userdata('first_name'),
-				'last_name' => $this->session->userdata('last_name'),
-				'email_address' => $this->session->userdata('email_address'),
-				'office' => $this->office_model->get($this->session->userdata('office_id'))->name,
-				),
-			'account' => array(
-				'first_name' => $first_name,
-				'last_name' => $last_name,
-				'password' => $password,
-				'email_address' => $email_address,
-				'role' => $role,
-				),
-			);
-		// name, role change
-		$this->email->message($this->load->view('contents/admin/account/email_edit_account',$email_data, TRUE));
-		
-		//email address change: send new account details to current email address
-		//notify old email of the account change
-		//password change
-		
-		$this->email->send();
-
-		// echo $this->email->print_debugger();
-		
 
 		$result = $this->account_model->edit($user_id, $first_name, $last_name, $email_address, $password, $role, $this->office_id);
 		if ($result) {
