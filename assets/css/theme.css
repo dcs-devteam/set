@@ -88,3 +88,30 @@
 	border-color: rgba(217, 83, 79, 1);
 	color: #FFF;
 }
+
+/*Dialogs*/
+.form-container,
+.confirm-container,
+.result-container {
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 20px;
+}
+
+.form-container {
+	max-width: 500px;
+}
+
+.confirm-container,
+.result-container {
+	max-width: 600px;
+}
+
+.form-container.panel .panel-heading,
+.form-container.panel .panel-footer,
+.confirm-container.panel .panel-heading,
+.confirm-container.panel .panel-footer,
+.result-container .panel-heading,
+.result-container .panel-footer {
+	text-align: center;
+}

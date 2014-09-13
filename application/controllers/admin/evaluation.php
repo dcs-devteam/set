@@ -7,9 +7,7 @@ class Evaluation extends CI_Controller {
 		if (!$this->session->userdata('role')) {
 			redirect(base_url());
 		} else if ($this->session->userdata('role') !== 'admin' && $this->session->userdata('role') !== 'evaluator') {
-			$message_403 = 'You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.';
-			$heading = '403 Forbidden';
-			show_error($message_403,403,$heading);
+			show_403_error();
 		}
 		$this->load->model('class_model');
 		$this->load->model('office_model');
@@ -81,7 +79,9 @@ class Evaluation extends CI_Controller {
 				$this->generate_code($class_id);
 			} else {
 				$message = 'Class evaluation start failed.';
-				$error = $this->db->_error_message();
+				if ($this->db->_error_message()) {
+					$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+				}
 			}
 			$start_data = array('message' => $message, 'error' => $error, 'success' => $success, 'class_id' => $class_id);
 			$data['body_content'] = $this->load->view('contents/admin/evaluation/function_result',$start_data,TRUE);
@@ -112,6 +112,8 @@ class Evaluation extends CI_Controller {
  * @param  int $class_id	valid class ID
  */
 	public function stop($class_id) {
+		$this->load->model('evaluation_model');
+
 		$result = $this->class_model->get_by_id($class_id);
 		//check if ID is valid
 		if ($result === FALSE) {
@@ -126,15 +128,22 @@ class Evaluation extends CI_Controller {
 				'error_message' => 'You cannot stop evaluation for this class because it is not currently active.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-		} else {
+		} else if (!$this->evaluation_model->get_by_class($class_id)) {
+			//prevent stop if no evaluation forms submitted
+			$error_data = array(
+				'error_title' => 'Class Evaluation Stop Not Allowed',
+				'error_message' => 'There are no submitted evaluation forms. In order to generate the evaluation report, at least one evaluation form must be submitted.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		}	else {
 			//must go through stop-confirm form
 			$confirm = $this->input->post('confirm');
 
 			if ($confirm !== 'TRUE') {
-							//confirmation dialog
-							$stop_confirm_data = array(
-								'class' => $result
-								);
+				//confirmation dialog
+				$stop_confirm_data = array(
+					'class' => $result
+					);
 
 				$data['body_content'] = $this->load->view('contents/admin/evaluation/stop_confirm',$stop_confirm_data,TRUE);
 			} else {
@@ -142,23 +151,17 @@ class Evaluation extends CI_Controller {
 				$error = '';
 				$success = FALSE;
 
-				//check if there are evaluation forms submitted
-				//prevent stop if none
-				$this->load->model('evaluation_model');
-
-				if ($this->evaluation_model->get_by_class($class_id)) {
-					$stop_result = $this->stop_evaluation($class_id);
-					if ($stop_result) {
-						$message = 'Class evaluation was successfully stopped.';
-						$success = TRUE;
-					} else {
-						$message = 'Class evaluation stop failed.';
-						$error = $this->db->_error_message();
-					}
+				$stop_result = $this->stop_evaluation($class_id);
+				if ($stop_result) {
+					$message = 'Class evaluation was successfully stopped.';
+					$success = TRUE;
 				} else {
-					$message = 'Class evaluation stop not allowed.';
-					$error = 'There are no submitted evaluation forms. In order to generate the evaluation report, at least one evaluation form must be submitted.';
+					$message = 'Class evaluation stop failed.';
+					if ($this->db->_error_message()) {
+						$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+					}
 				}
+
 				$stop_data = array('message' => $message, 'error' => $error, 'success' => $success);
 				$data['body_content'] = $this->load->view('contents/admin/evaluation/function_result',$stop_data,TRUE);
 			}
@@ -223,7 +226,9 @@ class Evaluation extends CI_Controller {
 					$success = TRUE;
 				} else {
 					$message = 'Class evaluation cancel failed.';
-					$error = $this->db->_error_message();
+					if ($this->db->_error_message()) {
+						$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+					}
 				}
 				$cancel_data = array('message' => $message, 'error' => $error, 'success' => $success);
 				$data['body_content'] = $this->load->view('contents/admin/evaluation/function_result',$cancel_data,TRUE);

@@ -1,10 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Session extends CI_Controller {
-    function __construct() {
-        parent::__construct();
-        $this->load->model('session_model');
-    }	
+	function __construct() {
+		parent::__construct();
+		$this->load->model('session_model');
+	}	
 
 /**
  * Displays the login form and runs form validation.
@@ -87,7 +87,7 @@ class Session extends CI_Controller {
  */
 	public function verify_login($password) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 
 		$email = $this->input->post('email');
@@ -118,7 +118,7 @@ class Session extends CI_Controller {
  */
 	public function active_class($code) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 
 		$this->load->model('class_model');
@@ -144,7 +144,7 @@ class Session extends CI_Controller {
  */
 	public function code_exists($code) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 		
 		$result = $this->access_code_model->code_exists($code);
@@ -164,7 +164,7 @@ class Session extends CI_Controller {
  */
 	public function is_not_used($code) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 		
 		if (!($this->access_code_model->is_used($code))) {

@@ -54,7 +54,9 @@ class Account extends CI_Controller {
 				$success = TRUE;
 			} else {
 				$message = 'Password change failed.';
-				$error = $this->db->_error_message();
+				if ($this->db->_error_message()) {
+						$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+					}
 			}
 			$password_data = array('message' => $message, 'error' => $error, 'success' => $success);
 			$data['body_content'] = $this->load->view('contents/account/function_result',$password_data,TRUE);
@@ -115,7 +117,7 @@ class Account extends CI_Controller {
  */
 	public function verify_password($current_password) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 		$result = $this->account_model->same_passwords($this->user_id, $current_password);
 		if ($result !== TRUE) {
@@ -134,7 +136,7 @@ class Account extends CI_Controller {
  */
 	public function same_new_passwords($confirm_password) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 		$new_password = $this->input->post('new_password');
 		if ($new_password !== $confirm_password) {
@@ -256,7 +258,9 @@ class Account extends CI_Controller {
 					$success = TRUE;
 				} else {
 					$message = 'Password change failed.';
-					$error = $this->db->_error_message();
+					if ($this->db->_error_message()) {
+						$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+					}
 				}
 				$password_data = array('message' => $message, 'error' => $error, 'success' => $success);
 				$data['body_content'] = $this->load->view('contents/account/function_result',$password_data,TRUE);

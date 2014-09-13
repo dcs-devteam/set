@@ -5,9 +5,7 @@ class Evaluation extends CI_Controller {
 		parent::__construct();
 		//refuse access when not logged in as student
 		if (!$this->session->userdata('class_id')) {
-			$message_403 = 'You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.';
-			$heading = '403 Forbidden';
-			show_error($message_403,403,$heading);
+			show_403_error();
 		}
 
 		$this->load->model('class_model');
@@ -32,7 +30,7 @@ class Evaluation extends CI_Controller {
 		$this->load->model('teacher_model');
 
 		$class = $this->class_model->get_by_id($this->class_id);
-		if ($class == FALSE) {
+		if ($class !== FALSE) {
 			$teacher = $this->teacher_model->get_by_id($class->teacher_id);
 
 			$this->load->library('form_validation');
@@ -68,7 +66,9 @@ class Evaluation extends CI_Controller {
 					$this->session->sess_destroy();
 				} else {
 					$message = 'Failed to submit evaluation form.';
-					$error = $this->db->_error_message();
+					if ($this->db->_error_message()) {
+						$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+					}
 				}
 				$set_data = array('message' => $message, 'error' => $error, 'success' => $success);
 				$data['body_content'] = $this->load->view('contents/student/evaluation/submit_result',$set_data,TRUE);

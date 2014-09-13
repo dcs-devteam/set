@@ -218,6 +218,5 @@
 					),
 				);
 	}
-
 /* End of file text_helper.php */
 /* Location: ./application/helpers/text_helper.php */

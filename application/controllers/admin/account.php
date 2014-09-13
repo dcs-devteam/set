@@ -7,9 +7,7 @@ class Account extends CI_Controller {
 		if (!$this->session->userdata('role')) {
 			redirect(base_url());
 		} else if ($this->session->userdata('role') !== 'admin') {
-			$message_403 = 'You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.';
-			$heading = '403 Forbidden';
-			show_error($message_403,403,$heading);
+			show_403_error();
 		}
 		$this->load->model('office_model');
 		$this->load->model('account_model');
@@ -89,7 +87,9 @@ class Account extends CI_Controller {
 				$success = TRUE;
 			} else {
 				$message = 'Account add failed.';
-				$error = $this->db->_error_message();
+				if ($this->db->_error_message()) {
+					$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+				}
 			}
 			$add_data = array('message' => $message, 'error' => $error, 'success' => $success);
 			$data['body_content'] = $this->load->view('contents/admin/account/function_result',$add_data,TRUE);
@@ -137,12 +137,12 @@ class Account extends CI_Controller {
 			);
 		
 		$this->email->message($this->load->view('contents/admin/account/email_add_account',$email_data, TRUE));
-		$this->email->send();
-
-		// echo $this->email->print_debugger();
 
 		$result = $this->account_model->add($first_name, $last_name, $email_address, $password, $role, $this->office_id);
 		if ($result) {
+			//only send if account was stored
+			$this->email->send();
+			// echo $this->email->print_debugger();
 			return TRUE;
 		} else {
 			return FALSE;
@@ -167,7 +167,7 @@ class Account extends CI_Controller {
  */
 	public function unique_name($last_name) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 		$first_name = $this->input->post('first_name');
 
@@ -188,7 +188,7 @@ class Account extends CI_Controller {
  */
 	public function unique_email($email_address) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 		if ($this->account_model->email_exists($email_address)) {
 			$this->form_validation->set_message('unique_email','Account with given email address already exists.');
@@ -268,7 +268,9 @@ class Account extends CI_Controller {
 					$success = TRUE;
 				} else {
 					$message = 'Account edit failed.';
-					$error = $this->db->_error_message();
+					if ($this->db->_error_message()) {
+						$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+					}
 				}
 				$edit_data = array('message' => $message, 'error' => $error, 'success' => $success);
 				$data['body_content'] = $this->load->view('contents/admin/account/function_result',$edit_data,TRUE);
@@ -337,14 +339,14 @@ class Account extends CI_Controller {
 			}
 
 			$this->email->message($this->load->view('contents/admin/account/email_edit_account',$email_data, TRUE));
-			
-			$this->email->send();
 
-			// echo $this->email->print_debugger();
 		}
 
 		$result = $this->account_model->edit($user_id, $first_name, $last_name, $email_address, $password, $role, $this->office_id);
 		if ($result) {
+			//send only if successfully edited
+			$this->email->send();
+			// echo $this->email->print_debugger();
 			return TRUE;
 		} else {
 			return FALSE;
@@ -356,12 +358,12 @@ class Account extends CI_Controller {
  * must be unique  or the same as the first_name and last_name
  * of the current account to be edited.
  * @param  string $last_name	value from the last_name field in form
- * @param  int $user_id			current user ID of account to be edited
+ * @param  int $user_id				current user ID of account to be edited
  * @return boolean						TRUE if given value is unique. Else, FALSE.
  */
 	public function unique_new_name($last_name, $user_id) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 		$first_name = $this->input->post('first_name');
 
@@ -379,12 +381,12 @@ class Account extends CI_Controller {
  * must be unique or the same as the email_address
  * of the current account to be edited.
  * @param  string $email_address	value from the email_address field in form
- * @param  int $user_id			current user ID of account to be edited
+ * @param  int $user_id						current user ID of account to be edited
  * @return boolean								TRUE if given value is unique. Else, FALSE.
  */
 	public function unique_new_email($email_address, $user_id) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 		$result = $this->account_model->email_exists($email_address);
 		if ($result !== FALSE && $result->user_id !== $user_id) {
@@ -439,7 +441,9 @@ class Account extends CI_Controller {
 					$success = TRUE;
 				} else {
 					$message = 'Account delete failed.';
-					$error = $this->db->_error_message();
+					if ($this->db->_error_message()) {
+						$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+					}
 				}
 				$delete_data = array('message' => $message, 'error' => $error, 'success' => $success);
 				$data['body_content'] = $this->load->view('contents/admin/account/function_result',$delete_data,TRUE);

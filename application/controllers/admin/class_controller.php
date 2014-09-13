@@ -7,9 +7,7 @@ class Class_controller extends CI_Controller {
 		if (!$this->session->userdata('role')) {
 			redirect(base_url());
 		} else if ($this->session->userdata('role') !== 'admin') {
-			$message_403 = 'You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.';
-			$heading = '403 Forbidden';
-			show_error($message_403,403,$heading);
+			show_403_error();
 		}
 		$this->load->model('class_model');
 		$this->load->model('office_model');
@@ -105,7 +103,9 @@ class Class_controller extends CI_Controller {
 				$success = TRUE;
 			} else {
 				$message = 'Class add failed.';
-				$error = $this->db->_error_message();
+				if ($this->db->_error_message()) {
+					$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+				}
 			}
 			$add_data = array('message' => $message, 'error' => $error, 'success' => $success);
 			$data['body_content'] = $this->load->view('contents/admin/class/function_result',$add_data,TRUE);
@@ -230,7 +230,9 @@ class Class_controller extends CI_Controller {
 					$success = TRUE;
 				} else {
 					$message = 'Class edit failed.';
-					$error = $this->db->_error_message();
+					if ($this->db->_error_message()) {
+						$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+					}
 				}
 				$edit_data = array('message' => $message, 'error' => $error, 'success' => $success);
 				$data['body_content'] = $this->load->view('contents/admin/class/function_result',$edit_data,TRUE);
@@ -321,7 +323,9 @@ class Class_controller extends CI_Controller {
 					$success = TRUE;
 				} else {
 					$message = 'Class delete failed.';
-					$error = $this->db->_error_message();
+					if ($this->db->_error_message()) {
+						$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+					}
 				}
 				$delete_data = array('message' => $message, 'error' => $error, 'success' => $success);
 				$data['body_content'] = $this->load->view('contents/admin/class/function_result',$delete_data,TRUE);
@@ -352,7 +356,7 @@ class Class_controller extends CI_Controller {
  */
 	public function unique_class($section) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 		$year = $this->input->post('year');
 		$semester = $this->input->post('semester');
@@ -382,7 +386,7 @@ class Class_controller extends CI_Controller {
  */
 	public function unique_new_class($section, $class_id) {
 		if(empty($this->form_validation)) {
-			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+			show_403_error();
 		}
 		$year = $this->input->post('year');
 		$semester = $this->input->post('semester');

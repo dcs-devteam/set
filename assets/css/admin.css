@@ -8,11 +8,6 @@
 }
 
 /*evaluation/set*/
-.form-container {
-	max-width: 500px;
-	margin-left: auto;
-	margin-right: auto; 
-}
 
 /*evaluation/view*/
 .class-table th,
@@ -53,21 +48,6 @@
 
 
 /*confirm dialogs*/
-.confirm-container,
-.result-container {
-	max-width: 600px;
-	margin-right: auto;
-	margin-left: auto;
-}
-
-.form-container.panel .panel-heading,
-.form-container.panel .panel-footer,
-.confirm-container.panel .panel-heading,
-.confirm-container.panel .panel-footer,
-.result-container .panel-heading,
-.result-container .panel-footer {
-	text-align: center;
-}
 
 /*teacher/view*/
 .teacher-table th:first-child,
