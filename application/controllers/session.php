@@ -86,6 +86,10 @@ class Session extends CI_Controller {
  * @return boolean					TRUE if verification success. Else, FALSE.
  */
 	public function verify_login($password) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
+
 		$email = $this->input->post('email');
 		$result = $this->session_model->login($email,$password);
 		if ($result) {
@@ -113,6 +117,10 @@ class Session extends CI_Controller {
  * @return boolean			TRUE if class open for evaluation. Else, FALSE.
  */
 	public function active_class($code) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
+
 		$this->load->model('class_model');
 		$this->load->model('access_code_model');
 		$class_id = $this->access_code_model->get_class_id($code);
@@ -135,6 +143,10 @@ class Session extends CI_Controller {
  * @return boolean			TRUE if code exists in the database. Else, FALSE.
  */
 	public function code_exists($code) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
+		
 		$result = $this->access_code_model->code_exists($code);
 		if ($result) {
 			return TRUE;
@@ -151,6 +163,10 @@ class Session extends CI_Controller {
  * @return boolean				TRUE if code not already used. Else, FALSE.
  */
 	public function is_not_used($code) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
+		
 		if (!($this->access_code_model->is_used($code))) {
 			$result = $this->access_code_model->get_by_code($code);
 			//verify success, session creation

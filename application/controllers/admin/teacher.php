@@ -107,6 +107,9 @@ class Teacher extends CI_Controller {
  * @return boolean						TRUE if given combination is unique. Else, FALSE.
  */
 	public function unique_teacher($last_name) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 		$first_name = $this->input->post('first_name');
 
 		$teacher_id = $this->teacher_model->get_id($first_name, $last_name);
@@ -204,6 +207,9 @@ class Teacher extends CI_Controller {
  * 													old values. Else, FALSE.
  */
 	public function unique_new_teacher($last_name, $teacher_id) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 		$first_name = $this->input->post('first_name');
 
 		$result = $this->teacher_model->teacher_exists($first_name, $last_name);

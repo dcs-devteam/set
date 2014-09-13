@@ -117,7 +117,7 @@ class Account extends CI_Controller {
 		$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').'(eValuation Administrator)');
 		$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
 		$this->email->to($email_address);
-		$this->email->subject('eValuation '.ucfirst($account['role']).' Account Details');
+		$this->email->subject('eValuation '.ucfirst($role).' Account Details');
 
 		//email body
 		$email_data = array(
@@ -166,6 +166,9 @@ class Account extends CI_Controller {
  * @return boolean						TRUE if given value is unique. Else, FALSE.
  */
 	public function unique_name($last_name) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 		$first_name = $this->input->post('first_name');
 
 		$user_id = $this->account_model->get_id($first_name, $last_name);
@@ -184,6 +187,9 @@ class Account extends CI_Controller {
  * @return boolean								TRUE if given value is unique. Else, FALSE.
  */
 	public function unique_email($email_address) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 		if ($this->account_model->email_exists($email_address)) {
 			$this->form_validation->set_message('unique_email','Account with given email address already exists.');
 			return FALSE;
@@ -346,26 +352,6 @@ class Account extends CI_Controller {
 	}
 
 /**
- * Form Validation rule. A given course_name
- * must be unique or the same as the course_name
- * of the current course to be edited.
- * @param  string $course_name	value from course_name field in form
- * @param  int $user_id				current course ID of course to be edited
- * @return boolean							TRUE if given combination is unique or the same as
- * 														  old values. Else, FALSE.
- */
-	public function unique_new_course($course_name, $user_id) {
-
-		$result = $this->course_model->course_exists($course_name);
-		if ($result !== FALSE && $result->user_id !== $user_id) {
-			$this->form_validation->set_message('unique_new_course','Course with given course name already exists.');
-			return FALSE;
-		} else {
-			return TRUE;
-		}
-	}
-
-/**
  * Form Validation rule. A given first_name and last_name
  * must be unique  or the same as the first_name and last_name
  * of the current account to be edited.
@@ -374,6 +360,9 @@ class Account extends CI_Controller {
  * @return boolean						TRUE if given value is unique. Else, FALSE.
  */
 	public function unique_new_name($last_name, $user_id) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 		$first_name = $this->input->post('first_name');
 
 		$result = $this->account_model->get_id($first_name, $last_name);
@@ -394,6 +383,9 @@ class Account extends CI_Controller {
  * @return boolean								TRUE if given value is unique. Else, FALSE.
  */
 	public function unique_new_email($email_address, $user_id) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 		$result = $this->account_model->email_exists($email_address);
 		if ($result !== FALSE && $result->user_id !== $user_id) {
 			$this->form_validation->set_message('unique_new_email','Account with given email address already exists.');

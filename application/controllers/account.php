@@ -114,6 +114,9 @@ class Account extends CI_Controller {
  * @return boolean								TRUE if given value is valid. Else, FALSE.
  */
 	public function verify_password($current_password) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 		$result = $this->account_model->same_passwords($this->user_id, $current_password);
 		if ($result !== TRUE) {
 			$this->form_validation->set_message('verify_password','Current Password value is incorrect.');
@@ -130,6 +133,9 @@ class Account extends CI_Controller {
  * @return boolean								TRUE if given value is valid. Else, FALSE.
  */
 	public function same_new_passwords($confirm_password) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 		$new_password = $this->input->post('new_password');
 		if ($new_password !== $confirm_password) {
 			$this->form_validation->set_message('same_new_passwords','The new passwords do not match.');
@@ -139,6 +145,9 @@ class Account extends CI_Controller {
 		}
 	}
 
+/**
+ * Displays reset password form and calls send_reset_email for the sending of email.
+ */
 	public function reset_password() {
 		$this->load->library('form_validation');
 		//set validation rules
@@ -164,80 +173,97 @@ class Account extends CI_Controller {
 		$this->parser->parse('layouts/default', $data);
 	}
 
+/**
+ * Sends reset password link to email address provided in reset password form.
+ */
 	private function send_reset_email() {
-		$this->load->library('encrypt');
-
 		$email_address = $this->input->post('email_address');
 		$account = $this->account_model->get_by_email($email_address);
-		//email current address
-		$this->load->library('email');
-		$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
-		$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
-		$this->email->to($email_address);
-		$this->email->subject('eValuation Reset Password Request');
+		if ($account !== FALSE) {
+			//email current address
+			$this->load->library('email');
+			$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
+			$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
+			$this->email->to($email_address);
+			$this->email->subject('eValuation Reset Password Request');
 
-		//email body
-		$email_data = array();
+				//email body
+				$email_data = array();
+				if (!empty($account->user_id)) {
+					$user_data = array(
+						'user_id' => $account->user_id,
+						'email_address' => $account->email_address
+						);
 
-		$user_data = array(
-			'user_id' => $account->user_id,
-			'email_address' => $account->email_address
-			);
+					$this->load->library('encrypt');
+					$email_data['user_string'] = base64_encode($this->encrypt->encode(serialize($user_data)));
+				}
 
-		if (!empty($account->user_id)) {
-			$email_data['user_string'] = base64_encode($this->encrypt->encode(serialize($user_data)));
+				$this->email->message($this->load->view('contents/account/email_reset_password',$email_data, TRUE));
+			
+			$this->email->send();
+
+			// echo $this->email->print_debugger();
+		} else {
+			//add delay to look as if sending email
+			sleep(3);
 		}
-
-		$this->email->message($this->load->view('contents/account/email_reset_password',$email_data, TRUE));
-		
-		$this->email->send();
-
-		// echo $this->email->print_debugger();
 	}
 
-	public function forgot_password($user_string) {
-		$this->load->library('encrypt');
-		$user_data = unserialize($this->encrypt->decode(base64_decode($user_string)));
-
-		$this->load->library('form_validation');
-		//set validation rules
-		$validation_rules = array(
-			array(
-				'field' => 'new_password',
-				'label' => 'New Password',
-				'rules' => 'trim|required|xss_clean|'
-				),
-			array(
-				'field' => 'confirm_password',
-				'label' => 'Confirm Password',
-				'rules' => 'trim|required|xss_clean|callback_same_new_passwords'
-				)
-			);
-		$this->form_validation->set_rules($validation_rules);
-
-		if ($this->form_validation->run() == FALSE) {
-			//validation failure, return to form
-			$view_data = array(
-				'user_string' => $user_string,
-				'email_address' => $user_data['email_address']
-				);
-			$data['body_content'] = $this->load->view('contents/account/forgot_password',$view_data,TRUE);
-		} else {
-			//validation success, change password
-
-			$password_result = $this->change_password($user_data['user_id']);
-			$message = '';
-			$error = '';
-			$success = FALSE;
-			if ($password_result) {
-				$message = 'Password was successfully changed.';
-				$success = TRUE;
-			} else {
-				$message = 'Password change failed.';
-				$error = $this->db->_error_message();
+/**
+ * Decodes user string and calls change_password with the new password.
+ * @param  string $user_string encrypted string containing user_id and email_address
+ */
+	public function forgot_password($user_string = FALSE) {
+		if ($user_string !== FALSE) {
+			$this->load->library('encrypt');
+			if (!$user_data = unserialize($this->encrypt->decode(base64_decode($user_string)))) {
+				show_error('The value in the URL after .../forgot_password/ is invalid. Make sure that the value is correct before trying again.');
 			}
-			$password_data = array('message' => $message, 'error' => $error, 'success' => $success);
-			$data['body_content'] = $this->load->view('contents/account/function_result',$password_data,TRUE);
+
+			$this->load->library('form_validation');
+			//set validation rules
+			$validation_rules = array(
+				array(
+					'field' => 'new_password',
+					'label' => 'New Password',
+					'rules' => 'trim|required|xss_clean|'
+					),
+				array(
+					'field' => 'confirm_password',
+					'label' => 'Confirm Password',
+					'rules' => 'trim|required|xss_clean|callback_same_new_passwords'
+					)
+				);
+			$this->form_validation->set_rules($validation_rules);
+
+			if ($this->form_validation->run() == FALSE) {
+				//validation failure, return to form
+				$view_data = array(
+					'user_string' => $user_string,
+					'email_address' => $user_data['email_address']
+					);
+				$data['body_content'] = $this->load->view('contents/account/forgot_password',$view_data,TRUE);
+			} else {
+				//validation success, change password
+
+				$password_result = $this->change_password($user_data['user_id']);
+				$message = '';
+				$error = '';
+				$success = FALSE;
+				if ($password_result) {
+					$message = 'Password was successfully changed.';
+					$success = TRUE;
+				} else {
+					$message = 'Password change failed.';
+					$error = $this->db->_error_message();
+				}
+				$password_data = array('message' => $message, 'error' => $error, 'success' => $success);
+				$data['body_content'] = $this->load->view('contents/account/function_result',$password_data,TRUE);
+			}
+		} else {
+			//display error
+			show_error('The function needs to have a parameter. Make sure that the value is correct before trying again.');
 		}
 
 		$data['page_title'] = 'eValuation';

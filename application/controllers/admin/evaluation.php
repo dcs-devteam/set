@@ -56,6 +56,18 @@ class Evaluation extends CI_Controller {
 				'error_message' => 'Record for the given class ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		} else if ($result->is_done == TRUE) {
+			$error_data = array(
+				'error_title' => 'Class Evaluation Already Done',
+				'error_message' => 'You cannot start evaluation for this class because the evaluation is already done.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		} else if ($result->is_active == TRUE) {
+			$error_data = array(
+				'error_title' => 'Class Evaluation Already Started',
+				'error_message' => 'You cannot start evaluation for this class because the evaluation has already been started.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 		} else {
 			$start_result = $this->start_evaluation($class_id);
 			$message = '';
@@ -106,6 +118,12 @@ class Evaluation extends CI_Controller {
 			$error_data = array(
 				'error_title' => 'No Such Entry Exists',
 				'error_message' => 'Record for the given class ID does not exist in the database.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		} else if ($result->is_active == FALSE OR $result->is_done == TRUE) {
+			$error_data = array(
+				'error_title' => 'Class Evaluation Not Active',
+				'error_message' => 'You cannot stop evaluation for this class because it is not currently active.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 		} else {
@@ -178,6 +196,12 @@ class Evaluation extends CI_Controller {
 				'error_message' => 'Record for the given class ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		} else if ($result->is_active == FALSE OR $result->is_done == TRUE) {
+			$error_data = array(
+				'error_title' => 'Class Evaluation Not Active',
+				'error_message' => 'You cannot cancel evaluation for this class because it is not currently active.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 		} else {
 			//must go through delete-confirm form
 			$confirm = $this->input->post('confirm');
@@ -233,27 +257,45 @@ class Evaluation extends CI_Controller {
 	public function code($class_id) {
 		$this->load->model('access_code_model');
 		$class = $this->class_model->get_by_id($class_id);
-
-		$code_data['class'] = $class;
-		$code_data['codes'] = $this->access_code_model->get_by_class($class_id);
-
-		$data['body_content'] = $this->load->view('contents/admin/evaluation/code',$code_data,TRUE);
-		$data['page_title'] = "eValuation";
-		//render HTML page (for testing). comment out pdf_create line below.
-		// $this->parser->parse('layouts/code', $data);
-
-
-		//pdf
-		$this->load->helper(array('wkhtmltopdf', 'file'));
-		$html = $this->parser->parse('layouts/code', $data, TRUE);
-
-		if (write_file('assets/temp/temp.php', $html)) {
-			$filename = $class->year.'-'.format_semester($class->semester).' - '.$class->class_name.' '.$class->section;
-			pdf_create($html, $filename);
-			delete_files('assets/temp/');
-			return TRUE;
+		//check if ID is valid
+		if ($class === FALSE) {
+			$error_data = array(
+				'error_title' => 'No Such Entry Exists',
+				'error_message' => 'Record for the given class ID does not exist in the database.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+			$data['page_title'] = "eValuation";
+			$this->parser->parse('layouts/default', $data);
+		} else if ($class->is_active == FALSE OR $class->is_done == TRUE) {
+			$error_data = array(
+				'error_title' => 'Class Evaluation Not Active',
+				'error_message' => 'Evaluation for this class is not currently active. You are not allowed to generate access codes for this class.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+			$data['page_title'] = "eValuation";
+			$this->parser->parse('layouts/default', $data);
 		} else {
-			return FALSE;
+			$code_data['class'] = $class;
+			$code_data['codes'] = $this->access_code_model->get_by_class($class_id);
+
+			$data['body_content'] = $this->load->view('contents/admin/evaluation/code',$code_data,TRUE);
+			$data['page_title'] = "eValuation";
+			//render HTML page (for testing). comment out pdf_create line below.
+			// $this->parser->parse('layouts/code', $data);
+
+
+			//pdf
+			$this->load->helper(array('wkhtmltopdf', 'file'));
+			$html = $this->parser->parse('layouts/code', $data, TRUE);
+
+			if (write_file('assets/temp/temp.php', $html)) {
+				$filename = $class->year.'-'.format_semester($class->semester).' - '.$class->class_name.' '.$class->section;
+				pdf_create($html, $filename);
+				delete_files('assets/temp/');
+				return TRUE;
+			} else {
+				return FALSE;
+			}
 		}
 	}
 

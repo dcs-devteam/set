@@ -293,6 +293,12 @@ class Class_controller extends CI_Controller {
 				'error_message' => 'Record for the given class ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		} else if ($class->is_active == TRUE) {
+			$error_data = array(
+				'error_title' => 'Class Evaluation is Active',
+				'error_message' => 'Evaluation of this class is currently active. Stop or cancel evaluation before deleting.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 		} else {
 			//must go through delete-confirm form
 			$confirm = $this->input->post('confirm');
@@ -345,6 +351,9 @@ class Class_controller extends CI_Controller {
  * @return boolean					TRUE if given combination is unique. Else, FALSE.
  */
 	public function unique_class($section) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 		$year = $this->input->post('year');
 		$semester = $this->input->post('semester');
 		$course_name = $this->input->post('course');
@@ -372,6 +381,9 @@ class Class_controller extends CI_Controller {
  * 													old values. Else, FALSE.
  */
 	public function unique_new_class($section, $class_id) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 		$year = $this->input->post('year');
 		$semester = $this->input->post('semester');
 		$course_name = $this->input->post('course');

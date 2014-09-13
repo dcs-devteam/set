@@ -15,7 +15,7 @@
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-8">
 					<button type="submit" class="btn btn-primary">Continue</button>
-					<a href="<?php echo base_url()?>" class="btn btn-default">Cancel</a>
+					<a href="<?php echo base_url('login')?>" class="btn btn-default">Cancel</a>
 				</div>
 			</div>
 		</div>

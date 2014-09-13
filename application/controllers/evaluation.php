@@ -32,45 +32,53 @@ class Evaluation extends CI_Controller {
 		$this->load->model('teacher_model');
 
 		$class = $this->class_model->get_by_id($this->class_id);
-		$teacher = $this->teacher_model->get_by_id($class->teacher_id);
+		if ($class == FALSE) {
+			$teacher = $this->teacher_model->get_by_id($class->teacher_id);
 
-		$this->load->library('form_validation');
-		//set validation rules
-		for ($i=1; $i <= 36; $i++) { 
-			$this->form_validation->set_rules('answers['.$i.'][]', 'Item '.$i, 'trim|required|xss_clean');
-		}
-
-		$this->form_validation->set_rules('answers[strong_points]', 'Strong Points', 'trim|xss_clean');
-		$this->form_validation->set_rules('answers[weak_points]', 'Weak Points', 'trim|xss_clean');
-		$this->form_validation->set_rules('answers[recommendations]', 'Recommendations', 'trim|xss_clean');
-
-
-		if ($this->form_validation->run() == FALSE) {
-			//evaluation form
-			$form_data = array();
-			$form_data['class'] = $class;
-			$form_data['teacher'] = $teacher;
-			$form_data['questions'] = evaluation_questions();
-			
-			//validation failure, return to form
-			$data['body_content'] = $this->load->view('contents/student/evaluation/evaluation_form',$form_data,TRUE);
-		} else {
-			//validation success, set new evaluation period
-			$submit_result = $this->submit_evaluation();
-
-			$message = '';
-			$error = '';
-			$success = FALSE;
-			if ($submit_result) {
-				$message = 'Evaluation form was successfully submitted.';
-				$success = TRUE;
-				$this->session->sess_destroy();
-			} else {
-				$message = 'Failed to submit evaluation form.';
-				$error = $this->db->_error_message();
+			$this->load->library('form_validation');
+			//set validation rules
+			for ($i=1; $i <= 36; $i++) { 
+				$this->form_validation->set_rules('answers['.$i.'][]', 'Item '.$i, 'trim|required|xss_clean');
 			}
-			$set_data = array('message' => $message, 'error' => $error, 'success' => $success);
-			$data['body_content'] = $this->load->view('contents/student/evaluation/submit_result',$set_data,TRUE);
+
+			$this->form_validation->set_rules('answers[strong_points]', 'Strong Points', 'trim|xss_clean');
+			$this->form_validation->set_rules('answers[weak_points]', 'Weak Points', 'trim|xss_clean');
+			$this->form_validation->set_rules('answers[recommendations]', 'Recommendations', 'trim|xss_clean');
+
+
+			if ($this->form_validation->run() == FALSE) {
+				//evaluation form
+				$form_data = array();
+				$form_data['class'] = $class;
+				$form_data['teacher'] = $teacher;
+				$form_data['questions'] = evaluation_questions();
+				
+				//validation failure, return to form
+				$data['body_content'] = $this->load->view('contents/student/evaluation/evaluation_form',$form_data,TRUE);
+			} else {
+				//validation success, set new evaluation period
+				$submit_result = $this->submit_evaluation();
+
+				$message = '';
+				$error = '';
+				$success = FALSE;
+				if ($submit_result) {
+					$message = 'Evaluation form was successfully submitted.';
+					$success = TRUE;
+					$this->session->sess_destroy();
+				} else {
+					$message = 'Failed to submit evaluation form.';
+					$error = $this->db->_error_message();
+				}
+				$set_data = array('message' => $message, 'error' => $error, 'success' => $success);
+				$data['body_content'] = $this->load->view('contents/student/evaluation/submit_result',$set_data,TRUE);
+			}
+		} else {
+			$error_data = array(
+				'error_title' => 'No Such Class Exists',
+				'error_message' => 'The class associated with this acces code no longer exists in the database. Please contact the evaluator in-charge.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 		}
 
 		$data['page_title'] = 'eValuation: '.$class->class_name.'-'.$class->section;

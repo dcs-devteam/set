@@ -101,6 +101,9 @@ class Course extends CI_Controller {
  * @return boolean						TRUE if given value is unique. Else, FALSE.
  */
 	public function unique_course($course_name) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 
 		$course_id = $this->course_model->get_id($course_name);
 		if ($course_id) {
@@ -191,6 +194,9 @@ class Course extends CI_Controller {
  * 														  old values. Else, FALSE.
  */
 	public function unique_new_course($course_name, $course_id) {
+		if(empty($this->form_validation)) {
+			show_error('You don\'t have permission to access the URL you are trying to reach. Click on this <a href="'.base_url().'">link</a> to go back to the homepage.',403,'403 Forbidden');
+		}
 
 		$result = $this->course_model->course_exists($course_name);
 		if ($result !== FALSE && $result->course_id !== $course_id) {
