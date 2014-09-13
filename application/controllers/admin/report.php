@@ -129,16 +129,16 @@ class Report extends CI_Controller {
 			$view_data['summary']['average']['grand'] = ($view_data['summary']['average']['a'] * 0.7) + ($view_data['summary']['average']['b'] * 0.2) + ($view_data['summary']['average']['c'] * 0.05) + ($view_data['summary']['average']['d'] * 0.05);
 
 			//qualitative rating
-			if ($view_data['summary']['average']['grand'] <= 1.49) {
-				$view_data['summary']['rating'] = 'Excellent';
-			} else if (1.50 <= $view_data['summary']['average']['grand'] && $view_data['summary']['average']['grand'] <= 2.49) {
-				$view_data['summary']['rating'] = 'Very Good';
-			} else if (2.50 <= $view_data['summary']['average']['grand'] && $view_data['summary']['average']['grand'] <= 3.49) {
-				$view_data['summary']['rating'] = 'Good';
-			} else if (3.50 <= $view_data['summary']['average']['grand'] && $view_data['summary']['average']['grand'] <= 4.49) {
-				$view_data['summary']['rating'] = 'Conditional';
-			} else {
+			if ($view_data['summary']['average']['grand'] >= 4.5) {
 				$view_data['summary']['rating'] = 'Poor';
+			} else if ($view_data['summary']['average']['grand'] >= 3.5) {
+				$view_data['summary']['rating'] = 'Conditional';
+			} else if ($view_data['summary']['average']['grand'] >= 2.5) {
+				$view_data['summary']['rating'] = 'Good';
+			} else if ($view_data['summary']['average']['grand'] >= 1.5) {
+				$view_data['summary']['rating'] = 'Very Good';
+			} else {
+				$view_data['summary']['rating'] = 'Excellent';
 			}
 
 			//detail

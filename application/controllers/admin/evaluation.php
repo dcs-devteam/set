@@ -122,7 +122,14 @@ class Evaluation extends CI_Controller {
 				'error_message' => 'Record for the given class ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-		} else if ($result->is_active == FALSE OR $result->is_done == TRUE) {
+		} else if ($this->evaluator_model->get_evaluator($class_id)->evaluator_id !== $this->session->userdata('user_id')) {
+			//prevent stop if not evaluator
+			$error_data = array(
+				'error_title' => 'Class Evaluation Stop Not Allowed',
+				'error_message' => 'You are not in charge of the evaluation for this class.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		}	else if ($result->is_active == FALSE OR $result->is_done == TRUE) {
 			$error_data = array(
 				'error_title' => 'Class Evaluation Not Active',
 				'error_message' => 'You cannot stop evaluation for this class because it is not currently active.'
@@ -199,7 +206,14 @@ class Evaluation extends CI_Controller {
 				'error_message' => 'Record for the given class ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-		} else if ($result->is_active == FALSE OR $result->is_done == TRUE) {
+		} else if ($this->evaluator_model->get_evaluator($class_id)->evaluator_id !== $this->session->userdata('user_id')) {
+			//prevent stop if not evaluator
+			$error_data = array(
+				'error_title' => 'Class Evaluation Cancel Not Allowed',
+				'error_message' => 'You are not in charge of the evaluation for this class.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		}	else if ($result->is_active == FALSE OR $result->is_done == TRUE) {
 			$error_data = array(
 				'error_title' => 'Class Evaluation Not Active',
 				'error_message' => 'You cannot cancel evaluation for this class because it is not currently active.'
