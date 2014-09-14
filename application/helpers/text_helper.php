@@ -1,24 +1,24 @@
 <?php
 	/**
-	*	Format a timestamp string into the form MM D YYY HH:MM AM/PM
+	*	Format a timestamp string into the form MM DD YYY HH:MM AM/PM
 	*
 	*	@param	string 	$str	timestamp
 	*
 	*	@return	string	formatted timestamp
 	*/
 	function format_timestamp($str) {
-		return date('M j Y g:i A',strtotime($str));
+		return date('M d Y g:i A',strtotime($str));
 	}
 
 	/**
-	*	Format a date string into the form MM D YYY
+	*	Format a date string into the form MM DD YYY
 	*
 	*	@param	string 	$str	timestamp
 	*
 	*	@return	string	formatted timestamp
 	*/
 	function format_date($str) {
-		return date('M j Y',strtotime($str));
+		return date('M d Y',strtotime($str));
 	}
 
 /**

@@ -13,7 +13,7 @@
 			<div class="form-group">
 				<label for="year" class="col-sm-4 control-label">Academic Year</label>
 				<div class="col-sm-8">
-					<div class="tooltip-wrapper" data-toggle="tooltip" title="Contact the eValuation administrator if the given year is wrong."></div>
+					<div class="tooltip-wrapper" data-toggle="tooltip" title="Contact the eValuation Super Admin if the given year is wrong."></div>
 					<input class="form-control" readonly="readonly" value="<?php echo format_year($year_semester->year)?>" class="form-control" id="year" name="year" type="text">
 					<?php echo form_error('year','<p class="text-danger">','</p>');?>
 				</div>
@@ -21,7 +21,7 @@
 			<div class="form-group">
 				<label for="semester" class="col-sm-4 control-label">Semester</label>
 				<div class="col-sm-8">
-					<div class="tooltip-wrapper" data-toggle="tooltip" title="Contact the eValuation administrator if the given semester is wrong."></div>
+					<div class="tooltip-wrapper" data-toggle="tooltip" title="Contact the eValuation Super Admin if the given semester is wrong."></div>
 					<input class="form-control" readonly="readonly" value="<?php echo format_semester($year_semester->semester)?>" class="form-control" id="semester" name="semester" type="text">
 					<?php echo form_error('semester','<p class="text-danger">','</p>');?>
 				</div>
@@ -72,7 +72,6 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<?php echo form_error('unique_year_and_sem','<p class="text-danger">','</p>');?>
 				<div class="col-sm-offset-4 col-sm-8">
 					<button type="submit" class="btn btn-primary">Add Class</button>
 					<a href="<?php echo base_url('admin/class/view')?>" class="btn btn-default">Cancel</a>

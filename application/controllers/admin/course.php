@@ -120,7 +120,7 @@ class Course extends CI_Controller {
  * Displays also the function result of the edit_course function.
  * @param  int $course_id	valid course ID
  */
-	public function edit($course_id) {
+	public function edit($course_id = FALSE) {
 		$course = $this->course_model->get_by_id($course_id);
 		if ($course === FALSE) {
 			$error_data = array(
@@ -215,7 +215,7 @@ class Course extends CI_Controller {
  * was successful or not.
  * @param  int $course_id	valid course ID
  */
-	public function delete($course_id) {
+	public function delete($course_id = FALSE) {
 		$course = $this->course_model->get_by_id($course_id);
 		if ($course === FALSE) {
 			$error_data = array(

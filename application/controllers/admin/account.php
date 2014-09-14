@@ -204,7 +204,7 @@ class Account extends CI_Controller {
  * Displays also the function result of the edit_account function.
  * @param  int $user_id	valid user ID
  */
-	public function edit($user_id) {
+	public function edit($user_id = FALSE) {
 		$this->load->model('evaluator_model');
 
 		$account = $this->account_model->get_by_id($user_id);
@@ -355,7 +355,7 @@ class Account extends CI_Controller {
 
 /**
  * Form Validation rule. A given first_name and last_name
- * must be unique  or the same as the first_name and last_name
+ * must be unique or the same as the first_name and last_name
  * of the current account to be edited.
  * @param  string $last_name	value from the last_name field in form
  * @param  int $user_id				current user ID of account to be edited
@@ -403,7 +403,7 @@ class Account extends CI_Controller {
  * was successful or not.
  * @param  int $user_id	valid user ID
  */
-	public function delete($user_id) {
+	public function delete($user_id = FALSE) {
 		$this->load->model('evaluator_model');
 
 		$account = $this->account_model->get_by_id($user_id);

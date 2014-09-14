@@ -19,7 +19,6 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<?php echo form_error('unique_new_teacher','<p class="text-danger">','</p>');?>
 				<div class="col-sm-offset-4 col-sm-8">
 					<button type="submit" class="btn btn-warning">Edit Teacher</button>
 					<a href="<?php echo base_url('admin/teacher/view')?>" class="btn btn-default">Cancel</a>

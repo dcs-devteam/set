@@ -41,7 +41,7 @@ class Report extends CI_Controller {
  * given class.
  * @param  int $class_id	valid class ID
  */
-	public function generate($class_id) {
+	public function generate($class_id = FALSE) {
 		$class = $this->class_model->get_by_id($class_id);
 		//check if class ID is valid
 		if ($class === FALSE) {

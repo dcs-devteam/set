@@ -428,6 +428,23 @@ class Class_model extends CI_Model {
 			return FALSE;
 		}
 	}
+
+/**
+ * Checks if there are class attached to the year and semester.
+ * @return boolean TRUE if there are classes attached. Else, FALSE.
+ */
+	public function has_classes($year, $semester) {
+		$this->db->where('year', $year);
+		$this->db->where('semester', $semester);
+
+		$query = $this->db->get('class');
+
+		if($query->num_rows() >= 1) {
+			return TRUE;
+		}	else {
+			return FALSE;
+		}
+	}
 }
 
 /* End of file class_model.php */

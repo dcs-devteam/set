@@ -23,15 +23,20 @@ var evaluation_form = {
 
 var tables = {
 	initialize: function() {
-		$('.data-table:not(".account-table")').DataTable({
-			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-			"pageLength": 10,
-			"order": [[1,'asc']]
-		});
-		$('.account-table').DataTable({
+		$('.data-table.account-table').DataTable({
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			"pageLength": 10,
 			"order": [[4,'asc']]
+		});
+		$('.data-table.yearsem-table').DataTable({
+			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+			"pageLength": 10,
+			"order": [[3,'desc'],[2,'desc'],[0,'desc'],[1,'desc']]
+		});
+		$('.data-table:not(".account-table,.yearsem-table")').DataTable({
+			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+			"pageLength": 10,
+			"order": [[1,'asc']]
 		});
 	}
 }

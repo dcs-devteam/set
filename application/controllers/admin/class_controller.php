@@ -159,7 +159,7 @@ class Class_controller extends CI_Controller {
  * Displays also the function result of the edit_class function.
  * @param  int $class_id	valid class ID
  */
-	public function edit($class_id) {
+	public function edit($class_id = FALSE) {
 		$class = $this->class_model->get_by_id($class_id);
 		if ($class === FALSE) {
 			$error_data = array(
@@ -287,7 +287,7 @@ class Class_controller extends CI_Controller {
  * was successful or not.
  * @param  int $class_id	valid class ID
  */
-	public function delete($class_id) {
+	public function delete($class_id = FALSE) {
 		$class = $this->class_model->get_by_id($class_id);
 		if ($class === FALSE) {
 			$error_data = array(

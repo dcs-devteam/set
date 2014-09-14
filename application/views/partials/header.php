@@ -10,12 +10,12 @@
 							</button>
 							<a class="navbar-brand" href="<?php echo base_url()?>">
 								eValuation
-<?php if ($this->session->userdata('email_address')):?>
+<?php if ($this->session->userdata('office_id')):?>
 									<small>(<?php echo $this->office_model->get($this->office_id)->name?>)</small>
 <?php endif;?>
 							</a>
 						</div>
-<?php if ($this->session->userdata('email_address')):?>
+<?php if ($this->session->userdata('role')):?>
 							<!-- Collect the nav links, forms, and other content for toggling -->
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 <?php if ($this->session->userdata('role') == 'admin'):?>
@@ -50,6 +50,30 @@
 											<ul class="dropdown-menu" role="menu">
 												<li class="<?php if (($this->uri->uri_string() === 'admin/account') OR ($this->uri->uri_string() === 'admin/account/view')) echo 'active'?>"><a href="<?php echo base_url('admin/account/view')?>">View Accounts</a></li>
 												<li class="<?php if (($this->uri->uri_string() === 'admin/account/add')) echo 'active'?>"><a href="<?php echo base_url('admin/account/add')?>">Add Account</a></li>
+											</ul>
+										</li>
+									</ul>
+<?php elseif ($this->session->userdata('role') == 'superadmin'):?>
+									<ul class="nav navbar-nav">
+										<li class="dropdown <?php if (($this->uri->segment(2) === 'yearsem') OR ($this->uri->uri_string() === 'superadmin')) echo 'active'?>">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Year and Semester <span class="caret"></span></a>
+											<ul class="dropdown-menu" role="menu">
+												<li class="<?php if (($this->uri->uri_string() === 'superadmin/yearsem') OR ($this->uri->uri_string() === 'superadmin/yearsem/view')) echo 'active'?>"><a href="<?php echo base_url('superadmin/yearsem/view')?>">View Year and Semesters</a></li>
+												<li class="<?php if (($this->uri->uri_string() === 'superadmin/yearsem/add')) echo 'active'?>"><a href="<?php echo base_url('superadmin/yearsem/add')?>">Add Year and Semester</a></li>
+											</ul>
+										</li>
+										<li class="dropdown <?php if (($this->uri->segment(2) === 'office')) echo 'active'?>">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Offices <span class="caret"></span></a>
+											<ul class="dropdown-menu" role="menu">
+												<li class="<?php if (($this->uri->uri_string() === 'superadmin/office') OR ($this->uri->uri_string() === 'superadmin/office/view')) echo 'active'?>"><a href="<?php echo base_url('superadmin/office/view')?>">View Offices</a></li>
+												<li class="<?php if (($this->uri->uri_string() === 'superadmin/office/add')) echo 'active'?>"><a href="<?php echo base_url('superadmin/office/add')?>">Add Office</a></li>
+											</ul>
+										</li>
+										<li class="dropdown <?php if (($this->uri->segment(2) === 'admin')) echo 'active'?>">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admins <span class="caret"></span></a>
+											<ul class="dropdown-menu" role="menu">
+												<li class="<?php if (($this->uri->uri_string() === 'superadmin/admin') OR ($this->uri->uri_string() === 'superadmin/admin/view')) echo 'active'?>"><a href="<?php echo base_url('superadmin/admin/view')?>">View Admins</a></li>
+												<li class="<?php if (($this->uri->uri_string() === 'superadmin/admin/add')) echo 'active'?>"><a href="<?php echo base_url('superadmin/admin/add')?>">Add Admin</a></li>
 											</ul>
 										</li>
 									</ul>

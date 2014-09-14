@@ -127,7 +127,7 @@ class Teacher extends CI_Controller {
  * Displays also the function result of the edit_teacher function.
  * @param  int $teacher_id	valid teacher ID
  */
-	public function edit($teacher_id) {
+	public function edit($teacher_id = FALSE) {
 		$teacher = $this->teacher_model->get_by_id($teacher_id);
 		if ($teacher === FALSE) {
 			$error_data = array(
@@ -229,7 +229,7 @@ class Teacher extends CI_Controller {
  * was successful or not.
  * @param  int $teacher_id	valid teacher ID
  */
-	public function delete($teacher_id) {
+	public function delete($teacher_id = FALSE) {
 		$teacher = $this->teacher_model->get_by_id($teacher_id);
 		if ($teacher === FALSE) {
 			$error_data = array(

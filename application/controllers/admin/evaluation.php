@@ -45,7 +45,7 @@ class Evaluation extends CI_Controller {
  * started.
  * @param  int $class_id	valid class ID
  */
-	public function start($class_id) {
+	public function start($class_id = FALSE) {
 		$result = $this->class_model->get_by_id($class_id);
 		//check if ID is valid
 		if ($result === FALSE) {
@@ -111,7 +111,7 @@ class Evaluation extends CI_Controller {
  * was successful or not.
  * @param  int $class_id	valid class ID
  */
-	public function stop($class_id) {
+	public function stop($class_id = FALSE) {
 		$this->load->model('evaluation_model');
 
 		$result = $this->class_model->get_by_id($class_id);
@@ -122,17 +122,17 @@ class Evaluation extends CI_Controller {
 				'error_message' => 'Record for the given class ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		} else if ($result->is_active == FALSE OR $result->is_done == TRUE) {
+			$error_data = array(
+				'error_title' => 'Class Evaluation Not Active',
+				'error_message' => 'You cannot stop evaluation for this class because it is not currently active.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 		} else if ($this->evaluator_model->get_evaluator($class_id)->evaluator_id !== $this->session->userdata('user_id')) {
 			//prevent stop if not evaluator
 			$error_data = array(
 				'error_title' => 'Class Evaluation Stop Not Allowed',
 				'error_message' => 'You are not in charge of the evaluation for this class.'
-				);
-			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-		}	else if ($result->is_active == FALSE OR $result->is_done == TRUE) {
-			$error_data = array(
-				'error_title' => 'Class Evaluation Not Active',
-				'error_message' => 'You cannot stop evaluation for this class because it is not currently active.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 		} else if (!$this->evaluation_model->get_by_class($class_id)) {
@@ -197,13 +197,19 @@ class Evaluation extends CI_Controller {
  * was successful or not.
  * @param  int $class_id	valid class ID
  */
-	public function cancel($class_id) {
+	public function cancel($class_id = FALSE) {
 		$result = $this->class_model->get_by_id($class_id);
 		//check if ID is valid
 		if ($result === FALSE) {
 			$error_data = array(
 				'error_title' => 'No Such Entry Exists',
 				'error_message' => 'Record for the given class ID does not exist in the database.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		} else if ($result->is_active == FALSE OR $result->is_done == TRUE) {
+			$error_data = array(
+				'error_title' => 'Class Evaluation Not Active',
+				'error_message' => 'You cannot cancel evaluation for this class because it is not currently active.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 		} else if ($this->evaluator_model->get_evaluator($class_id)->evaluator_id !== $this->session->userdata('user_id')) {
@@ -213,13 +219,7 @@ class Evaluation extends CI_Controller {
 				'error_message' => 'You are not in charge of the evaluation for this class.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-		}	else if ($result->is_active == FALSE OR $result->is_done == TRUE) {
-			$error_data = array(
-				'error_title' => 'Class Evaluation Not Active',
-				'error_message' => 'You cannot cancel evaluation for this class because it is not currently active.'
-				);
-			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-		} else {
+		}	else {
 			//must go through delete-confirm form
 			$confirm = $this->input->post('confirm');
 
@@ -273,7 +273,7 @@ class Evaluation extends CI_Controller {
  * @return boolean				TRUE if pdf was successfully generated and temp files
  * 												deleted. Else, FALSE.
  */
-	public function code($class_id) {
+	public function code($class_id = FALSE) {
 		$this->load->model('access_code_model');
 		$class = $this->class_model->get_by_id($class_id);
 		//check if ID is valid

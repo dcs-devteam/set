@@ -32,4 +32,6 @@
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/evaluation.css')?>">
 <?php elseif (($this->uri->segment(1) === 'account')):?>
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/account.css')?>">
+<?php elseif (($this->uri->segment(1) === 'superadmin')):?>
+		<link rel="stylesheet" href="<?php echo base_url('assets/css/superadmin.css')?>">
 <?php endif;?>
