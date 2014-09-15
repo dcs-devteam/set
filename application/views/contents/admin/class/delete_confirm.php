@@ -5,7 +5,7 @@
 	<div class="panel-body">
 		<div id="message-content">
 			<p>Are you sure you want to delete class <?php echo $class->class_name.'-'.$class->section?>?</p>
-			<p>Deleting a class will also remove all evaluation forms linked to it.
+			<p>Deleting a class will also remove all evaluation forms linked to it.</p>
 		</div>
 	</div>
 	<div class="panel-footer">

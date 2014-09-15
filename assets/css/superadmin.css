@@ -7,3 +7,10 @@
 	text-align: center;
 	width: 75px !important;
 }
+
+/*office/view*/
+.office-table td:first-child,
+.office-table th:first-child {
+	text-align: right;
+	width: 1px !important;
+}

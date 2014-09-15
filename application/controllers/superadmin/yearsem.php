@@ -14,7 +14,7 @@ class Yearsem extends CI_Controller {
 
 /**
  * Default function when there is no URI segment after evaluation/superadmin/yearsem.
- * Redirects to superadmin/view.
+ * Calls superadmin/view.
  */
 	public function index() {
 		$this->view();
@@ -163,7 +163,7 @@ class Yearsem extends CI_Controller {
 /**
  * Displays the Edit Year and Semester form and calls form validation.
  * Calls the edit_year_semester function after successful validation.
- * Displays also the function result of the edit_account function.
+ * Displays also the function result of the edit_year_semester function.
  * @param  int $year			valid year
  * @param  int $semester	valid semester
  */
@@ -254,7 +254,6 @@ class Yearsem extends CI_Controller {
 			return FALSE;
 		}
 	}
-
 
 /**
  * Form Validation rule. A given year and semester must be unique or 

@@ -11,7 +11,7 @@
 							<a class="navbar-brand" href="<?php echo base_url()?>">
 								eValuation
 <?php if ($this->session->userdata('office_id')):?>
-									<small>(<?php echo $this->office_model->get($this->office_id)->name?>)</small>
+									<small>(<?php echo $this->office_model->get_by_id($this->office_id)->name?>)</small>
 <?php endif;?>
 							</a>
 						</div>

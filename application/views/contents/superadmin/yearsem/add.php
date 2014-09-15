@@ -1,7 +1,7 @@
-<?php echo form_open('superadmin/yearsem/add',array('class'=>'form-horizontal','semester'=>'form'))?>
+<?php echo form_open('superadmin/yearsem/add',array('class'=>'form-horizontal','role'=>'form'))?>
 	<div class="panel panel-primary form-container">
 		<div class="panel-heading">
-			<h3 class="panel-title">Add Account</h3>
+			<h3 class="panel-title">Add Year and Semester</h3>
 		</div>
 		<div class="panel-body">
 			<div class="form-group">

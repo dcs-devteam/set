@@ -96,7 +96,7 @@ class Account_model extends CI_Model {
  * @param string $password
  * @param string $role
  * @param int $office_id				valid office ID
- * @return int 									ID of successfully inserted teacher
+ * @return int 									ID of successfully inserted
  * 														  FALSE if insert failed
  */
 	public function add($first_name, $last_name, $email_address, $password, $role, $office_id) {

@@ -108,7 +108,7 @@ class Year_semester_model extends CI_Model {
 	}
 
 /**
- * Inserts year and semester.
+ * Updates year and semester.
  * @param string $year
  * @param string $semester
  * @param string $start_date

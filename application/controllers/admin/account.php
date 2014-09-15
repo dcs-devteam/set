@@ -125,7 +125,7 @@ class Account extends CI_Controller {
 				'first_name' => $this->session->userdata('first_name'),
 				'last_name' => $this->session->userdata('last_name'),
 				'email_address' => $this->session->userdata('email_address'),
-				'office' => $this->office_model->get($this->session->userdata('office_id'))->name,
+				'office' => $this->office_model->get_by_id($this->session->userdata('office_id'))->name,
 				),
 			'account' => array(
 				'first_name' => $first_name,
@@ -314,7 +314,7 @@ class Account extends CI_Controller {
 					'first_name' => $this->session->userdata('first_name'),
 					'last_name' => $this->session->userdata('last_name'),
 					'email_address' => $this->session->userdata('email_address'),
-					'office' => $this->office_model->get($this->session->userdata('office_id'))->name,
+					'office' => $this->office_model->get_by_id($this->session->userdata('office_id'))->name,
 					),
 				'account' => array(
 					'first_name' => $first_name,

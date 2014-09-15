@@ -1,4 +1,4 @@
-<h2>Teachers (<?php echo $this->office_model->get($this->office_id)->name?>)</h2>
+<h2>Teachers (<?php echo $this->office_model->get_by_id($this->office_id)->name?>)</h2>
 <?php if(!empty($teachers)):?>
 	<table class="table table-striped table-hover table-bordered teacher-table data-table">
 		<thead>

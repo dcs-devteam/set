@@ -1,7 +1,7 @@
-<?php echo form_open('superadmin/yearsem/edit/'.$year_semester->year.'/'.$year_semester->semester,array('class'=>'form-horizontal','semester'=>'form'))?>
+<?php echo form_open('superadmin/yearsem/edit/'.$year_semester->year.'/'.$year_semester->semester,array('class'=>'form-horizontal','role'=>'form'))?>
 	<div class="panel panel-warning form-container">
 		<div class="panel-heading">
-			<h3 class="panel-title">Edit Account</h3>
+			<h3 class="panel-title">Edit Year and Semester</h3>
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
