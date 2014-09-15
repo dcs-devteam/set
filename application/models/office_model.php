@@ -6,6 +6,23 @@ class Office_model extends CI_Model {
 	}
 
 /**
+ * Returns all offices.
+ * @return object		office row (as object) found. else, FALSE.
+ */
+	public function get() {
+		$this->db->from('office');
+		$this->db->order_by("name", "asc");
+
+		$query = $this->db->get();
+
+		if($query->num_rows() >= 1) {
+			return $query->result();
+		}	else {
+			return FALSE;
+		}
+	}
+
+/**
  * Returns an office given its ID.
  * @param  int $id	valid office ID
  * @return object		office row (as object) found. else, FALSE.
@@ -18,23 +35,6 @@ class Office_model extends CI_Model {
 		$query = $this->db->get();
 		if($query->num_rows() >= 1) {
 			return $query->row();
-		}	else {
-			return FALSE;
-		}
-	}
-
-/**
- * Returns all offices.
- * @return object		office row (as object) found. else, FALSE.
- */
-	public function get() {
-		$this->db->from('office');
-		$this->db->order_by("name", "asc");
-
-		$query = $this->db->get();
-
-		if($query->num_rows() >= 1) {
-			return $query->result();
 		}	else {
 			return FALSE;
 		}

@@ -1,44 +1,43 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Account extends CI_Controller {
+class Admin extends CI_Controller {
 	function __construct() {
 		parent::__construct();
-		//refuse access when not logged in as admin
+		//refuse access when not logged in as superadmin
 		if (!$this->session->userdata('role')) {
 			redirect(base_url());
-		} else if ($this->session->userdata('role') !== 'admin') {
+		} else if ($this->session->userdata('role') !== 'superadmin') {
 			show_403_error();
 		}
-		$this->load->model('office_model');
 		$this->load->model('account_model');
-		$this->office_id = $this->session->userdata('office_id');
+		$this->load->model('office_model');
 	}
 
 /**
- * Default function when there is no URI segment after evaluation/admin/account.
- * Calls the view function.
+ * Default function when there is no URI segment after superadmin/admin.
+ * Calls admin/view.
  */
 	public function index() {
 		$this->view();
 	}
 
 /**
- * Displays all accounts of the office of user.
+ * Displays list of admins.
  */
 	public function view() {
 		$view_data = array(
-			'accounts' => $this->account_model->get_by_office($this->office_id, $this->session->userdata('role')),
+			'admins' => $this->account_model->get_by_role('admin')
 			);
 		$data['page_title'] = 'eValuation';
-		$data['body_content'] = $this->load->view('contents/admin/account/view',$view_data,TRUE);
+		$data['body_content'] = $this->load->view('contents/superadmin/admin/view',$view_data,TRUE);
 		$this->parser->parse('layouts/default', $data);
 	}
 
 /**
- * Displays the Add Account form and calls form validation.
- * After successful form validation, it calls the add_account function that
+ * Displays the Add Admin form and calls form validation.
+ * After successful form validation, it calls the add_admin function that
  * passes the data for insertion to the database.
- * It then displays whether the add_account function is successful or not.
+ * It then displays whether the add_admin function is successful or not.
  */
 	public function add() {
 		$this->load->library('form_validation');
@@ -60,8 +59,8 @@ class Account extends CI_Controller {
 				'rules' => 'trim|required|xss_clean|valid_email|callback_unique_email'
 				),
 			array(
-				'field' => 'role',
-				'label' => 'Role',
+				'field' => 'office',
+				'label' => 'Office',
 				'rules' => 'trim|required|xss_clean'
 				),
 			);
@@ -70,29 +69,26 @@ class Account extends CI_Controller {
 		if ($this->form_validation->run() == FALSE) {
 			//validation failure, return to form
 			$form_data = array(
-				'roles' => array(
-					'evaluator' => 'Evaluator',
-					'staff' => 'Staff'
-					)
+				'offices' => $this->office_model->get()
 				);
-			$data['body_content'] = $this->load->view('contents/admin/account/add',$form_data,TRUE);
+			$data['body_content'] = $this->load->view('contents/superadmin/admin/add',$form_data,TRUE);
 		} else {
-			//validation success, add account
-			$add_result = $this->add_account();
+			//validation success, add admin
+			$add_result = $this->add_admin();
 			$message = '';
 			$error = '';
 			$success = FALSE;
 			if ($add_result) {
-				$message = 'Account was successfully added.';
+				$message = 'Admin was successfully added.';
 				$success = TRUE;
 			} else {
-				$message = 'Account add failed.';
+				$message = 'Admin add failed.';
 				if ($this->db->_error_message()) {
 					$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
 				}
 			}
 			$add_data = array('message' => $message, 'error' => $error, 'success' => $success);
-			$data['body_content'] = $this->load->view('contents/admin/account/function_result',$add_data,TRUE);
+			$data['body_content'] = $this->load->view('contents/superadmin/admin/function_result',$add_data,TRUE);
 		}
 
 		$data['page_title'] = 'eValuation';
@@ -100,22 +96,29 @@ class Account extends CI_Controller {
 	}
 
 /**
- * Passes first_name, last_name, email_address, role, and office_id to account_model->add function for insertion
+ * Passes first_name, last_name, email_address, and office_id to account_model->add function for insertion
  * to the database.
  * @return boolean TRUE if account was successfully added. Else, FALSE.
  */
-	private function add_account() {
+	private function add_admin() {
 		$first_name = $this->input->post('first_name');
 		$last_name = $this->input->post('last_name');
 		$email_address = $this->input->post('email_address');
-		$role = $this->input->post('role');
+		$office_name = $this->input->post('office');
+		$role = 'admin';
+
+		//office - add if not exists
+		$office = $this->office_model->get_by_name($office_name);
+		if (!$office) {
+			$office = $this->office_model->get_by_id($this->office_model->add($office_name));
+		}
 
 		//generate password
 		$password = $this->generate_password();
 		// send email
 		$this->load->library('email');
-		$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
-		$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
+		$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Super Admin)');
+		$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Super Admin)');
 		$this->email->to($email_address);
 		$this->email->subject('eValuation '.ucfirst($role).' Account Details');
 
@@ -124,8 +127,7 @@ class Account extends CI_Controller {
 			'admin' => array(
 				'first_name' => $this->session->userdata('first_name'),
 				'last_name' => $this->session->userdata('last_name'),
-				'email_address' => $this->session->userdata('email_address'),
-				'office' => $this->office_model->get_by_id($this->session->userdata('office_id'))->name,
+				'email_address' => $this->session->userdata('email_address')
 				),
 			'account' => array(
 				'first_name' => $first_name,
@@ -133,12 +135,13 @@ class Account extends CI_Controller {
 				'password' => $password,
 				'email_address' => $email_address,
 				'role' => $role,
+				'office' => $office->name,
 				),
 			);
 		
-		$this->email->message($this->load->view('contents/admin/account/email_add_account',$email_data, TRUE));
+		$this->email->message($this->load->view('contents/superadmin/admin/email_add_account',$email_data, TRUE));
 
-		$result = $this->account_model->add($first_name, $last_name, $email_address, $password, $role, $this->office_id);
+		$result = $this->account_model->add($first_name, $last_name, $email_address, $password, $role, $office->office_id);
 		if ($result) {
 			//only send if account was stored
 			$this->email->send();
@@ -199,22 +202,22 @@ class Account extends CI_Controller {
 	}
 
 /**
- * Displays the Edit Account form and calls form validation.
- * Calls the edit_account function after successful validation.
- * Displays also the function result of the edit_account function.
+ * Displays the Edit Admin form and calls form validation.
+ * Calls the edit_admin function after successful validation.
+ * Displays also the function result of the edit_admin function.
  * @param  int $user_id	valid user ID
  */
 	public function edit($user_id = FALSE) {
 		$this->load->model('evaluator_model');
 
-		$account = $this->account_model->get_by_id($user_id);
-		if ($account === FALSE) {
+		$admin = $this->account_model->get_by_id($user_id);
+		if ($admin === FALSE) {
 			$error_data = array(
 				'error_title' => 'No Such Account Exists',
 				'error_message' => 'Record for the given account ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-		} else if ($this->evaluator_model->has_active_evaluation($user_id, $this->office_id)) {
+		} else if ($this->evaluator_model->has_active_evaluation($user_id, $admin->office_id)) {
 			$error_data = array(
 				'error_title' => 'Edit Disallowed',
 				'error_message' => 'User is currently conducting an evaluation. Wait until the evaluation has finished before editing the account.'
@@ -240,8 +243,8 @@ class Account extends CI_Controller {
 					'rules' => 'trim|required|xss_clean|valid_email|callback_unique_new_email['.$user_id.']'
 					),
 				array(
-					'field' => 'role',
-					'label' => 'Role',
+					'field' => 'office',
+					'label' => 'Office',
 					'rules' => 'trim|required|xss_clean'
 					),
 				);
@@ -250,16 +253,13 @@ class Account extends CI_Controller {
 			if ($this->form_validation->run() == FALSE) {
 				//validation failure, return to form
 				$edit_data = array(
-					'account' => $account,
-					'roles' => array(
-						'evaluator' => 'Evaluator',
-						'staff' => 'Staff'
-						)
+					'admin' => $admin,
+					'offices' => $this->office_model->get()
 					);
-				$data['body_content'] = $this->load->view('contents/admin/account/edit',$edit_data,TRUE);
+				$data['body_content'] = $this->load->view('contents/superadmin/admin/edit',$edit_data,TRUE);
 			} else {
-				//validation success, edit account
-				$edit_result = $this->edit_account($user_id);
+				//validation success, edit admin
+				$edit_result = $this->edit_admin($user_id);
 				$message = '';
 				$error = '';
 				$success = FALSE;
@@ -273,7 +273,7 @@ class Account extends CI_Controller {
 					}
 				}
 				$edit_data = array('message' => $message, 'error' => $error, 'success' => $success);
-				$data['body_content'] = $this->load->view('contents/admin/account/function_result',$edit_data,TRUE);
+				$data['body_content'] = $this->load->view('contents/superadmin/admin/function_result',$edit_data,TRUE);
 			}
 		}
 
@@ -286,12 +286,19 @@ class Account extends CI_Controller {
  * @param  int $user_id	valid user ID
  * @return boolean 			TRUE if account was successfully edited. Else, FALSE.
  */
-	private function edit_account($user_id) {
+	private function edit_admin($user_id) {
 		$first_name = $this->input->post('first_name');
 		$last_name = $this->input->post('last_name');
 		$email_address = $this->input->post('email_address');
-		$role = $this->input->post('role');
 		$password = FALSE;
+		$role = 'admin';
+		$office_name = $this->input->post('office');
+
+		//office - add if not exists
+		$office = $this->office_model->get_by_name($office_name);
+		if (!$office) {
+			$office = $this->office_model->get_by_id($this->office_model->add($office_name));
+		}
 
 		//old values
 		$old_account = $this->account_model->get_by_id($user_id);
@@ -300,14 +307,14 @@ class Account extends CI_Controller {
 		if ( $old_account->first_name !== $first_name
 			OR $old_account->last_name !== $last_name
 			OR $old_account->email_address !== $email_address
-			OR $old_account->role !== $role
+			OR $old_account->office_id !== $office->office_id
 			) {
 			$changed = TRUE;
 
 			//email current address
 			$this->load->library('email');
-			$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
-			$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Administrator)');
+			$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Super Admin)');
+			$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Super Admin)');
 			$this->email->to($email_address);
 			$this->email->subject('eValuation Account was Changed');
 
@@ -317,13 +324,13 @@ class Account extends CI_Controller {
 					'first_name' => $this->session->userdata('first_name'),
 					'last_name' => $this->session->userdata('last_name'),
 					'email_address' => $this->session->userdata('email_address'),
-					'office' => $this->office_model->get_by_id($this->session->userdata('office_id'))->name,
 					),
 				'account' => array(
 					'first_name' => $first_name,
 					'last_name' => $last_name,
 					'email_address' => $email_address,
 					'role' => $role,
+					'office' => $office->name,
 					),
 				);
 
@@ -337,15 +344,15 @@ class Account extends CI_Controller {
 			if ($email_address !== $old_account->email_address) {
 				$email_data['changes']['email_address'] = TRUE;
 			}
-			if ($role !== $old_account->role) {
-				$email_data['changes']['role'] = TRUE;
+			if ($office->office_id !== $old_account->office_id) {
+				$email_data['changes']['office'] = TRUE;
 			}
 
-			$this->email->message($this->load->view('contents/admin/account/email_edit_account',$email_data, TRUE));
+			$this->email->message($this->load->view('contents/superadmin/admin/email_edit_account',$email_data, TRUE));
 
 		}
 
-		$result = $this->account_model->edit($user_id, $first_name, $last_name, $email_address, $password, $role, $this->office_id);
+		$result = $this->account_model->edit($user_id, $first_name, $last_name, $email_address, $password, $role, $office->office_id);
 		if ($result) {
 			if ($changed) {
 				//send only if successfully edited
@@ -404,21 +411,21 @@ class Account extends CI_Controller {
 
 /**
  * Displays the delete confirmation form for a given account.
- * Calls the delete_account function and displays whether the function
+ * Calls the delete_admin function and displays whether the function
  * was successful or not.
  * @param  int $user_id	valid user ID
  */
 	public function delete($user_id = FALSE) {
 		$this->load->model('evaluator_model');
 
-		$account = $this->account_model->get_by_id($user_id);
-		if ($account === FALSE) {
+		$admin = $this->account_model->get_by_id($user_id);
+		if ($admin === FALSE) {
 			$error_data = array(
 				'error_title' => 'No Such Account Exists',
 				'error_message' => 'Record for the given account ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-		} else if ($this->evaluator_model->has_active_evaluation($user_id, $this->office_id)) {
+		} else if ($this->evaluator_model->has_active_evaluation($user_id, $admin->office_id)) {
 			$error_data = array(
 				'error_title' => 'Delete Disallowed',
 				'error_message' => 'User is currently conducting an evaluation. Wait until the evaluation has finished before deleting the account.'
@@ -431,12 +438,12 @@ class Account extends CI_Controller {
 			if ($confirm !== 'TRUE') {
 				//confirmation dialog
 				$delete_confirm_data = array(
-					'account' => $account
+					'admin' => $admin
 					);
 
-				$data['body_content'] = $this->load->view('contents/admin/account/delete_confirm',$delete_confirm_data,TRUE);
+				$data['body_content'] = $this->load->view('contents/superadmin/admin/delete_confirm',$delete_confirm_data,TRUE);
 			} else {
-				$delete_result = $this->delete_account($user_id);
+				$delete_result = $this->delete_admin($user_id);
 
 				$message = '';
 				$error = '';
@@ -451,7 +458,7 @@ class Account extends CI_Controller {
 					}
 				}
 				$delete_data = array('message' => $message, 'error' => $error, 'success' => $success);
-				$data['body_content'] = $this->load->view('contents/admin/account/function_result',$delete_data,TRUE);
+				$data['body_content'] = $this->load->view('contents/superadmin/admin/function_result',$delete_data,TRUE);
 			}
 		}
 		$data['page_title'] = "eValuation";
@@ -463,7 +470,7 @@ class Account extends CI_Controller {
  * @param  int $user_id	valid user ID
  * @return boolean 				TRUE if account was successfully deleted. Else, FALSE.
  */
-	private function delete_account($user_id) {
+	private function delete_admin($user_id) {
 		if ($this->account_model->delete($user_id)) {
 			return TRUE;
 		} else {
@@ -472,5 +479,5 @@ class Account extends CI_Controller {
 	}
 }
 
-/* End of file account.php */
-/* Location: ./application/controllers/admin/account.php */
+/* End of file admin.php */
+/* Location: ./application/controllers/superadmin/admin.php */

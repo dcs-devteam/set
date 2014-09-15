@@ -218,5 +218,20 @@
 					),
 				);
 	}
+
+/**
+ * Returns office name given an office ID.
+ * @param  int $office_id valid office ID
+ * @return string         office name if found. none if false.
+ */
+	function office_name($office_id) {
+		$CI =& get_instance();
+		$CI->load->model('office_model');
+		$office = $CI->office_model->get_by_id($office_id);
+		if ($office) {
+			return $office->name;
+		}
+		return '';
+	}
 /* End of file text_helper.php */
 /* Location: ./application/helpers/text_helper.php */

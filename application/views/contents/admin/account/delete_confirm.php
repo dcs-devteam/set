@@ -5,8 +5,7 @@
 	<div class="panel-body">
 		<div id="message-content">
 			<p>Are you sure you want to delete the account of <?php echo $account->last_name.', '.$account->first_name?>?</p>
-			<p>Deleting an account will also remove all classes he/she currently handles.</p>
-		</div>
+			</div>
 	</div>
 	<div class="panel-footer">
 		<?php echo form_open('admin/account/delete/'.$account->user_id, array('id' => 'delete-confirm-form'));?>

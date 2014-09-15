@@ -14,3 +14,10 @@
 	text-align: right;
 	width: 1px !important;
 }
+
+/*admin/view*/
+.admin-table th:first-child,
+.admin-table td:first-child {
+	text-align: right;
+	width: 1px !important;
+}

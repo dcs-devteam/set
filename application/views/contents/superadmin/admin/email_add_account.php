@@ -2,17 +2,16 @@
 <head></head>
 <body>
 	<div>
-		<p>An eValuation <?php echo $account['role']?> account has been created for <?php echo $account['first_name'].' '.$account['last_name']?>.</p>
+		<p>An eValuation <?php echo $account['role']?> account has been created for <?php echo $account['first_name'].' '.$account['last_name']?>. This <?php echo $account['role']?> account is assigned to the <?php echo $account['office']?> of the University of the Philippines Cebu.</p>
 		<p>eValuation is an online Students' Evaluation of Teachers tool created for UP Cebu. This system was designed to replace the pen and paper evaluation system previously used by the university.</p>
-		<p>The account was created by <?php echo $admin['first_name'].' '.$admin['last_name'].' ('.$admin['email_address'].')'?> of the University of the Philippines Cebu's <?php echo $admin['office']?>. Please disregard this email if you are not <?php echo $account['first_name'].' '.$account['last_name']?> or contact 
-			<a href="mailto:<?php echo $admin['email_address']?>?subject=eValuation%20Account%20Error&body=This%20is%20to%20inform%20you%20that%20the%20owner%20of%20the%20email%20address%20<?php echo $account['email_address']?>%20is%20not%20<?php echo $account['first_name'].'%20'.$account['last_name']?>,%20a/an%20<?php echo ucfirst($account['role'])?>%20assigned%20to%20the%20<?php echo $admin['office']?>.%20Please%20edit%20the%20account's%20email%20address%20to%20the%20correct%20one." target="_blank">
+		<p>The account was created by <?php echo $admin['first_name'].' '.$admin['last_name'].' ('.$admin['email_address'].')'?>, the super admin of eValuation. Please disregard this email if you are not <?php echo $account['first_name'].' '.$account['last_name']?> or contact 
+			<a href="mailto:<?php echo $admin['email_address']?>?subject=eValuation%20Account%20Error&body=This%20is%20to%20inform%20you%20that%20the%20owner%20of%20the%20email%20address%20<?php echo $account['email_address']?>%20is%20not%20<?php echo $account['first_name'].'%20'.$account['last_name']?>,%20a/an%20<?php echo ucfirst($account['role'])?>%20assigned%20to%20the%20<?php echo $account['office']?>.%20Please%20edit%20the%20account's%20email%20address%20to%20the%20correct%20one." target="_blank">
 				<?php echo $admin['email_address']?>
 			</a> to inform him/her of the mistake.
 		</p>
 		<br>
-		<br>
 		<?php if ($account['role'] === 'admin'):?>
-			<p>As an administrator, you will be responsible for managing the courses, classes, teachers, and other eValuation accounts belonging to the <?php echo $admin['office']?>.</p>
+			<p>As an administrator, you will be responsible for managing the courses, classes, teachers, and other eValuation accounts belonging to the <?php echo $account['office']?>.</p>
 			<ol>
 				<li>To view, add, edit, and delete the courses, classes, teachers, and eValuation accounts, login first to the <a href="<?php echo base_url('login')?>">eValuation website</a>.</li>
 				<li>To view, click on either "Classes", "Teachers", "Courses", or "Accounts". Select "View ..." to view all class, teacher, course, or account entries.</li>
@@ -22,7 +21,7 @@
 			<ul>
 				<li>As an administrator, you are also an evaluator or staff. Refer below for the roles' information.</li>
 			</ul>
-			<br><br>
+			<br>
 		<?php endif;?>
 		<?php if ($account['role'] === 'evaluator' OR $account['role'] === 'admin'):?>
 			<p>As an evaluator, you will be responsible for facilitating the evaluation process.</p>
@@ -38,7 +37,7 @@
 				<li>You could also cancel a class evaluation if there are insufficient students available. To cancel an evaluation, click on the "Cancel" button of the currently evaluated class.</li>
 				<li>Access codes can be reprinted by clicking on the "Access Codes" button.</li>
 			</ul>
-			<br><br>
+			<br>
 		<?php endif;?>
 		<?php if ($account['role'] === 'staff' OR $account['role'] === 'admin'):?>
 			<p>As a staff, you will be responsible for generating and printing the evaluation reports.</p>
@@ -51,11 +50,11 @@
 			<ul>
 				<li>You can use the Search bar at the upper right of the list to filter the classes according to course, teacher, etc.</li>
 			</ul>
-			<br><br>
+			<br>
 		<?php endif;?>
 		<br>
 		<p><strong>Account Details:</strong></p>
-		<p>Office: <strong><?php echo $admin['office']?></strong></p>
+		<p>Office: <strong><?php echo $account['office']?></strong></p>
 		<p>First Name: <strong><?php echo $account['first_name']?></strong></p>
 		<p>Last Name: <strong><?php echo $account['last_name']?></strong></p>
 		<p>Email Address: <strong><?php echo $account['email_address']?></strong></p>

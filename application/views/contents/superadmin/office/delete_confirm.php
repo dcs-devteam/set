@@ -6,7 +6,7 @@
 		<div id="message-content">
 			<p>Are you sure you want to delete the office <strong><?php echo $office->name?></strong>?</p>
 			<p>Deleting an office will also remove all courses, classes, teachers, evaluation forms, and accounts related to it.</p>
-			<p><strong>Deletion is permanent and cannot be undone.</strong></p>
+			<p><strong>Note: Deletion is permanent and cannot be undone.</strong></p>
 		</div>
 	</div>
 	<div class="panel-footer">

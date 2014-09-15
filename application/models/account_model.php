@@ -69,6 +69,31 @@ class Account_model extends CI_Model {
 	}
 
 /**
+ * Returns all users by role
+ * @param  string $role		'admin','evaluator','staff'
+ * @return array					account rows (as object)
+ * 												FALSE if user not found
+ */
+	public function get_by_role($role) {
+		if ($role === 'superadmin') {
+			return FALSE;
+		}
+		$this->db->select('user_id, email_address, first_name, last_name, email_address, role, office_id');
+		$this->db->where('role', $role);
+
+		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('first_name', 'asc');
+
+		$query = $this->db->get('user');
+
+		if($query->num_rows() >= 1) {
+			return $query->result();
+		}	else {
+			return FALSE;
+		}
+	}
+
+/**
  * Returns user ID given first and last names.
  * @param  string $first_name	valid first name
  * @param  string $last_name	valid last name

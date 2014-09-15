@@ -1,3 +1,4 @@
+<h2>Offices</h2>
 <?php if(!empty($offices)):?>
 	<table class="table table-striped table-hover table-bordered office-table data-table">
 		<thead>

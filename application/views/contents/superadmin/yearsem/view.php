@@ -7,6 +7,7 @@
 		<p>No current year and semester was found. Click <a href="<?php echo base_url('superadmin/yearsem/add')?>">here</a> to set the current year and semester.</p>
 	</div>
 <?php endif;?>
+<h2>Year and Semesters</h2>
 <?php if(!empty($year_semesters)):?>
 	<table class="table table-striped table-hover table-bordered yearsem-table data-table">
 		<thead>
