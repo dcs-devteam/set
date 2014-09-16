@@ -293,6 +293,15 @@ class Evaluation extends CI_Controller {
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 			$data['page_title'] = "eValuation";
 			$this->parser->parse('layouts/default', $data);
+		} else if ($this->evaluator_model->get_evaluator($class_id)->evaluator_id !== $this->session->userdata('user_id')) {
+			//prevent stop if not evaluator
+			$error_data = array(
+				'error_title' => 'Access Code Generation Not Allowed',
+				'error_message' => 'You are not in charge of the evaluation for this class.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+			$data['page_title'] = "eValuation";
+			$this->parser->parse('layouts/default', $data);
 		} else {
 			$code_data['class'] = $class;
 			$code_data['codes'] = $this->access_code_model->get_by_class($class_id);
