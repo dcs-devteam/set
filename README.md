@@ -1,7 +1,7 @@
 eValuation
 ==========
 
-eValuation is an online Evaluation of Teachers tool for University of the Philippines Cebu.
+eValuation is an online Students' Evaluation of Teachers tool for University of the Philippines Cebu.
 
 Installation
 ============
