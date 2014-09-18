@@ -22,5 +22,5 @@
 		</tbody>
 	</table>
 <?php else:?>
-	<div class="alert alert-warning" role="alert">No course found. Add a course by clicking on this <a href="<?php echo base_url('admin/course/add')?>">link.</a></div>
+	<div class="alert alert-warning" role="alert">No courses found. Add a course by clicking on this <a href="<?php echo base_url('admin/course/add')?>">link.</a></div>
 <?php endif;?>

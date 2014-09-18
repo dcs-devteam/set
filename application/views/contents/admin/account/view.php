@@ -32,5 +32,5 @@
 		</tbody>
 	</table>
 <?php else:?>
-	<div class="alert alert-warning" role="alert">No account found. Add an account by clicking on this <a href="<?php echo base_url('admin/account/add')?>">link.</a></div>
+	<div class="alert alert-warning" role="alert">No accounts found. Add an account by clicking on this <a href="<?php echo base_url('admin/account/add')?>">link.</a></div>
 <?php endif;?>

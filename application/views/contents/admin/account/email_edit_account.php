@@ -17,7 +17,7 @@
 					<li>To view, add, edit, and delete the courses, classes, teachers, and eValuation accounts, login first to the <a href="<?php echo base_url('login')?>">eValuation website</a>.</li>
 					<li>To view, click on either "Classes", "Teachers", "Courses", or "Accounts". Select "View ..." to view all class, teacher, course, or account entries.</li>
 					<li>In the View page, you can edit or delete a specific entry by clicking on the "Edit" or "Delete" button to the right of the respective entry.</li>
-					<li>To add a class, teacher, course, or account, select "Add ..." under the Classes, Teachers, Courses, or Accounts dropdown menu. Fill up the details in the form, and click on Add ... button.</li>
+					<li>To add a class, teacher, course, or account, select "Add ..." under the Classes, Teachers, Courses, or Accounts dropdown menu. Fill up the details in the form, and click on the Add ... button.</li>
 				</ol>
 				<ul>
 					<li>As an administrator, you are also an evaluator or staff. Refer below for the roles' information.</li>

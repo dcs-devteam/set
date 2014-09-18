@@ -24,3 +24,5 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 		header('Content-Disposition: inline; filename="'.$filename.'.pdf"');
 		echo $snappy->getOutput(base_url('assets/temp/temp.php'));
 	}
+/* End of file wkhtmltopdf_helper.php */
+/* Location: ./application/helpers/wkhtmltopdf_helper.php */

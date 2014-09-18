@@ -24,5 +24,5 @@
 		</tbody>
 	</table>
 <?php else:?>
-	<div class="alert alert-warning" role="alert">No teacher found. Add a teacher by clicking on this <a href="<?php echo base_url('admin/teacher/add')?>">link.</a></div>
+	<div class="alert alert-warning" role="alert">No teachers found. Add a teacher by clicking on this <a href="<?php echo base_url('admin/teacher/add')?>">link.</a></div>
 <?php endif;?>
