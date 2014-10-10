@@ -150,7 +150,13 @@ class Year_semester_model extends CI_Model {
 		echo 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
 
 		$this->db->trans_complete();
-		return $this->db->trans_status();
+		if ($this->db->trans_status()) {
+			//update current year and semester
+			$this->update_current();
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 }
 
