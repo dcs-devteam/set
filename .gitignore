@@ -220,3 +220,6 @@ pip-log.txt
 
 # CodeIgniter Log Files
 application/logs/
+
+# CodeIgniter User Guide
+user_guide/
