@@ -40,6 +40,11 @@ Extensions section in php.ini, uncomment or add the line:
 ```sh
 extension:php_openssl.dll
 ```
+The mod_rewrite module is also used, make sure it is loaded. In the httpd.conf file, uncomment or add the line:
+```sh
+LoadModule rewrite_module modules/mod_rewrite.so
+```
+Replace all "AllowOverride none" to "AllowOverride All"
 
 Database
 ===
@@ -71,6 +76,9 @@ $snappy->setBinary('C:\wkhtmltopdf\bin\wkhtmltopdf.exe');
 KnpLabs's Snappy (https://github.com/KnpLabs/snappy), a wkhtmltopdf PHP5 library was used to execute
 wkhtmltopdf's binary.
 
-SMTP host
-=========
-TODO
+HTTP
+===
+If you change the folder or project name, change the ReWriteBase field in the topmost .htaccess file:
+```sh
+RewriteBase /evaluation/
+```
