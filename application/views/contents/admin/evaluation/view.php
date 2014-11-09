@@ -1,5 +1,5 @@
+<h2>Currently Evaluated (<?php $year_sem=$this->year_semester_model->get_current(); echo format_semester($year_sem->semester).' Semester/A.Y. '.format_year($year_sem->year)?>)</h2>
 <?php if(!empty($classes_currently_evaluated)):?>
-	<h2>Currently Evaluated (<?php $year_sem=$this->year_semester_model->get_current(); echo format_semester($year_sem->semester).' Semester/A.Y. '.format_year($year_sem->year)?>)</h2>
 	<table class="table table-striped table-hover table-bordered class-table data-table">
 		<thead>
 			<tr>
@@ -33,8 +33,8 @@
 		</tbody>
 	</table>
 <?php endif;?>
+<h2>To be Evaluated <?php $year_sem=$this->year_semester_model->get_current(); if(empty($classes_currently_evaluated)) echo '('.format_semester($year_sem->semester).' Semester/A.Y. '.format_year($year_sem->year).')'?></h2>
 <?php if(!empty($classes_not_evaluated)):?>
-	<h2>To be Evaluated <?php $year_sem=$this->year_semester_model->get_current(); if(empty($classes_currently_evaluated)) echo '('.format_semester($year_sem->semester).' Semester/A.Y. '.format_year($year_sem->year).')'?></h2>
 	<table class="table table-striped table-hover table-bordered class-table data-table">
 		<thead>
 			<tr>

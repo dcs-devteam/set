@@ -1,11 +1,13 @@
 <div id="code-container">
 	<h3><?php echo $class->class_name.' '.$class->section.' ('.$class->number_of_students.')'?></h3>
 	<table>
-		<?php foreach ($codes as $code):?>
+		<?php for ($c_index = 0; $c_index < sizeof($codes); $c_index+=2):?>
 			<tr>
-				<td><?php echo $code->access_code?></td>
-				<td></td>
+				<td><?php echo $codes[$c_index]->access_code?></td>
+				<?php if (!empty($codes[$c_index+1])):?>
+					<td><?php echo $codes[$c_index=1]->access_code?></td>
+				<?php endif;?>
 			</tr>
-		<?php endforeach;?>
+		<?php endfor;?>
 	</table>
 </div>
