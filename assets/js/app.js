@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	evaluation_form.initialize();
- 	tables.initialize();
+	tables.initialize();
 	$(".tooltip-wrapper").tooltip({
 		placement:"right",
 		container:"body",
@@ -26,17 +26,25 @@ var tables = {
 		$('.data-table.account-table').DataTable({
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			"pageLength": 10,
-			"order": [[4,'asc']]
+			"order": [[4,'asc']],
+			"aoColumnDefs": [{ "bSearchable": false, "aTargets": [ 0 ] }]
 		});
 		$('.data-table.yearsem-table').DataTable({
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			"pageLength": 10,
 			"order": [[3,'desc'],[2,'desc'],[0,'desc'],[1,'desc']]
 		});
-		$('.data-table:not(".account-table,.yearsem-table")').DataTable({
+		$('.class-table').DataTable( {
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			"pageLength": 10,
-			"order": [[1,'asc']]
+			"order": [[1,'asc']],
+			"aoColumnDefs": [{ "bSearchable": false, "aTargets": [ 0,4 ] }]
+		});
+		$('.data-table:not(".account-table,.yearsem-table,.class-table")').DataTable({
+			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+			"pageLength": 10,
+			"order": [[1,'asc']],
+			"aoColumnDefs": [{ "bSearchable": false, "aTargets": [ 0 ] }]
 		});
 	}
 }
