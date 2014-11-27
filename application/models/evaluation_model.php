@@ -134,6 +134,15 @@ class Evaluation_model extends CI_Model {
 			return FALSE;
 		}
 	}
+
+	public function count_submissions($class_id) {
+		$this->db->from('evaluation_content');
+		$this->db->where('class_id', $class_id);
+
+		$query = $this->db->get();
+
+		return $query->num_rows();
+	}
 }
 
 /* End of file evaluation_model.php */

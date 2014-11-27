@@ -4,6 +4,12 @@
 	</div>
 	<div class="panel-body">
 		<div id="message-content">
+			<?php if(($class->submissions / $class->number_of_students) < 0.5): ?>
+				<div class="alert alert-warning" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					The number of submissions (<?php echo $class->submissions?>) is less than 50% of the total number of students (<?php echo $class->number_of_students?>).
+					</div>
+			<?php endif;?>
 			<p>Are you sure you want to stop evaluation for class <?php echo $class->class_name.'-'.$class->section?>?</p>
 			<p>Stopping a class evaluation will invalidate unused access codes for this class.</p>
 		</div>

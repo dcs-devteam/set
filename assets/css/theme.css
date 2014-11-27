@@ -104,7 +104,7 @@
 
 .confirm-container,
 .result-container {
-	max-width: 600px;
+	max-width: 625px;
 }
 
 .form-container.panel .panel-heading,
@@ -114,4 +114,34 @@
 .result-container .panel-heading,
 .result-container .panel-footer {
 	text-align: center;
+}
+
+.alert-warning {
+	background-color: rgba(231, 144, 0, 0.2);
+	border-color: rgba(231, 144, 0, 1);
+	color: rgba(231, 144, 0, 1);
+}
+
+.alert-primary {
+	background-color: rgba(6, 150, 155, 0.2);
+	border-color: rgba(6, 150, 155, 1);
+	color: rgba(6, 150, 155, 1);
+}
+
+.alert-success {
+	background-color: rgba(22, 155, 6, 0.2);
+	border-color: rgba(22, 155, 6, 1);
+	color: rgba(22, 155, 6, 1);
+}
+
+.alert-info {
+	background-color: rgba(23, 100, 190, 0.2);
+	border-color: rgba(23, 100, 190, 1);
+	color: rgba(23, 100, 190, 1);
+}
+
+.alert-danger {
+	background-color: rgba(214, 88, 72, 0.2);
+	border-color: rgba(214, 88, 72, 1);
+	color: rgba(214, 88, 72, 1);
 }

@@ -9,6 +9,7 @@
 				<th>Schedule</th>
 				<th>Students</th>
 				<th>Teacher</th>
+				<th>Submissions</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -21,6 +22,12 @@
 					<td><?php echo $class->schedule?></td>
 					<td><?php echo $class->number_of_students?></td>
 					<td><?php $teacher = $this->teacher_model->get_by_id($class->teacher_id);echo $teacher->last_name.', '.$teacher->first_name?></td>
+					<td>
+						<?php echo $class->submissions.'/'.$class->number_of_students?>
+						<?php if(($class->submissions/$class->number_of_students) >= 0.5):?>
+							<span class="badge pull-right">>50%</span>
+						<?php endif;?>
+					</td>
 					<td>
 						<?php if($this->evaluator_model->get_evaluator($class->class_id)->evaluator_id == $this->session->userdata('user_id')):?>
 							<a class="btn btn-success btn-xs" target="_blank" href="<?php echo base_url('admin/evaluation/code/'.$class->class_id)?>">Access Codes</a>
