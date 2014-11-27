@@ -135,6 +135,11 @@ class Evaluation_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns number of submitted evaluation forms given the class ID.
+ * @param  int $class_id	valid class ID
+ * @return int						number of submitted evaluations for the class
+ */
 	public function count_submissions($class_id) {
 		$this->db->from('evaluation_content');
 		$this->db->where('class_id', $class_id);
@@ -142,6 +147,27 @@ class Evaluation_model extends CI_Model {
 		$query = $this->db->get();
 
 		return $query->num_rows();
+	}
+
+/**
+ * Returns the total number of submitted evaluation forms and the total number of students.
+ * @param  int $office_id	valid office ID
+ * @return array						number of submitted evaluations ['evaluations']
+ *                          number of students ['students']
+ */
+	public function total_evaluations($office_id) {
+		$this->load->model('class_model');
+		$classes = $this->class_model->get($office_id);
+		$result['students'] = 0;
+		$result['evaluations'] = 0;
+		if (is_array($classes) && count($classes) > 0) {
+			foreach ($classes as $class) {
+				$result['students'] += $class->number_of_students;
+				$result['evaluations'] += $this->count_submissions($class->class_id);
+			}
+		}
+
+		return $result;
 	}
 }
 

@@ -117,31 +117,46 @@
 }
 
 .alert-warning {
-	background-color: rgba(231, 144, 0, 0.2);
+	background-color: rgba(231, 144, 0, 0.1);
 	border-color: rgba(231, 144, 0, 1);
-	color: rgba(231, 144, 0, 1);
+	/*color: rgba(231, 144, 0, 1);*/
+	color: rgba(138, 109, 59, 1);
 }
 
 .alert-primary {
-	background-color: rgba(6, 150, 155, 0.2);
-	border-color: rgba(6, 150, 155, 1);
-	color: rgba(6, 150, 155, 1);
+	background-color: rgba(66, 139, 202, 0.1);
+	border-color: rgba(66, 139, 202, 1);
+	color: rgba(66, 139, 202, 1);
+	color: rgba(49, 112, 143, 1);
 }
 
 .alert-success {
-	background-color: rgba(22, 155, 6, 0.2);
+	background-color: rgba(22, 155, 6, 0.1);
 	border-color: rgba(22, 155, 6, 1);
-	color: rgba(22, 155, 6, 1);
+	/*color: rgba(22, 155, 6, 1);*/
+	color: rgba(60, 118, 61, 1);
 }
 
 .alert-info {
-	background-color: rgba(23, 100, 190, 0.2);
-	border-color: rgba(23, 100, 190, 1);
-	color: rgba(23, 100, 190, 1);
+	background-color: rgba(91, 192, 222, 0.1);
+	border-color: rgba(91, 192, 222, 1);
+	/*color: rgba(91, 192, 222, 1);*/
+	color: rgba(49, 112, 143, 1);
 }
 
 .alert-danger {
-	background-color: rgba(214, 88, 72, 0.2);
+	background-color: rgba(214, 88, 72, 0.1);
 	border-color: rgba(214, 88, 72, 1);
-	color: rgba(214, 88, 72, 1);
+	/*color: rgba(214, 88, 72, 1);*/
+	color: rgba(169, 68, 66, 1);
+}
+
+.alert-default {
+	background-color: #F8F8F8;
+	border-color: #DDDDDD;
+	color: #777777;
+}
+
+.alert-small {
+	padding: 10px;
 }

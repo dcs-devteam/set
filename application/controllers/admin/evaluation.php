@@ -12,6 +12,7 @@ class Evaluation extends CI_Controller {
 		$this->load->model('class_model');
 		$this->load->model('office_model');
 		$this->load->model('evaluator_model');
+		$this->load->model('evaluation_model');
 		$this->office_id = $this->session->userdata('office_id');
 	}
 
@@ -32,6 +33,7 @@ class Evaluation extends CI_Controller {
 		$view_data = array(
 			'classes_not_evaluated' => $this->class_model->get_todo($this->office_id),
 			'classes_currently_evaluated' => $this->class_model->get_active($this->office_id),
+			'total_evaluations' => $this->evaluation_model->total_evaluations($this->office_id)
 			);
 		$data['page_title'] = 'eValuation';
 		$data['body_content'] = $this->load->view('contents/admin/evaluation/view',$view_data,TRUE);
@@ -325,6 +327,38 @@ class Evaluation extends CI_Controller {
 				return FALSE;
 			}
 		}
+	}
+
+
+/**
+ * Fetches unused access codes for all classes and generates a PDF file containing
+ * the access codes.
+ */
+	public function unused_codes() {
+		$this->load->model('access_code_model');
+		$this->load->model('year_semester_model');
+		$this->load->helper(array('wkhtmltopdf', 'file'));
+
+		$classes = $this->class_model->get($this->office_id);
+		$html_filenames = array();
+		$count = 0;
+		foreach ($classes as $class) {
+			$code_data['class'] = $class;
+			$code_data['codes'] = $this->access_code_model->get_unused($class->class_id);
+			if ($code_data['codes']) {
+				$data['body_content'] = $this->load->view('contents/admin/evaluation/code',$code_data,TRUE);
+				$data['page_title'] = "eValuation";
+
+				$html = $this->parser->parse('layouts/code', $data, TRUE);
+				if (write_file('assets/temp/temp'.$count.'.php', $html)) {
+					array_push($html_filenames, base_url('assets/temp/temp'.$count++.'.php'));
+				}
+			}
+		}
+		$current_yearsem = $this->year_semester_model->get_current();
+		$filename = $current_yearsem->year.'-'.format_semester($current_yearsem->semester);
+		pdf_multipage_create($html_filenames, $filename);
+		delete_files('assets/temp/');
 	}
 
 /**

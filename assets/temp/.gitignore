@@ -1,7 +1,0 @@
-# temp folder is needed for PDF generation. A temp.php will be created
-# and deleted before and after generation.
-#
-# Ignore everything in this directory
-*
-# Except this file
-!.gitignore

@@ -62,6 +62,29 @@ class Access_code_model extends CI_Model {
 		}
 	}
 
+	public function get_unused($class_id) {
+		$this->db->from('access_code');
+		$this->db->where('class_id', $class_id);
+		$query = $this->db->get();
+		if ($query->num_rows() >= 1) {
+			$codes = $query->result();
+			$unused = array();
+			foreach ($codes as $code) {
+				if (!$this->is_used($code->access_code)) {
+					array_push($unused, $code);
+				}
+			}
+
+			if (count($unused) > 0) {
+				return $unused;
+			} else {
+				return FALSE;
+			}
+		}	else {
+			return FALSE;
+		}
+	}
+
 /**
  * Returns class ID of given access code
  * @param  string $code	valid access code
@@ -147,10 +170,11 @@ class Access_code_model extends CI_Model {
 				array_push($unused_codes, $code->access_code);
 			}
 		}
-
-		$this->db->where_in('access_code', $unused_codes);
-
-		$result = $this->db->delete('access_code');
+		if (is_array($unused_codes) && count($unused_codes) > 0) {
+			$this->db->where_in('access_code', $unused_codes);
+			$result = $this->db->delete('access_code');
+		}
+		
 
 		$this->db->trans_complete();
 		return $this->db->trans_status();

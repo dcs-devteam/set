@@ -5,6 +5,7 @@ class Class_model extends CI_Model {
 		parent::__construct();
 		$this->load->model('course_model');
 		$this->load->model('year_semester_model');
+		$this->load->model('evaluation_model');
 	}
 
 /**
@@ -42,9 +43,8 @@ class Class_model extends CI_Model {
 
 			$query = $this->db->get('class');
 			if($query->num_rows() >= 1) {
-				$this->load->model('evaluation_model');
 				$result = $query->result();
-				//add class_name attribute
+				//add class_name attribute and # of evaluations
 				foreach ($result as $key => $row) {
 					$row->class_name = $row->course_name;
 					$row->submissions = $this->evaluation_model->count_submissions($row->class_id);
@@ -94,9 +94,10 @@ class Class_model extends CI_Model {
 			$query = $this->db->get('class');
 			if($query->num_rows() >= 1) {
 				$result = $query->result();
-				//add class_name attribute
+				//add class_name attribute and # of evaluations
 				foreach ($result as $key => $row) {
 					$row->class_name = $row->course_name;
+					$row->submissions = $this->evaluation_model->count_submissions($row->class_id);
 				}
 				return $result;
 			}	else {
@@ -190,9 +191,10 @@ class Class_model extends CI_Model {
 			$query = $this->db->get('class');
 			if($query->num_rows() >= 1) {
 				$result = $query->result();
-				//add class_name attribute
+				//add class_name attribute and # of evaluations
 				foreach ($result as $key => $row) {
 					$row->class_name = $row->course_name;
+					$row->submissions = $this->evaluation_model->count_submissions($row->class_id);
 				}
 				return $result;
 			}	else {
@@ -221,6 +223,7 @@ class Class_model extends CI_Model {
 
 			//add class_name attribute
 			$result->class_name = $this->course_model->get_name($result->course_id);
+			
 			$result->submissions = $this->evaluation_model->count_submissions($result->class_id);
 
 			return $result;

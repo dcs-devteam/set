@@ -24,5 +24,26 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 		header('Content-Disposition: inline; filename="'.$filename.'.pdf"');
 		echo $snappy->getOutput(base_url('assets/temp/temp.php'));
 	}
+
+/**
+ * Generate PDF file for download using the wkhtmltopdf program.
+ * @param  array $pages			HTML files
+ * @param  string $filename	filename of file
+ */
+	function pdf_multipage_create($pages, $filename) {
+		$snappy = new Pdf();
+		//change value to where wkhtmltopdf binary is found
+		$snappy->setBinary('C:\wkhtmltopdf\bin\wkhtmltopdf.exe');
+
+		$snappy->setOption('page-size', 'Letter');
+		$snappy->setOption('footer-right', '[page]/[toPage]');
+
+		header('Content-Type: application/pdf');
+		//save as
+		// header('Content-Disposition: attachment; filename="'.$filename.'.pdf"');
+		// open in browser
+		header('Content-Disposition: inline; filename="'.$filename.'.pdf"');
+		echo $snappy->getOutput($pages);
+	}
 /* End of file wkhtmltopdf_helper.php */
 /* Location: ./application/helpers/wkhtmltopdf_helper.php */

@@ -23,7 +23,7 @@
 
 .class-table th:nth-child(2),
 .class-table td:nth-child(2) {
-	width: 200px;
+	width: 150px;
 }
 
 .class-table th:nth-child(3),
@@ -33,7 +33,7 @@
 
 .class-table th:nth-child(4),
 .class-table td:nth-child(4) {
-	width: 150px;
+	width: 130px;
 }
 
 .class-table th:nth-child(5),
@@ -46,9 +46,14 @@
 	width: 200px;
 }
 
-.class-table th:nth-child(7),
-.class-table td:nth-child(7) {
-	width: 80px;
+.evaluation-table th:nth-child(7),
+.evaluation-table td:nth-child(7) {
+	width: 1px !important;
+}
+
+.evaluation-table th:nth-child(8),
+.evaluation-table td:nth-child(8) {
+	width: 41px;
 }
 
 

@@ -30,6 +30,7 @@ class Report extends CI_Controller {
 	public function view() {
 		$view_data = array(
 			'classes_already_evaluated' => $this->class_model->get_done($this->office_id),
+			'total_evaluations' => $this->evaluation_model->total_evaluations($this->office_id)
 			);
 		$data['page_title'] = 'eValuation';
 		$data['body_content'] = $this->load->view('contents/admin/report/view',$view_data,TRUE);
