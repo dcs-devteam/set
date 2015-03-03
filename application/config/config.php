@@ -15,7 +15,7 @@
 |
 */
 //default: http://localhost/evaluation/
-$config['base_url']	= 'http://localhost/evaluation/';
+$config['base_url']	= 'http://localhost/set/';
 
 /*
 |--------------------------------------------------------------------------

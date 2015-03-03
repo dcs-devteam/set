@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /evaluation/
+RewriteBase /set/
 RewriteCond %{request_filename} !-f
 RewriteCond %{request_filename} !-d
 RewriteRule ^(.*)$ index.php/$1 [PT,L]
