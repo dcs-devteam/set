@@ -1,4 +1,8 @@
 /*yearsem/view*/
+.yearsem-alert {
+	margin-top: 20px;
+}
+
 .yearsem-table {
 	white-space: nowrap;
 }

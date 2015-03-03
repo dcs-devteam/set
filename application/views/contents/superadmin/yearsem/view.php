@@ -1,9 +1,9 @@
 <?php if (!empty($current)):?>
-	<div class="alert alert-info" role="alert">
+	<div class="alert alert-info yearsem-alert" role="alert">
 		<p>The current year and semester is: <strong><?php echo format_semester($current->semester).' Semester/A.Y. '.format_year($current->year)?></strong>.</p>
 	</div>
 <?php else:?>
-	<div class="alert alert-warning" role="alert">
+	<div class="alert alert-warning yearsem-alert" role="alert">
 		<p>No current year and semester was found. Click <a href="<?php echo base_url('superadmin/yearsem/add')?>">here</a> to set the current year and semester.</p>
 	</div>
 <?php endif;?>

@@ -337,11 +337,11 @@ ul.unstyled {
 .evaluation-forms .evaluation-form .content .comments .contents span {
 	display: block;
 	border-bottom: 1px solid black;
+	font-size: 2vmin;
 	font-weight: normal;
 	margin-top: 2px;
 	padding: 3px;
-
-	max-height: 66px;
+	max-height: 132px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }

@@ -475,7 +475,7 @@
 					<?php if (!empty($evaluations[$e_index+1])):?>
 					<div class="evaluation-form">
 						<div class="header">
-							<label><?php echo $evaluations[$e_index]->date?></label>
+							<label><?php echo $evaluations[$e_index+1]->date?></label>
 							<ol class="unstyled">
 								<li>
 									<label class="eval-form-label">
