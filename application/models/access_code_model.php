@@ -62,6 +62,12 @@ class Access_code_model extends CI_Model {
 		}
 	}
 
+/**
+ * Returns all unused access codes for given class
+ * @param  int $class_id	valid class ID
+ * @return array					array of unused access code rows (as objects)
+ * 												FALSE if class not exists
+ */
 	public function get_unused($class_id) {
 		$this->db->from('access_code');
 		$this->db->where('class_id', $class_id);
@@ -155,9 +161,10 @@ class Access_code_model extends CI_Model {
  * Delete all unused codes linked to given class 
  * (codes not in evaluation table).
  * @param  int $class_id	valid class ID
+ * @param  int $limit			number of unused codes to delete
  * @return boolean				TRUE if delete successful. Else, FALSE.
  */
-	public function delete_unused($class_id) {
+	public function delete_unused($class_id, $limit = FALSE) {
 		$codes = $this->get_by_class($class_id);
 		$this->db->trans_start();
 
@@ -165,9 +172,18 @@ class Access_code_model extends CI_Model {
 		$this->load->model('evaluation_model');
 
 		$unused_codes = array();
-		foreach ($codes as $code) {
-			if (!$this->is_used($code->access_code)) {
-				array_push($unused_codes, $code->access_code);
+		// foreach ($codes as $code) {
+		// 	if (!$this->is_used($code->access_code)) {
+		// 		array_push($unused_codes, $code->access_code);
+		// 	}
+		// }
+		if ($limit === FALSE) {
+			$limit = count($codes);
+		} 
+		
+		for ($i=0; $i < $limit; $i++) {
+			if (!$this->is_used($codes[$i]->access_code)) {
+				array_push($unused_codes, $codes[$i]->access_code);
 			}
 		}
 		if (is_array($unused_codes) && count($unused_codes) > 0) {
