@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2015 at 03:16 PM
+-- Generation Time: Apr 03, 2015 at 05:03 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -146,6 +146,7 @@ CREATE TABLE IF NOT EXISTS `office` (
 
 CREATE TABLE IF NOT EXISTS `student` (
 `student_id` int(255) NOT NULL,
+  `student_number` int(9) NOT NULL COMMENT 'No dash/hyphen',
   `first_name` varchar(256) NOT NULL,
   `last_name` varchar(256) NOT NULL,
   `password` varchar(256) NOT NULL
@@ -198,6 +199,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`user_id`, `email_address`, `password`, `first_name`, `last_name`, `role`, `office_id`) VALUES
 (1, 'superadmin', '1821fc9b2257aba3f7d268fde28606ff', 'Admin', 'Super', 'superadmin', NULL);
+
 
 -- --------------------------------------------------------
 
