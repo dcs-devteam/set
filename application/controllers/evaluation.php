@@ -14,7 +14,7 @@ class Evaluation extends CI_Controller {
 	}
 
 /**
- * Default function when there is no URI segment after evaluation/evaluation.
+ * Default function when there is no URI segment after set/evaluation.
  * Calls the evaluate function.
  */
 	public function index() {

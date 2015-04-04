@@ -15,7 +15,7 @@ class Course extends CI_Controller {
 	}
 
 /**
- * Default function when there is no URI segment after evaluation/admin/course.
+ * Default function when there is no URI segment after set/admin/course.
  * Calls the view function.
  */
 	public function index() {
@@ -29,7 +29,7 @@ class Course extends CI_Controller {
 		$view_data = array(
 			'courses' => $this->course_model->get_by_office($this->office_id),
 			);
-		$data['page_title'] = 'eValuation';
+
 		$data['body_content'] = $this->load->view('contents/admin/course/view',$view_data,TRUE);
 		$this->parser->parse('layouts/default', $data);
 	}
@@ -74,7 +74,7 @@ class Course extends CI_Controller {
 			$data['body_content'] = $this->load->view('contents/admin/course/function_result',$add_data,TRUE);
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -166,7 +166,7 @@ class Course extends CI_Controller {
 			}
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -253,7 +253,7 @@ class Course extends CI_Controller {
 				$data['body_content'] = $this->load->view('contents/admin/course/function_result',$delete_data,TRUE);
 			}
 		}
-		$data['page_title'] = "eValuation";
+
 		$this->parser->parse('layouts/default', $data);
 	}
 

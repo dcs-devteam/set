@@ -13,7 +13,7 @@ class Yearsem extends CI_Controller {
 	}
 
 /**
- * Default function when there is no URI segment after evaluation/superadmin/yearsem.
+ * Default function when there is no URI segment after set/superadmin/yearsem.
  * Calls superadmin/view.
  */
 	public function index() {
@@ -28,7 +28,7 @@ class Yearsem extends CI_Controller {
 			'current' => $this->year_semester_model->get_current(),
 			'year_semesters' => $this->year_semester_model->get()
 			);
-		$data['page_title'] = 'eValuation';
+
 		$data['body_content'] = $this->load->view('contents/superadmin/yearsem/view',$view_data,TRUE);
 		$this->parser->parse('layouts/default', $data);
 	}
@@ -96,7 +96,7 @@ class Yearsem extends CI_Controller {
 			$data['body_content'] = $this->load->view('contents/superadmin/yearsem/function_result',$add_data,TRUE);
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -234,7 +234,7 @@ class Yearsem extends CI_Controller {
 			}
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -333,7 +333,7 @@ class Yearsem extends CI_Controller {
 				$data['body_content'] = $this->load->view('contents/superadmin/yearsem/function_result',$delete_data,TRUE);
 			}
 		}
-		$data['page_title'] = "eValuation";
+
 		$this->parser->parse('layouts/default', $data);
 	}
 

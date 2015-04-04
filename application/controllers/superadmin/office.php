@@ -27,7 +27,7 @@ class Office extends CI_Controller {
 		$view_data = array(
 			'offices' => $this->office_model->get()
 			);
-		$data['page_title'] = 'eValuation';
+
 		$data['body_content'] = $this->load->view('contents/superadmin/office/view',$view_data,TRUE);
 		$this->parser->parse('layouts/default', $data);
 	}
@@ -72,7 +72,7 @@ class Office extends CI_Controller {
 			$data['body_content'] = $this->load->view('contents/superadmin/office/function_result',$add_data,TRUE);
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -164,7 +164,7 @@ class Office extends CI_Controller {
 			}
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -248,7 +248,7 @@ class Office extends CI_Controller {
 				$data['body_content'] = $this->load->view('contents/superadmin/office/function_result',$delete_data,TRUE);
 			}
 		}
-		$data['page_title'] = "eValuation";
+
 		$this->parser->parse('layouts/default', $data);
 	}
 

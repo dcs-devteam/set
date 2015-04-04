@@ -39,8 +39,27 @@ body {
 
 
 /*homepage-student*/
-#code-form-container {
+#student-login-form-container {
 	text-align: center;
+}
+
+#student-login-form #student-number {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+#student-login-form #password {
+  margin-bottom: 10px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+#student-login-form .form-control {
+  position: relative;
+  height: auto;
+  box-sizing: border-box;
+  padding: 10px;
 }
 
 /*homepage-user*/

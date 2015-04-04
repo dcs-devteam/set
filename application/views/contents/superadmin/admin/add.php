@@ -1,4 +1,4 @@
-<div class="alert alert-info" role="alert">
+<div class="alert alert-info admin-alert" role="alert">
 	<ul>
 		<li>Passwords are automatically generated.</li>
 		<li>Make sure to enter a valid email address that can receive mail. Account details will be sent by email to the account holder.</li>

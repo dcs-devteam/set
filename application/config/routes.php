@@ -42,6 +42,7 @@ $route['admin/class'] = "admin/class_controller";
 $route['admin/class/(:any)'] = "admin/class_controller/$1";
 $route['admin'] = "admin/admin";
 $route['superadmin'] = "superadmin/superadmin";
+$route['student'] = "student/student";
 $route['logout'] = "session/logout";
 $route['login'] = "home/login";
 $route['default_controller'] = "home";

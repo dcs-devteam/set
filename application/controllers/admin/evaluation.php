@@ -17,7 +17,7 @@ class Evaluation extends CI_Controller {
 	}
 
 /**
- * Default function when there is no URI segment after evaluation/admin/evaluation.
+ * Default function when there is no URI segment after set/admin/evaluation.
  * Class the view function.
  */
 	public function index() {
@@ -35,7 +35,7 @@ class Evaluation extends CI_Controller {
 			'classes_currently_evaluated' => $this->class_model->get_active($this->office_id),
 			'total_evaluations' => $this->evaluation_model->total_evaluations($this->office_id)
 			);
-		$data['page_title'] = 'eValuation';
+
 		$data['body_content'] = $this->load->view('contents/admin/evaluation/view',$view_data,TRUE);
 		$this->parser->parse('layouts/default', $data);
 	}
@@ -89,7 +89,7 @@ class Evaluation extends CI_Controller {
 			$data['body_content'] = $this->load->view('contents/admin/evaluation/function_result',$start_data,TRUE);
 
 		}
-		$data['page_title'] = "eValuation";
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -175,7 +175,7 @@ class Evaluation extends CI_Controller {
 				$data['body_content'] = $this->load->view('contents/admin/evaluation/function_result',$stop_data,TRUE);
 			}
 		}
-		$data['page_title'] = "eValuation";
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -250,7 +250,7 @@ class Evaluation extends CI_Controller {
 				$data['body_content'] = $this->load->view('contents/admin/evaluation/function_result',$cancel_data,TRUE);
 			}
 		}
-		$data['page_title'] = "eValuation";
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -285,7 +285,7 @@ class Evaluation extends CI_Controller {
 				'error_message' => 'Record for the given class ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-			$data['page_title'] = "eValuation";
+
 			$this->parser->parse('layouts/default', $data);
 		} else if ($class->is_active == FALSE OR $class->is_done == TRUE) {
 			$error_data = array(
@@ -293,7 +293,7 @@ class Evaluation extends CI_Controller {
 				'error_message' => 'Evaluation for this class is not currently active. You are not allowed to generate access codes for this class.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-			$data['page_title'] = "eValuation";
+
 			$this->parser->parse('layouts/default', $data);
 		} else if ($this->evaluator_model->get_evaluator($class_id)->evaluator_id !== $this->session->userdata('user_id')) {
 			//prevent stop if not evaluator
@@ -302,14 +302,14 @@ class Evaluation extends CI_Controller {
 				'error_message' => 'You are not in charge of the evaluation for this class.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-			$data['page_title'] = "eValuation";
+
 			$this->parser->parse('layouts/default', $data);
 		} else {
 			$code_data['class'] = $class;
 			$code_data['codes'] = $this->access_code_model->get_by_class($class_id);
 
 			$data['body_content'] = $this->load->view('contents/admin/evaluation/code',$code_data,TRUE);
-			$data['page_title'] = "eValuation";
+
 			//render HTML page (for testing). comment out pdf_create line below.
 			// $this->parser->parse('layouts/code', $data);
 
@@ -347,7 +347,7 @@ class Evaluation extends CI_Controller {
 			$code_data['codes'] = $this->access_code_model->get_unused($class->class_id);
 			if ($code_data['codes']) {
 				$data['body_content'] = $this->load->view('contents/admin/evaluation/code',$code_data,TRUE);
-				$data['page_title'] = "eValuation";
+
 
 				$html = $this->parser->parse('layouts/code', $data, TRUE);
 				if (write_file('assets/temp/temp'.$count.'.php', $html)) {

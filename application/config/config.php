@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-//default: http://localhost/evaluation/
+//default: http://localhost/set/
 $config['base_url']	= 'http://localhost/set/';
 
 /*

@@ -12,7 +12,7 @@ class Admin extends CI_Controller {
 	}
 
 /**
- * Default function when there is no URI segment after evaluation/admin.
+ * Default function when there is no URI segment after set/admin.
  * Redirects to admin/evaluation.
  */
 	public function index() {

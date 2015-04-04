@@ -28,7 +28,7 @@ class Admin extends CI_Controller {
 		$view_data = array(
 			'admins' => $this->account_model->get_by_role('admin')
 			);
-		$data['page_title'] = 'eValuation';
+
 		$data['body_content'] = $this->load->view('contents/superadmin/admin/view',$view_data,TRUE);
 		$this->parser->parse('layouts/default', $data);
 	}
@@ -91,7 +91,7 @@ class Admin extends CI_Controller {
 			$data['body_content'] = $this->load->view('contents/superadmin/admin/function_result',$add_data,TRUE);
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -139,7 +139,7 @@ class Admin extends CI_Controller {
 				),
 			);
 		
-		$this->email->message($this->load->view('contents/superadmin/admin/email_add_account',$email_data, TRUE));
+		// $this->email->message($this->load->view('contents/superadmin/admin/email_add_account',$email_data, TRUE));
 
 		$result = $this->account_model->add($first_name, $last_name, $email_address, $password, $role, $office->office_id);
 		if ($result) {
@@ -277,7 +277,7 @@ class Admin extends CI_Controller {
 			}
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -461,7 +461,7 @@ class Admin extends CI_Controller {
 				$data['body_content'] = $this->load->view('contents/superadmin/admin/function_result',$delete_data,TRUE);
 			}
 		}
-		$data['page_title'] = "eValuation";
+
 		$this->parser->parse('layouts/default', $data);
 	}
 

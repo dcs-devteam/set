@@ -62,7 +62,6 @@ class Account extends CI_Controller {
 			$data['body_content'] = $this->load->view('contents/account/function_result',$password_data,TRUE);
 		}
 
-		$data['page_title'] = 'eValuation';
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -171,7 +170,6 @@ class Account extends CI_Controller {
 			$data['body_content'] = $this->load->view('contents/account/reset_email_sent','',TRUE);
 		}
 
-		$data['page_title'] = 'eValuation';
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -270,7 +268,6 @@ class Account extends CI_Controller {
 			show_error('The function needs to have a parameter. Make sure that the value is correct before trying again.');
 		}
 
-		$data['page_title'] = 'eValuation';
 		$this->parser->parse('layouts/default', $data);
 	}
 }

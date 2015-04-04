@@ -12,7 +12,7 @@ class Superadmin extends CI_Controller {
 	}
 
 /**
- * Default function when there is no URI segment after evaluation/superadmin.
+ * Default function when there is no URI segment after set/superadmin.
  * Redirects to superadmin/yearsem.
  */
 	public function index() {

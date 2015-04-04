@@ -17,7 +17,7 @@ class Report extends CI_Controller {
 	}
 
 /**
- * Default function when there is no URI segment after evaluation/admin/report.
+ * Default function when there is no URI segment after set/admin/report.
  * Calls the view function.
  */
 	public function index() {
@@ -32,7 +32,7 @@ class Report extends CI_Controller {
 			'classes_already_evaluated' => $this->class_model->get_done($this->office_id),
 			'total_evaluations' => $this->evaluation_model->total_evaluations($this->office_id)
 			);
-		$data['page_title'] = 'eValuation';
+
 		$data['body_content'] = $this->load->view('contents/admin/report/view',$view_data,TRUE);
 		$this->parser->parse('layouts/default', $data);
 	}
@@ -51,7 +51,7 @@ class Report extends CI_Controller {
 				'error_message' => 'Record for the given class ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-			$data['page_title'] = "eValuation";
+
 			$this->parser->parse('layouts/default', $data);
 		} else if ($class->is_active == TRUE OR $class->is_done == FALSE) {
 			$error_data = array(
@@ -59,7 +59,7 @@ class Report extends CI_Controller {
 				'error_message' => 'You cannot generate the evaluation report for this class because it was not yet evaluated.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-			$data['page_title'] = "eValuation";
+
 			$this->parser->parse('layouts/default', $data);
 		} else {
 			$evaluations = $this->evaluation_model->get_by_class($class_id);

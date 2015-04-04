@@ -44,38 +44,77 @@ class Session extends CI_Controller {
  * Destroys user's session.
  */
 	public function logout()  {
+		$redirect_url = base_url('login');
+		if (!empty($this->session->userdata('student_number'))) {
+			$redirect_url = base_url();
+		}
+
 		echo 'LOGGING OUT...';
 
 		$this->session->sess_destroy();
-		redirect(base_url('login'),'refresh');
+		redirect($redirect_url,'refresh');
 	}
 
 /**
- * Displays the Access Code form and runs form validation.
+ * Displays the Student Login form and runs form validation.
  * Redirects students to their respective evaluation forms
  * after successful code verification.
  */
-	public function code() {
+	public function student_login() {
 		//destroy session if already present
-		if ($this->session->userdata('access_code')) {
+		if ($this->session->userdata('student_number')) {
 			$this->session->sess_destroy();
 		}
 
 		$this->load->library('form_validation');
 
 		//validation rules. password validation calls the verify login function
-		$this->form_validation->set_rules('code', 'Access Code', 'trim|required|xss_clean|callback_active_class|callback_code_exists|callback_is_not_used');
+		$this->form_validation->set_rules('student_number', 'Student Number', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_verify_student_login');
 
 		if ($this->form_validation->run() == FALSE) {
-			//get email errors
-			$code_error = form_error('code','<p class="text-danger">','</p>');
-			$this->session->set_flashdata('code_error', $code_error);
-			//code for data repopulation
-			$this->session->set_flashdata('code', $this->input->post('code'));
+			//get student number errors
+			$student_number_error = form_error('student_number','<p class="text-danger">','</p>');
+			$this->session->set_flashdata('student_number_error', $student_number_error);
+			//password errors
+			$password_error = form_error('password','<p class="text-danger">','</p>');
+			$this->session->set_flashdata('password_error', $password_error);
+			//data repopulation
+			$this->session->set_flashdata('student_number', $this->input->post('student_number'));
+			$this->session->set_flashdata('password', $this->input->post('password'));
 
 			redirect(base_url());
 		} else {
-			$this->redirect_to_form();
+			$this->redirect_to_student_home();
+		}
+	}
+
+/**
+ * Form Validation rule. Verifies login information and creates
+ * a session for the user.
+ * @param  string $password	value from password field in login form
+ * @return boolean					TRUE if verification success. Else, FALSE.
+ */
+	public function verify_student_login($password) {
+		if(empty($this->form_validation)) {
+			show_403_error();
+		}
+
+		$student_number = $this->input->post('student_number');
+		$result = $this->session_model->student_login($student_number,$password);
+		if ($result) {
+			//verify success, session creation
+			$sess_array = array(
+				'user_id' => $result->user_id,
+				'student_number' => $result->student_number,
+				'first_name' => $result->first_name,
+				'last_name' => $result->last_name
+				);
+			$this->session->set_userdata($sess_array);
+			return TRUE;
+		} else {
+			$this->form_validation->set_message('verify_student_login','Invalid student number or password.');
+			return FALSE;
 		}
 	}
 
@@ -199,6 +238,20 @@ class Session extends CI_Controller {
 		} else {
 			$this->session->sess_destroy();
 			redirect(base_url());
+		}
+	}
+
+/**
+ * Redirects users to their respective homepages based
+ * on their user roles.
+ */
+	private function redirect_to_student_home() {
+		$student_number = $this->session->userdata('student_number');
+		if (!empty($student_number)) {
+			redirect('student');
+		} else {
+			$this->session->sess_destroy();
+			redirect(base_url(), 'refresh');
 		}
 	}
 

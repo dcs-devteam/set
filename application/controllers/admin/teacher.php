@@ -15,7 +15,7 @@ class Teacher extends CI_Controller {
 	}
 
 /**
- * Default function when there is no URI segment after evaluation/admin/teacher.
+ * Default function when there is no URI segment after set/admin/teacher.
  * Calls the view function.
  */
 	public function index() {
@@ -29,7 +29,7 @@ class Teacher extends CI_Controller {
 		$view_data = array(
 			'teachers' => $this->teacher_model->get_by_office($this->office_id),
 			);
-		$data['page_title'] = 'eValuation';
+
 		$data['body_content'] = $this->load->view('contents/admin/teacher/view',$view_data,TRUE);
 		$this->parser->parse('layouts/default', $data);
 	}
@@ -79,7 +79,7 @@ class Teacher extends CI_Controller {
 			$data['body_content'] = $this->load->view('contents/admin/teacher/function_result',$add_data,TRUE);
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -178,7 +178,7 @@ class Teacher extends CI_Controller {
 			}
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -267,7 +267,7 @@ class Teacher extends CI_Controller {
 				$data['body_content'] = $this->load->view('contents/admin/teacher/function_result',$delete_data,TRUE);
 			}
 		}
-		$data['page_title'] = "eValuation";
+
 		$this->parser->parse('layouts/default', $data);
 	}
 

@@ -1,8 +1,8 @@
-/*yearsem/view*/
-.yearsem-alert {
+.yearsem-alert, .admin-alert {
 	margin-top: 20px;
 }
 
+/*yearsem/view*/
 .yearsem-table {
 	white-space: nowrap;
 }
@@ -25,3 +25,5 @@
 	text-align: right;
 	width: 1px !important;
 }
+
+/*admin/add*/

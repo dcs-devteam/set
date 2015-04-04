@@ -15,7 +15,7 @@ class Account extends CI_Controller {
 	}
 
 /**
- * Default function when there is no URI segment after evaluation/admin/account.
+ * Default function when there is no URI segment after set/admin/account.
  * Calls the view function.
  */
 	public function index() {
@@ -29,7 +29,7 @@ class Account extends CI_Controller {
 		$view_data = array(
 			'accounts' => $this->account_model->get_by_office($this->office_id, $this->session->userdata('role')),
 			);
-		$data['page_title'] = 'eValuation';
+
 		$data['body_content'] = $this->load->view('contents/admin/account/view',$view_data,TRUE);
 		$this->parser->parse('layouts/default', $data);
 	}
@@ -95,7 +95,7 @@ class Account extends CI_Controller {
 			$data['body_content'] = $this->load->view('contents/admin/account/function_result',$add_data,TRUE);
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -136,7 +136,7 @@ class Account extends CI_Controller {
 				),
 			);
 		
-		$this->email->message($this->load->view('contents/admin/account/email_add_account',$email_data, TRUE));
+		// $this->email->message($this->load->view('contents/admin/account/email_add_account',$email_data, TRUE));
 
 		$result = $this->account_model->add($first_name, $last_name, $email_address, $password, $role, $this->office_id);
 		if ($result) {
@@ -277,7 +277,7 @@ class Account extends CI_Controller {
 			}
 		}
 
-		$data['page_title'] = 'eValuation';
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
@@ -454,7 +454,7 @@ class Account extends CI_Controller {
 				$data['body_content'] = $this->load->view('contents/admin/account/function_result',$delete_data,TRUE);
 			}
 		}
-		$data['page_title'] = "eValuation";
+
 		$this->parser->parse('layouts/default', $data);
 	}
 
