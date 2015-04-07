@@ -1,5 +1,9 @@
+html, body {
+	height: 100%;
+}
+
 body {
-	padding-bottom: 10px;
+	padding-bottom: 40px;
 	background-color: #FFFFFF; //#f5f5f5
 }
 #main-header #up-seal {
@@ -41,6 +45,7 @@ body {
 /*homepage-student*/
 #student-login-form-container {
 	text-align: center;
+	max-width: 300px;
 }
 
 #student-login-form #student-number {
@@ -68,4 +73,16 @@ body {
 	text-align: center;
 	/*font-weight: bold;*/
 	font-size: 17.5px;
+}
+
+/*staff login*/
+.staff-login-container {
+	background-color: transparent;
+  background: transparent;
+	border: none;
+}
+.staff-login {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
 }

@@ -1,4 +1,4 @@
-<div class="col-sm-offset-1 col-sm-6">
+<div class="col-sm-8">
 	<h3>Instructions</h3>
 	<ol>
 		<li>Enter the provided student account details into the form on the right.</li>
@@ -19,7 +19,7 @@
 		<li>Please evaluate the teacher as seriously and as honestly as you can.</li>
 	</ul>
 </div>
-<div class="col-sm-offset-1 col-sm-3 form-signin">
+<div class="col-sm-4 form-signin">
 	<div class="panel panel-primary" id="student-login-form-container">
 		<div class="panel-heading">
 			<h3 class="panel-title">Enter Student Account Details</h3>
@@ -34,4 +34,12 @@
 					<button type="submit" class="btn btn-success">Login</button>
 			</form>
 		</div>
+	</div>
+</div>
+<div class="staff-login-container navbar navbar-default navbar-fixed-bottom">
+  <div class="container">
+		<div class="staff-login">
+			<a href="<?php echo base_url('login')?>" class="btn btn-info btn-xs">Staff Login</a>
+		</div>
+	</div>
 </div>
