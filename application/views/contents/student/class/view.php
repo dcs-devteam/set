@@ -2,7 +2,10 @@
 	<?php if(!empty($classes)):?>
 		<?php if($completed_evaluation):?>
 			<div class="alert alert-success" role="alert">You evaluated all your teachers in all your classes. Thank you for your participation.</a></div>
+		<?php elseif(!$evaluation_active):?>
+			<div class="alert alert-warning" role="alert">Evaluation period is not yet active. You cannot evaluation your teachers for now.</a></div>
 		<?php endif;?>
+		
 		<table class="table table-striped table-hover table-bordered class-table data-table">
 			<thead>
 				<tr>

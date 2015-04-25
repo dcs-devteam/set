@@ -129,7 +129,7 @@ class Student_class_model extends CI_Model {
 		$this->db->where('student_id', $student_id);
 		$query = $this->db->get('student_class');
 		foreach ($query->result() as $row) {
-			if ($row->has_evaluated === FALSE) {
+			if ($row->has_evaluated == FALSE) {
 				return FALSE;
 			}
 		}
