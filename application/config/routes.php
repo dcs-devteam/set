@@ -41,7 +41,13 @@
 $route['admin/class'] = "admin/class_controller";
 $route['admin/class/(:any)'] = "admin/class_controller/$1";
 $route['admin'] = "admin/admin";
+$route['superadmin/yearsem/evaluation/start'] = "superadmin/yearsem/start_evaluation";
+$route['superadmin/yearsem/evaluation/start/(:any)'] = "superadmin/yearsem/start_evaluation/$1";
+$route['superadmin/yearsem/evaluation/stop'] = "superadmin/yearsem/stop_evaluation";
+$route['superadmin/yearsem/evaluation/stop/(:any)'] = "superadmin/yearsem/stop_evaluation/$1";
 $route['superadmin'] = "superadmin/superadmin";
+$route['student/class'] = "student/class_controller";
+$route['student/class/(:any)'] = "student/class_controller/$1";
 $route['student'] = "student/student";
 $route['logout'] = "session/logout";
 $route['login'] = "home/login";

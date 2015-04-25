@@ -4,7 +4,7 @@ class Student extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		//redirect when not logged in as student
-		if (!$this->session->userdata('student_number')) {
+		if (!$this->session->userdata('sais_id')) {
 			redirect(base_url());
 		}
 	}
@@ -14,7 +14,7 @@ class Student extends CI_Controller {
  * Redirects to student/class_list.
  */
 	public function index() {
-		redirect('student/class_list');
+		redirect('student/class');
 	}
 }
 

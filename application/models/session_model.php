@@ -32,15 +32,15 @@ class Session_model extends CI_Model {
 /**
 *	Get student details from database
 *
-*	@param	string 	$student_number 		must exist
+*	@param	string 	$sais_id 		must exist
 *	@param	string 	$password
 *
 *	@return	array		query result on success, else FALSE
 */
-	public function student_login($student_number, $password) {
-		$this->db->select('student_id, student_number, first_name, last_name');
+	public function student_login($sais_id, $password) {
+		$this->db->select('student_id, sais_id, first_name, last_name');
 		$this->db->from('student');
-		$this->db->where('student_number', $student_number);
+		$this->db->where('sais_id', $sais_id);
 		$this->db->where('password', MD5($password));
 		// $this->db->where('password', $password);
 		$this->db->limit(1);

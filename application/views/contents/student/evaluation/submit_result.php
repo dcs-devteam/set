@@ -24,6 +24,10 @@
 		</div>
 	</div>
 	<div class="panel-footer">
-		<a class="btn btn-success" href="<?php echo base_url()?>">Return to Home</a>
+		<?php if($success == TRUE):?>
+			 <a class="btn btn-success" href="<?php echo base_url()?>">Return to Home</a>
+		<?php else:?>
+			 <a class="btn btn-danger" href="<?php echo base_url()?>">Return to Home</a>
+		<?php endif;?>		
 	</div>
 </div>

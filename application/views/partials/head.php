@@ -8,6 +8,23 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
+		<!-- Stylesheets -->
+		<link rel="stylesheet" href="<?php echo base_url('assets/css/fonts.css')?>">
+		<link rel="stylesheet" href="<?php echo base_url('assets/css/layouts.css')?>">
+		<link rel="stylesheet" href="<?php echo base_url('assets/css/theme.css')?>">
+<?php if (($this->uri->segment(1) === 'admin')):?>
+		<link rel="stylesheet" href="<?php echo base_url('assets/css/admin.css')?>">
+<?php elseif (($this->uri->segment(1) === 'account')):?>
+		<link rel="stylesheet" href="<?php echo base_url('assets/css/account.css')?>">
+<?php elseif (($this->uri->segment(1) === 'superadmin')):?>
+		<link rel="stylesheet" href="<?php echo base_url('assets/css/superadmin.css')?>">
+<?php elseif (($this->uri->segment(1) === 'student')):?>
+		<link rel="stylesheet" href="<?php echo base_url('assets/css/student.css')?>">
+	<?php if (($this->uri->segment(2) === 'class') && ($this->uri->segment(3) === 'evaluate')):?>
+		<link rel="stylesheet" href="<?php echo base_url('assets/css/evaluation.css')?>">
+	<?php endif;?>
+<?php endif;?>
+
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="<?php echo base_url('assets/js/jquery.js')?>"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -20,18 +37,4 @@
 		<!-- DataTables -->
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/plugins/DataTables-1.10.2/media/css/jquery.dataTables.css')?>">
 		<script type="text/javascript" charset="utf8" src="<?php echo base_url('assets/plugins/DataTables-1.10.2/media/js/jquery.dataTables.js')?>"></script>
-<?php endif;?>
-
-		<!-- Stylesheets -->
-		<link rel="stylesheet" href="<?php echo base_url('assets/css/fonts.css')?>">
-		<link rel="stylesheet" href="<?php echo base_url('assets/css/layouts.css')?>">
-		<link rel="stylesheet" href="<?php echo base_url('assets/css/theme.css')?>">
-<?php if (($this->uri->segment(1) === 'admin')):?>
-		<link rel="stylesheet" href="<?php echo base_url('assets/css/admin.css')?>">
-<?php elseif (($this->uri->segment(1) === 'evaluation')):?>
-		<link rel="stylesheet" href="<?php echo base_url('assets/css/evaluation.css')?>">
-<?php elseif (($this->uri->segment(1) === 'account')):?>
-		<link rel="stylesheet" href="<?php echo base_url('assets/css/account.css')?>">
-<?php elseif (($this->uri->segment(1) === 'superadmin')):?>
-		<link rel="stylesheet" href="<?php echo base_url('assets/css/superadmin.css')?>">
 <?php endif;?>

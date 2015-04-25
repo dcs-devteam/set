@@ -18,6 +18,14 @@ var evaluation_form = {
 				event.preventDefault();
 			}
 		});
+
+		$('#cancel-submit').click(function( event ) {
+			if (confirm("Are you sure you want to cancel the evaluation?\nYou can still evaluate again at the student homepage.")) {
+				return true;
+			} else {
+				event.preventDefault();
+			}
+		});
 	}
 }
 

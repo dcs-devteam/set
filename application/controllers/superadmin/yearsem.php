@@ -350,6 +350,16 @@ class Yearsem extends CI_Controller {
 			return FALSE;
 		}
 	}
+
+/**
+ * Starts the evaluation period for given year and semester.
+ * @param  int $year     valid year
+ * @param  int $semester valid semester
+ * @return void
+ */
+	public function start_evaluation($year, $semester) {
+		echo "string";
+	}
 }
 
 /* End of file yearsem.php */

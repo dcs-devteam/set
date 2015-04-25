@@ -1,5 +1,6 @@
 <div id="evaluation-form-container">
-	<?php echo form_open('evaluation/evaluate',array('class'=>'form-horizontal','role'=>'form', 'id'=>'evaluation-form'))?>
+	<?php echo form_open('student/class/evaluate/'.$class->class_id,array('class'=>'form-horizontal','role'=>'form', 'id'=>'evaluation-form'))?>
+	<input type="hidden" value="<?php echo $class->class_id?>" name="class_id"/>
 	<div class="row">
 		<div class="col-sm-12" id="header">
 			<h1>FACULTY EVALUATION INSTRUMENT</h1>
@@ -340,6 +341,7 @@
 	<hr>
 	<div class="btn-container">
 		<button class="btn btn-primary eval-form-submit" type="submit" id="submit-form">SUBMIT FORM</button>
+		<a href="<?php echo base_url()?>" class="btn btn-danger eval-form-submit" id="cancel-submit">Cancel</a>
 	</div>
 	</form>
 </div>

@@ -136,12 +136,12 @@ class Account extends CI_Controller {
 				),
 			);
 		
-		// $this->email->message($this->load->view('contents/admin/account/email_add_account',$email_data, TRUE));
+		$this->email->message($this->load->view('contents/admin/account/email_add_account',$email_data, TRUE));
 
 		$result = $this->account_model->add($first_name, $last_name, $email_address, $password, $role, $this->office_id);
 		if ($result) {
 			//only send if account was stored
-			$this->email->send();
+			// $this->email->send();
 			// echo $this->email->print_debugger();
 			return TRUE;
 		} else {

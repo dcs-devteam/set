@@ -1,0 +1,29 @@
+/*student/class*/
+.table-container {
+	text-align: middle;
+}
+
+.class-table {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.class-table th,
+.class-table td {
+	/*white-space: nowrap;*/
+}
+
+.class-table th:first-child,
+.class-table td:first-child {
+	width: 150px;
+}
+
+.class-table th:nth-child(2),
+.class-table td:nth-child(2) {
+	width: 1px !important;
+}
+
+.class-table th:nth-child(3),
+.class-table td:nth-child(3) {
+	width: 180px;
+}

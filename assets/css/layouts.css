@@ -12,10 +12,15 @@
 #main-wrapper.default #main-content {
 	width: 100%;
 	margin: 0 auto;
-	margin-top: -10px;
+	margin-top: 10px;
 	overflow: hidden;
 	min-height: 300px;
 	/*text-align: center;*/
+}
+
+/*remove margin-top of Bootstrap*/
+#main-wrapper.default #main-content h2 {
+	margin-top: 0px;
 }
 
 #main-wrapper.evaluation-form #main-content {

@@ -9,13 +9,13 @@
 								<span class="icon-bar"></span>
 							</button>
 							<a class="navbar-brand" href="<?php echo base_url()?>">
-								eValuation
+								Online SET
 <?php if ($this->session->userdata('office_id')):?>
 									<small>(<?php echo $this->office_model->get_by_id($this->office_id)->name?>)</small>
 <?php endif;?>
 							</a>
 						</div>
-<?php if ($this->session->userdata('role')):?>
+<?php if ($this->session->userdata('first_name')):?>
 							<!-- Collect the nav links, forms, and other content for toggling -->
 							<div class="collapse navbar-collapse" id="navbar-collapse">
 <?php if ($this->session->userdata('role') == 'admin'):?>

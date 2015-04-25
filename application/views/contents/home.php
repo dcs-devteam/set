@@ -26,9 +26,9 @@
 		</div>
 		<div class="panel-body">			
 			<?php echo form_open('session/student_login',array('class'=>'','role'=>'form', 'id' => 'student-login-form'))?>
-					<input type="text" value="<?php echo $this->session->flashdata('student_number'); ?>" class="form-control" id="student-number" name="student_number" placeholder="Student Number">
+					<input type="text" value="<?php echo $this->session->flashdata('sais_id'); ?>" class="form-control" id="sais-id" name="sais_id" placeholder="SAIS ID">
 					<input type="password" value="<?php echo $this->session->flashdata('password'); ?>" class="form-control" id="password" name="password" placeholder="Password">
-					<small class="text-danger"><?php echo $this->session->flashdata('student_number_error');?></small>
+					<small class="text-danger"><?php echo $this->session->flashdata('sais_id_error');?></small>
 					<small class="text-danger"><?php echo $this->session->flashdata('password_error');?></small>
 					<?php echo form_error('student_login_error','<small class="text-danger">','</small>'); ?>
 					<button type="submit" class="btn btn-success">Login</button>

@@ -1,4 +1,4 @@
-<div class="col-sm-offset-4 col-sm-4">
+<div class="col-sm-12">
 	<?php echo form_open('session/login',array('class'=>'form-horizontal','role'=>'form'))?>
 		<div class="panel panel-primary form-container" id="login-form">
 			<div class="panel-heading">

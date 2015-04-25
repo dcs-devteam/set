@@ -12,6 +12,8 @@ class Home extends CI_Controller {
 			redirect('evaluator');
 		} else if ($role === 'superadmin') {
 			redirect('superadmin');
+		} else if (!empty($this->session->userdata('sais_id'))) {
+			redirect('student');
 		}
 	}
 

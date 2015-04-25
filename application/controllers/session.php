@@ -45,7 +45,7 @@ class Session extends CI_Controller {
  */
 	public function logout()  {
 		$redirect_url = base_url('login');
-		if (!empty($this->session->userdata('student_number'))) {
+		if (!empty($this->session->userdata('sais_id'))) {
 			$redirect_url = base_url();
 		}
 
@@ -62,25 +62,25 @@ class Session extends CI_Controller {
  */
 	public function student_login() {
 		//destroy session if already present
-		if ($this->session->userdata('student_number')) {
+		if ($this->session->userdata('sais_id')) {
 			$this->session->sess_destroy();
 		}
 
 		$this->load->library('form_validation');
 
 		//validation rules. password validation calls the verify login function
-		$this->form_validation->set_rules('student_number', 'Student Number', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('sais_id', 'SAIS ID', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_verify_student_login');
 
 		if ($this->form_validation->run() == FALSE) {
 			//get student number errors
-			$student_number_error = form_error('student_number','<p class="text-danger">','</p>');
-			$this->session->set_flashdata('student_number_error', $student_number_error);
+			$sais_id_error = form_error('sais_id','<p class="text-danger">','</p>');
+			$this->session->set_flashdata('sais_id_error', $sais_id_error);
 			//password errors
 			$password_error = form_error('password','<p class="text-danger">','</p>');
 			$this->session->set_flashdata('password_error', $password_error);
 			//data repopulation
-			$this->session->set_flashdata('student_number', $this->input->post('student_number'));
+			$this->session->set_flashdata('sais_id', $this->input->post('sais_id'));
 			$this->session->set_flashdata('password', $this->input->post('password'));
 
 			redirect(base_url());
@@ -100,13 +100,13 @@ class Session extends CI_Controller {
 			show_403_error();
 		}
 
-		$student_number = $this->input->post('student_number');
-		$result = $this->session_model->student_login($student_number,$password);
+		$sais_id = $this->input->post('sais_id');
+		$result = $this->session_model->student_login($sais_id,$password);
 		if ($result) {
 			//verify success, session creation
 			$sess_array = array(
-				'user_id' => $result->user_id,
-				'student_number' => $result->student_number,
+				'student_id' => $result->student_id,
+				'sais_id' => $result->sais_id,
 				'first_name' => $result->first_name,
 				'last_name' => $result->last_name
 				);
@@ -150,78 +150,6 @@ class Session extends CI_Controller {
 	}
 
 /**
- * Form Validation rule. Checks if class for given code
- * is open for evaluation.
- * @param  string $code value of code field in access code form
- * @return boolean			TRUE if class open for evaluation. Else, FALSE.
- */
-	public function active_class($code) {
-		if(empty($this->form_validation)) {
-			show_403_error();
-		}
-
-		$this->load->model('class_model');
-		$this->load->model('access_code_model');
-		$class_id = $this->access_code_model->get_class_id($code);
-		echo $code.' '.$class_id;
-		if (is_numeric($class_id)) {
-			if ($this->class_model->is_active($class_id)) {
-				return TRUE;
-			} else {
-				$this->form_validation->set_message('active_class','Invalid access code.');
-				// $this->form_validation->set_message('active_class','Evaluation for this class is not yet enabled.');
-				return FALSE;
-			}
-		}
-	}
-
-/**
- * Form Validation rule. Checks if code is valid and exists
- * in the database.
- * @param  string $code	value of code field in access code form
- * @return boolean			TRUE if code exists in the database. Else, FALSE.
- */
-	public function code_exists($code) {
-		if(empty($this->form_validation)) {
-			show_403_error();
-		}
-		
-		$result = $this->access_code_model->code_exists($code);
-		if ($result) {
-			return TRUE;
-		} else {
-			$this->form_validation->set_message('code_exists','Invalid access code.');
-			return FALSE;
-		}
-	}
-
-/**
- * Final Form Validation rule for access codes. Checks if code is not
- * already used for evaluation and creates a session for the student.
- * @param  string  $code	value of code field in access code form
- * @return boolean				TRUE if code not already used. Else, FALSE.
- */
-	public function is_not_used($code) {
-		if(empty($this->form_validation)) {
-			show_403_error();
-		}
-		
-		if (!($this->access_code_model->is_used($code))) {
-			$result = $this->access_code_model->get_by_code($code);
-			//verify success, session creation
-			$sess_array = array(
-				'class_id' => $result->class_id,
-				'access_code' => $result->access_code,
-				);
-			$this->session->set_userdata($sess_array);
-			return TRUE;
-		} else {
-			$this->form_validation->set_message('is_not_used','Access code is already used.');
-			return FALSE;
-		}
-	}
-
-/**
  * Redirects users to their respective homepages based
  * on their user roles.
  */
@@ -246,8 +174,8 @@ class Session extends CI_Controller {
  * on their user roles.
  */
 	private function redirect_to_student_home() {
-		$student_number = $this->session->userdata('student_number');
-		if (!empty($student_number)) {
+		$sais_id = $this->session->userdata('sais_id');
+		if (!empty($sais_id)) {
 			redirect('student');
 		} else {
 			$this->session->sess_destroy();

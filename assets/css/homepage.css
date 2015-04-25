@@ -48,7 +48,7 @@ body {
 	max-width: 300px;
 }
 
-#student-login-form #student-number {
+#student-login-form #sais-id {
 	margin-bottom: -1px;
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 0px;
@@ -68,6 +68,10 @@ body {
 }
 
 /*homepage-user*/
+#login-form {
+	max-width: 450px;
+	margin: 0 auto;
+}
 
 #login-form .panel-title {
 	text-align: center;

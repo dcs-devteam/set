@@ -9,24 +9,27 @@ class Evaluation_model extends CI_Model {
  * Inserts evaluation details to database.
  * Calls add_content to insert evaluation content.
  * @param  int $class_id				valid class ID
- * @param  string $access_code	valid access code
  * @param  array $content				evaluation form content
  * @return boolean							TRUE if insert successful. Else, FALSE.
  */
-	public function submit($class_id, $access_code, $content) {
+	public function submit($class_id, $content) {
+		$this->db->trans_start();
+
 		//insert content
 		$content_id = $this->add_content($content, $class_id);
 		if ($content_id) {
 			$data = array(
 				'class_id' => $class_id,
-				'access_code' => $access_code,
 				'content_id' => $content_id
 				);
 			$result = $this->db->insert('evaluation',$data);
-			return $result;
-		} else {
-			return FALSE;
+
+			$this->db->trans_complete();
+			if ($this->db->trans_status() !== FALSE) {
+				return TRUE;
+			}
 		}
+		return FALSE;
 	}
 
 /**
@@ -51,26 +54,6 @@ class Evaluation_model extends CI_Model {
 		if ($result) {
 			return $this->db->insert_id();
 		} else {
-			return FALSE;
-		}
-	}
-
-/**
- * Returns evaluation row, given access code.
- * @param  string $code	valid access code
- * @return object				evaluation row (as object)
- * 											FALSE if evaluation not found
- */
-	public function get_by_access_code($code) {
-		$this->db->from('evaluation');
-		$this->db->where('access_code', $code);
-		$this->db->limit(1);
-
-		$query = $this->db->get();
-
-		if($query->num_rows() >= 1) {
-			return $query->row();
-		}	else {
 			return FALSE;
 		}
 	}
@@ -168,6 +151,19 @@ class Evaluation_model extends CI_Model {
 		}
 
 		return $result;
+	}
+
+/**
+ * Checks if evaluation period for current year and semester is active.
+ * @return boolean TRUE if evaluation period is active. Otherwise, FALSE.
+ */
+	public function is_active() {
+		$this->load->model('year_semester_model');		
+		$current_yearsem = $this->year_semester_model->get_current();
+		if ($current_yearsem->evaluation_active) {
+			return TRUE;
+		}
+		return FALSE;
 	}
 }
 

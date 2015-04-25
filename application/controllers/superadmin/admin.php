@@ -139,12 +139,12 @@ class Admin extends CI_Controller {
 				),
 			);
 		
-		// $this->email->message($this->load->view('contents/superadmin/admin/email_add_account',$email_data, TRUE));
+		$this->email->message($this->load->view('contents/superadmin/admin/email_add_account',$email_data, TRUE));
 
 		$result = $this->account_model->add($first_name, $last_name, $email_address, $password, $role, $office->office_id);
 		if ($result) {
 			//only send if account was stored
-			$this->email->send();
+			// $this->email->send();
 			// echo $this->email->print_debugger();
 			return TRUE;
 		} else {

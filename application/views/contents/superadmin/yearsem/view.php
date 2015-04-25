@@ -27,6 +27,7 @@
 						<?php endif;?>
 					</td>
 					<td>
+						<a class="btn btn-primary btn-xs" href="<?php echo base_url('superadmin/yearsem/evaluation/start/'.$year_semester->year.'/'.$year_semester->semester)?>">Start Evaluation</a>
 						<a class="btn btn-warning btn-xs" href="<?php echo base_url('superadmin/yearsem/edit/'.$year_semester->year.'/'.$year_semester->semester)?>">Edit</a>
 						<a class="btn btn-danger btn-xs" href="<?php echo base_url('superadmin/yearsem/delete/'.$year_semester->year.'/'.$year_semester->semester)?>">Delete</a>
 					</td>
