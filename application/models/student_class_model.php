@@ -102,6 +102,12 @@ class Student_class_model extends CI_Model {
 		return FALSE;
 	}
 
+/**
+ * Mark that given student has already evaluated given class.
+ * @param  int  $student_id valid student id
+ * @param  int  $class_id   valid class id
+ * @return boolean          TRUE if successfully set. Otherwise, FALSE.
+ */
 	public function set_evaluated($student_id, $class_id) {
 		$this->db->where('student_id', $student_id);
 		$this->db->where('class_id', $class_id);
@@ -114,6 +120,11 @@ class Student_class_model extends CI_Model {
 		}
 	}
 
+/**
+ * Check if given student has completely evaluated in all currently enrolled classes.
+ * @param  int  $student_id valid student id
+ * @return boolean          TRUE if student completed evaluations. Otherwise, FALSE.
+ */
 	public function completed_evaluation($student_id) {
 		$this->db->where('student_id', $student_id);
 		$query = $this->db->get('student_class');
