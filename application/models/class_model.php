@@ -393,7 +393,7 @@ class Class_model extends CI_Model {
 		$result = $this->db->update('class',$data);
 		
 		if ($this->db->affected_rows() >= 0) {
-			return $result;
+			return TRUE;
 		} else {
 			return FALSE;
 		}

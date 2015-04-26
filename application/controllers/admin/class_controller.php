@@ -137,7 +137,6 @@ class Class_controller extends CI_Controller {
 		$course_name = $this->input->post('course');
 		$section = $this->input->post('section');
 		$schedule = $this->input->post('schedule');
-		// $number_of_students = $this->input->post('number_of_students');
 		$number_of_students = 0;
 		$teacher = $this->input->post('teacher');
 
@@ -175,7 +174,10 @@ class Class_controller extends CI_Controller {
 					$reader->setReadDataOnly(true);
 					$excel=$reader->load($inputFileName);
 				} catch(Exception $e) {
-					$this->form_validation->set_message('upload_error','Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
+					$this->error_message = 'Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage();
+					$this->class_model->delete($class_id);
+					delete_files('assets/temp/');
+					return FALSE;
 				}
 																																					 
 				//  Get worksheet dimensions
@@ -195,14 +197,14 @@ class Class_controller extends CI_Controller {
 							$last_name = ucwords(mb_strtolower($name[0]));
 							$password = md5(mb_strtolower($first_name[0].$last_name));
 							$student_id = $this->student_model->add($sais_id, $first_name, $last_name, $password);
-							// if (!empty($student_id)) {
+							if (!empty($student_id)) {
 								$this->student_class_model->add($student_id, $class_id);
-							// } else {
-							// 	$this->class_model->delete($class_id);
-							// 	delete_files('assets/temp/');
-							// 	$this->error_message = "Enrol student failed.";
-							// 	return FALSE;
-							// }
+							} else {
+								$this->class_model->delete($class_id);
+								delete_files('assets/temp/');
+								$this->error_message = "Enrol student failed.";
+								return FALSE;
+							}
 						}
 						$number_of_students++;
 				}
@@ -262,17 +264,16 @@ class Class_controller extends CI_Controller {
 					'rules' => 'trim|required|xss_clean'
 					),
 				array(
-					'field' => 'number_of_students',
-					'label' => 'Number of Students',
-					'rules' => 'trim|required|xss_clean'
-					),
-				array(
 					'field' => 'teacher',
 					'label' => 'Teacher',
 					'rules' => 'trim|required|xss_clean'
 					)
 				);
 			$this->form_validation->set_rules($validation_rules);
+
+			if (empty($_FILES['class-roster']['name'])) {
+			  $this->form_validation->set_rules('class-roster', 'Class Roster', 'required');
+			}
 
 			if ($this->form_validation->run() == FALSE) {
 				//validation failure, return to form
@@ -295,8 +296,9 @@ class Class_controller extends CI_Controller {
 					$success = TRUE;
 				} else {
 					$message = 'Class edit failed.';
-					if ($this->db->_error_message()) {
-						$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+					if ($this->error_message !== "") {
+						$error = $this->error_message;
+						$this->error_message = "";
 					}
 				}
 				$edit_data = array('message' => $message, 'error' => $error, 'success' => $success);
@@ -319,7 +321,7 @@ class Class_controller extends CI_Controller {
 		$course_name = $this->input->post('course');
 		$section = $this->input->post('section');
 		$schedule = $this->input->post('schedule');
-		$number_of_students = $this->input->post('number_of_students');
+		$number_of_students = 0;
 		$teacher = $this->input->post('teacher');
 
 		//course - add if not exists
@@ -333,13 +335,73 @@ class Class_controller extends CI_Controller {
 		$first_name = $teacher_name[1];
 		$last_name = $teacher_name[0];
 		$teacher_id = $this->teacher_model->get_id($first_name, $last_name);
-		var_dump($teacher_id);
 		if (!$teacher_id) {
 			$teacher_id = $this->teacher_model->add($first_name, $last_name, $this->office_id);
 		}
 
 		$result = $this->class_model->edit($class_id, $course_id, $teacher_id, $section, $year, $semester, $schedule, $number_of_students);
-		if ($result) {
+		if (!empty($result)) {
+			//students
+			$field_name = 'class-roster';
+			if (!$this->upload->do_upload($field_name)) {
+				delete_files('assets/temp/');
+				$this->error_message = "Upload failed.";
+				return FALSE;
+			} else {
+				$data = array('upload_data' => $this->upload->data());
+
+				$inputFileName = $data['upload_data']['full_path'];
+				try {
+					$inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+					$reader= PHPExcel_IOFactory::createReader($inputFileType);
+					$reader->setReadDataOnly(true);
+					$excel=$reader->load($inputFileName);
+				} catch(Exception $e) {
+					$this->error_message = 'Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage();
+					delete_files('assets/temp/');
+					return FALSE;
+				}
+																																					 
+				//  Get worksheet dimensions
+				$sheet = $excel->getSheet(0); 
+				$highestRow = $sheet->getHighestRow(); 
+				$highestColumn = $sheet->getHighestColumn();
+
+				$this->load->model('student_model');
+
+				//delete students currently enrolled
+				if (!$this->student_class_model->delete_students($class_id)) {
+					$this->error_message = 'Edit class roster failed.';
+					return FALSE;
+				}
+
+				//  Loop through each row of the worksheet in turn
+				//  $row = 2 to remove header
+				for ($row = 2; $row <= $highestRow; $row++) {
+						$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+						foreach ($rowData as $row2) {
+							$sais_id = $row2[0];
+							$name = explode(",", $row2[1]);
+							$first_name = ucwords(mb_strtolower($name[1]));
+							$last_name = ucwords(mb_strtolower($name[0]));
+							$password = md5(mb_strtolower($first_name[0].$last_name));
+							$student_id = $this->student_model->add($sais_id, $first_name, $last_name, $password);
+							if (!empty($student_id)) {
+								$this->student_class_model->add($student_id, $class_id);
+							} else {
+								delete_files('assets/temp/');
+								$this->error_message = "Enrol student failed.";
+								return FALSE;
+							}
+						}
+						$number_of_students++;
+				}
+
+				$this->class_model->edit($class_id, $course_id, $teacher_id, $section, $year, $semester, $schedule, $number_of_students);
+
+				delete_files('assets/temp/');
+			}
+
 			return TRUE;
 		} else {
 			return FALSE;

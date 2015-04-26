@@ -172,6 +172,20 @@ class Student_class_model extends CI_Model {
 			return FALSE;
 		}
 	}
+
+/**
+ * Deletes students enrolled in class.
+ * @param  int $class_id	valid class ID.
+ * @return boolean				TRUE is delete successful. Else, FALSE.
+ */
+	public function delete_students($class_id) {
+		$this->db->trans_start();
+
+		$result = $this->db->delete('student_class',array('class_id' => $class_id));
+
+		$this->db->trans_complete();
+		return $this->db->trans_status();
+	}
 }
 
 /* End of file student_class_model.php */

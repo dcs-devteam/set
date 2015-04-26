@@ -83,6 +83,7 @@ class Student_model extends CI_Model {
 			$student_id = $this->db->insert_id();
 		} else {
 			$student_id = $student->student_id;
+			unset($data['password']);
 			$this->db->where('student_id', $student_id);
 			$this->db->update('student',$data);
 		}
