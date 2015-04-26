@@ -140,6 +140,38 @@ class Student_class_model extends CI_Model {
 		}
 		return TRUE;
 	}
+
+/**
+ * Inserts student.
+ * @param string $student_id
+ * @param string $class_id
+ * @return boolean 							TRUE if successfully inserted
+ * 														  FALSE if insert failed
+ */
+	public function add($student_id, $class_id) {
+		$this->db->trans_start();
+
+		$data = array(
+			'student_id' => $student_id,
+			'class_id' => $class_id,
+			'has_evaluated' => 0,
+		);
+
+		if (!$this->is_enrolled($student_id, $class_id)) {
+			$this->db->insert('student_class',$data);
+		} else {
+			$this->db->where('student_id', $student_id);
+			$this->db->where('class_id', $class_id);
+			$this->db->update('student_class',$data);
+		}
+
+		$this->db->trans_complete();
+		if ($this->db->trans_status()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 }
 
 /* End of file student_class_model.php */

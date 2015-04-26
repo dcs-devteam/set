@@ -4,7 +4,7 @@
 		<li>You can select an existing Course or Teacher Name by double-clicking on the respective field.</li>
 	</ul>
 </div>
-<?php echo form_open('admin/class/add',array('class'=>'form-horizontal','role'=>'form'))?>
+<?php echo form_open_multipart('admin/class/add',array('class'=>'form-horizontal','role'=>'form'))?>
 	<div class="panel panel-primary form-container">
 		<div class="panel-heading">
 			<h3 class="panel-title">Add Class</h3>
@@ -53,13 +53,6 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="number_of_students" class="col-sm-4 control-label">No. of Students</label>
-				<div class="col-sm-8">
-					<input value="<?php echo set_value('number_of_students'); ?>" id="number_of_students" name="number_of_students" type="text" class="form-control" placeholder="Number of Students">
-					<?php echo form_error('number_of_students','<p class="text-danger">','</p>');?>
-				</div>
-			</div>
-			<div class="form-group">
 				<label for="teacher" class="col-sm-4 control-label">Teacher</label>
 				<div class="col-sm-8">
 					<input value="<?php echo set_value('teacher'); ?>" id="teacher" name="teacher" type="text" class="form-control" placeholder="Teacher (Last Name, First Name)" list="teachers">
@@ -69,6 +62,14 @@
 						<?php endforeach;?>
 					</datalist>
 					<?php echo form_error('teacher','<p class="text-danger">','</p>');?>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="class-roster" class="col-sm-4 control-label">Class Roster</label>
+				<div class="col-sm-8">
+					<input type="file" id="class-roster" name="class-roster">
+					<?php echo form_error('class-roster','<p class="text-danger">','</p>');?>
+					<?php echo $this->upload->display_errors('<p class="text-danger>', '</p>');?>
 				</div>
 			</div>
 			<div class="form-group">
