@@ -20,10 +20,7 @@
 							<div class="collapse navbar-collapse" id="navbar-collapse">
 <?php if ($this->session->userdata('role') == 'admin'):?>
 									<ul class="nav navbar-nav">
-										<li class="<?php if (($this->uri->segment(2) === 'evaluation') OR ($this->uri->uri_string() === 'admin')) echo 'active'?>">
-											<a href="<?php echo base_url('admin/evaluation')?>">Evaluation</a>
-										</li>
-										<li class="<?php if (($this->uri->segment(2) === 'report')) echo 'active'?>"><a href="<?php echo base_url('admin/report')?>">Reports</a></li>
+										<!-- <li class="<?php if (($this->uri->segment(2) === 'report')) echo 'active'?>"><a href="<?php echo base_url('admin/report')?>">Evaluation Reports</a></li> -->
 										<li class="dropdown <?php if (($this->uri->segment(2) === 'class')) echo 'active'?>">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Classes <span class="caret"></span></a>
 											<ul class="dropdown-menu" role="menu">

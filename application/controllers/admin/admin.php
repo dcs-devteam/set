@@ -16,7 +16,7 @@ class Admin extends CI_Controller {
  * Redirects to admin/evaluation.
  */
 	public function index() {
-		redirect('admin/evaluation');
+		redirect('admin/class');
 	}
 }
 
