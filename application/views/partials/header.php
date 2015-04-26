@@ -42,13 +42,13 @@
 												<li class="<?php if (($this->uri->uri_string() === 'admin/course/add')) echo 'active'?>"><a href="<?php echo base_url('admin/course/add')?>">Add Course</a></li>
 											</ul>
 										</li>
-										<li class="dropdown <?php if (($this->uri->segment(2) === 'account')) echo 'active'?>">
+										<!-- <li class="dropdown <?php if (($this->uri->segment(2) === 'account')) echo 'active'?>">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Accounts <span class="caret"></span></a>
 											<ul class="dropdown-menu" role="menu">
 												<li class="<?php if (($this->uri->uri_string() === 'admin/account') OR ($this->uri->uri_string() === 'admin/account/view')) echo 'active'?>"><a href="<?php echo base_url('admin/account/view')?>">View Accounts</a></li>
 												<li class="<?php if (($this->uri->uri_string() === 'admin/account/add')) echo 'active'?>"><a href="<?php echo base_url('admin/account/add')?>">Add Account</a></li>
 											</ul>
-										</li>
+										</li> -->
 									</ul>
 <?php elseif ($this->session->userdata('role') == 'superadmin'):?>
 									<ul class="nav navbar-nav">

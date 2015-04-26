@@ -262,6 +262,7 @@ class Account_model extends CI_Model {
  * @return	boolean 					TRUE if passwords are the same. Else, FALSE.
  */
 	public function same_passwords($user_id, $password) {
+		$this->db->where('user_id', $user_id);
 		$this->db->where('password', MD5($password));
 		$this->db->limit(1);
 

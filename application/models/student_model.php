@@ -109,6 +109,47 @@ class Student_model extends CI_Model {
 		$this->db->trans_complete();
 		return $this->db->trans_status();
 	}
+
+/**
+ * Changes student password.
+ * @param int $sais_id			valid sais_id
+ * @param string $password	
+ * @return int 							TRUE if edit successful
+ * 													FALSE if edit failed
+ */
+	public function change_password($sais_id, $password) {
+		$data = array(
+			'password' => MD5($password)
+		);
+
+		$this->db->where('sais_id', $sais_id);
+		$this->db->update('student',$data);
+		
+		if ($this->db->affected_rows() >= 0) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+/**
+ * Checks if password is the same as in the database.
+ * @param		string $password
+ * @return	boolean 					TRUE if passwords are the same. Else, FALSE.
+ */
+	public function same_passwords($sais_id, $password) {
+		$this->db->where('sais_id', $sais_id);
+		$this->db->where('password', MD5($password));
+		$this->db->limit(1);
+
+		$query = $this->db->get('student');
+
+		if($query->num_rows() >= 1) {
+			return TRUE;
+		}	else {
+			return FALSE;
+		}
+	}
 }
 
 /* End of file office_model.php */

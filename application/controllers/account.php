@@ -5,6 +5,7 @@ class Account extends CI_Controller {
 		parent::__construct();
 		$this->load->model('office_model');
 		$this->load->model('account_model');
+		$this->load->model('student_model');
 		$this->office_id = $this->session->userdata('office_id');		
 		$this->user_id = $this->session->userdata('user_id');
 	}
@@ -16,7 +17,7 @@ class Account extends CI_Controller {
  * It then displays whether the change_password function is successful or not.
  */
 	public function password() {
-		if (!$this->session->userdata('role')) {
+		if (!$this->session->userdata('role') && !$this->session->userdata('sais_id')) {
 			redirect(base_url());
 		}
 		$this->load->library('form_validation');
@@ -45,7 +46,7 @@ class Account extends CI_Controller {
 			$data['body_content'] = $this->load->view('contents/account/change_password','',TRUE);
 		} else {
 			//validation success, change password
-			$password_result = $this->change_password($this->user_id);
+			$password_result = $this->change_password();
 			$message = '';
 			$error = '';
 			$success = FALSE;
@@ -70,38 +71,49 @@ class Account extends CI_Controller {
  * @param  int $user_id	valid user ID
  * @return boolean 			TRUE if account was successfully edited. Else, FALSE.
  */
-	private function change_password($user_id) {
-		$password = $this->input->post('new_password');
+	private function change_password() {
+		if (!empty($this->session->userdata('user_id'))) {
+			$user_id = $this->session->userdata('user_id');
+			$password = $this->input->post('new_password');
 
-		//old values
-		$old_account = $this->account_model->get_by_id($user_id);
+			//old values
+			$old_account = $this->account_model->get_by_id($user_id);
 
-		$result = $this->account_model->change_password($user_id, $password);
+			$result = $this->account_model->change_password($user_id, $password);
+		} else if (!empty($this->session->userdata('sais_id'))) {
+			$sais_id = $this->session->userdata('sais_id');
+			$password = $this->input->post('new_password');
+
+			//old values
+			$old_account = $this->student_model->get_by_sais_id($sais_id);
+
+			$result = $this->student_model->change_password($sais_id, $password);
+		}
 		if ($result) {
-			if (MD5($password) !== $old_account->password) {
-				// send email
-				$this->load->library('email');
-				//TODO change to eValuation email
-				$this->email->from('to_be_implemented@gmail.com');
-				$this->email->reply_to('to_be_implemented@gmail.com');
-				$this->email->to($old_account->email_address);
-				$this->email->subject('eValuation Account Password Change');
+			// if (MD5($password) !== $old_account->password) {
+			// 	// send email
+			// 	$this->load->library('email');
+			// 	//TODO change to eValuation email
+			// 	$this->email->from('to_be_implemented@gmail.com');
+			// 	$this->email->reply_to('to_be_implemented@gmail.com');
+			// 	$this->email->to($old_account->email_address);
+			// 	$this->email->subject('eValuation Account Password Change');
 
-				//email body
-				$email_data = array(
-					'account' => array(
-						'first_name' => $old_account->first_name,
-						'last_name' => $old_account->last_name,
-						'email_address' => $old_account->email_address,
-						'role' => $old_account->role,
-						),
-					);
+			// 	//email body
+			// 	$email_data = array(
+			// 		'account' => array(
+			// 			'first_name' => $old_account->first_name,
+			// 			'last_name' => $old_account->last_name,
+			// 			'email_address' => $old_account->email_address,
+			// 			'role' => $old_account->role,
+			// 			),
+			// 		);
 				
-				$this->email->message($this->load->view('contents/account/email_change_password',$email_data, TRUE));
-				$this->email->send();
+			// 	$this->email->message($this->load->view('contents/account/email_change_password',$email_data, TRUE));
+			// 	$this->email->send();
 
-				// echo $this->email->print_debugger();
-			}
+			// 	// echo $this->email->print_debugger();
+			// }
 			return TRUE;
 		} else {
 			return FALSE;
@@ -118,7 +130,12 @@ class Account extends CI_Controller {
 		if(empty($this->form_validation)) {
 			show_403_error();
 		}
-		$result = $this->account_model->same_passwords($this->user_id, $current_password);
+		if (!empty($this->session->userdata('user_id'))) {
+			$result = $this->account_model->same_passwords($this->user_id, $current_password);
+		} else if (!empty($this->session->userdata('sais_id'))) {
+			$result = $this->student_model->same_passwords($this->session->userdata('sais_id'), $current_password);
+		}
+			
 		if ($result !== TRUE) {
 			$this->form_validation->set_message('verify_password','Current Password value is incorrect.');
 			return FALSE;
