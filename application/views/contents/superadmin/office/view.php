@@ -5,7 +5,7 @@
 			<tr>
 				<th>ID</th>
 				<th>Name</th>
-				<th>Actions</th>
+				<th class="no-sort">Actions</th>
 			</tr>
 		</thead>
 		<tbody>

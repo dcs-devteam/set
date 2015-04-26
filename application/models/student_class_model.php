@@ -76,7 +76,12 @@ class Student_class_model extends CI_Model {
 		$this->db->where('class_id', $class_id);
 		$query = $this->db->get('student_class');
 		if ($query->num_rows() == 1) {
-			return TRUE;
+			$result1 = $query->row();
+			$result2 = $this->class_model->get_by_id($result1->class_id);
+			$year_sem = $this->year_semester_model->get_current();
+			if ($result2->year === $year_sem->year && $result2->semester === $year_sem->semester) {
+				return TRUE;
+			}
 		}
 		
 		return FALSE;

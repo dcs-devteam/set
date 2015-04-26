@@ -31,6 +31,13 @@ var evaluation_form = {
 
 var tables = {
 	initialize: function() {
+		$.extend( $.fn.dataTable.defaults, {
+	    // Disable sorting
+      "aoColumnDefs" : [ {
+          'bSortable' : false,
+          'aTargets' : [ "no-sort" ],
+      }]
+		} );
 		$('.data-table.account-table').DataTable({
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			"pageLength": 10,
@@ -42,13 +49,19 @@ var tables = {
 			"pageLength": 10,
 			"order": [[3,'desc'],[2,'desc'],[0,'desc'],[1,'desc']]
 		});
+		$('.data-table.office-table').DataTable({
+			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+			"pageLength": 10,
+			"order": [[1,'asc']],
+			"aoColumnDefs": [{ "bSearchable": false, "aTargets": [ 0 ] }]
+		});
 		$('.class-table').DataTable( {
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			"pageLength": 10,
 			"order": [[1,'asc']],
 			"aoColumnDefs": [{ "bSearchable": false, "aTargets": [ 0,4 ] }]
 		});
-		$('.data-table:not(".account-table,.yearsem-table,.class-table")').DataTable({
+		$('.data-table:not(".account-table,.yearsem-table,.class-table,.office-table")').DataTable({
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			"pageLength": 10,
 			"order": [[1,'asc']],

@@ -147,7 +147,7 @@ class Year_semester_model extends CI_Model {
 		$this->db->trans_start();
 
 		$result = $this->db->delete('year_semester',array('year' => $year, 'semester' => $semester));
-		echo 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+		// echo 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
 
 		$this->db->trans_complete();
 		if ($this->db->trans_status()) {
@@ -157,6 +157,50 @@ class Year_semester_model extends CI_Model {
 		} else {
 			return FALSE;
 		}
+	}
+
+/**
+ * Enable evaluation for given year and semester
+ * @param  int $year     valid year
+ * @param  int $semester valid semester
+ * @return boolean           TRUE if successfully enabled. Otherwise, FALSE.
+ */
+	public function start_evaluation($year, $semester) {
+		$this->db->trans_start();
+
+		$this->db->where('year', $year);
+		$this->db->where('semester', $semester);
+		$result = $this->db->update('year_semester', array('evaluation_active' => 1));
+		
+		$this->db->trans_complete();
+		if ($this->db->trans_status()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+
+	}
+
+/**
+ * Disable evaluation for given year and semester
+ * @param  int $year     valid year
+ * @param  int $semester valid semester
+ * @return boolean           TRUE if successfully enabled. Otherwise, FALSE.
+ */
+	public function stop_evaluation($year, $semester) {
+		$this->db->trans_start();
+
+		$this->db->where('year', $year);
+		$this->db->where('semester', $semester);
+		$result = $this->db->update('year_semester', array('evaluation_active' => 0, 'evaluation_done' => 1));
+		
+		$this->db->trans_complete();
+		if ($this->db->trans_status()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+
 	}
 }
 
