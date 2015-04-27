@@ -45,7 +45,7 @@ class Session extends CI_Controller {
  */
 	public function logout()  {
 		$redirect_url = base_url('login');
-		if (!empty($this->session->userdata('sais_id'))) {
+		if ($this->session->userdata('sais_id')) {
 			$redirect_url = base_url();
 		}
 

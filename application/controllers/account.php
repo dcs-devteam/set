@@ -72,7 +72,7 @@ class Account extends CI_Controller {
  * @return boolean 			TRUE if account was successfully edited. Else, FALSE.
  */
 	private function change_password() {
-		if (!empty($this->session->userdata('user_id'))) {
+		if ($this->session->userdata('user_id')) {
 			$user_id = $this->session->userdata('user_id');
 			$password = $this->input->post('new_password');
 
@@ -80,7 +80,7 @@ class Account extends CI_Controller {
 			$old_account = $this->account_model->get_by_id($user_id);
 
 			$result = $this->account_model->change_password($user_id, $password);
-		} else if (!empty($this->session->userdata('sais_id'))) {
+		} else if ($this->session->userdata('sais_id')) {
 			$sais_id = $this->session->userdata('sais_id');
 			$password = $this->input->post('new_password');
 
@@ -130,9 +130,9 @@ class Account extends CI_Controller {
 		if(empty($this->form_validation)) {
 			show_403_error();
 		}
-		if (!empty($this->session->userdata('user_id'))) {
+		if ($this->session->userdata('user_id')) {
 			$result = $this->account_model->same_passwords($this->user_id, $current_password);
-		} else if (!empty($this->session->userdata('sais_id'))) {
+		} else if ($this->session->userdata('sais_id')) {
 			$result = $this->student_model->same_passwords($this->session->userdata('sais_id'), $current_password);
 		}
 			
