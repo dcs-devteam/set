@@ -49,8 +49,6 @@ class Session extends CI_Controller {
 			$redirect_url = base_url();
 		}
 
-		echo 'LOGGING OUT...';
-
 		$this->session->sess_destroy();
 		redirect($redirect_url,'refresh');
 	}
