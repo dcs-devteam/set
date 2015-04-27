@@ -114,38 +114,10 @@ class Admin extends CI_Controller {
 		}
 
 		//generate password
-		$password = $this->generate_password();
-		// send email
-		$this->load->library('email');
-		$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Super Admin)');
-		$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Super Admin)');
-		$this->email->to($email_address);
-		$this->email->subject('eValuation '.ucfirst($role).' Account Details');
-
-		//email body
-		$email_data = array(
-			'admin' => array(
-				'first_name' => $this->session->userdata('first_name'),
-				'last_name' => $this->session->userdata('last_name'),
-				'email_address' => $this->session->userdata('email_address')
-				),
-			'account' => array(
-				'first_name' => $first_name,
-				'last_name' => $last_name,
-				'password' => $password,
-				'email_address' => $email_address,
-				'role' => $role,
-				'office' => $office->name,
-				),
-			);
+		$password = $this->generate_password($first_name, $last_name);
 		
-		$this->email->message($this->load->view('contents/superadmin/admin/email_add_account',$email_data, TRUE));
-
 		$result = $this->account_model->add($first_name, $last_name, $email_address, $password, $role, $office->office_id);
 		if ($result) {
-			//only send if account was stored
-			// $this->email->send();
-			// echo $this->email->print_debugger();
 			return TRUE;
 		} else {
 			return FALSE;
@@ -156,10 +128,8 @@ class Admin extends CI_Controller {
  * Random password generator.
  * @return string		password generated
  */
-	private function generate_password() {
-		//resulting length of code is $len * 2
-		$len = 5;
-		return bin2hex(openssl_random_pseudo_bytes($len));;
+	private function generate_password($first_name, $last_name) {
+		return mb_strtolower($first_name[0].$last_name);
 	}
 
 /**
@@ -300,65 +270,8 @@ class Admin extends CI_Controller {
 			$office = $this->office_model->get_by_id($this->office_model->add($office_name));
 		}
 
-		//old values
-		$old_account = $this->account_model->get_by_id($user_id);
-
-		$changed = FALSE;
-		if ( $old_account->first_name !== $first_name
-			OR $old_account->last_name !== $last_name
-			OR $old_account->email_address !== $email_address
-			OR $old_account->office_id !== $office->office_id
-			) {
-			$changed = TRUE;
-
-			//email current address
-			$this->load->library('email');
-			$this->email->from($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Super Admin)');
-			$this->email->reply_to($this->session->userdata('email_address'), $this->session->userdata('first_name').' '.$this->session->userdata('last_name').' (eValuation Super Admin)');
-			$this->email->to($email_address);
-			$this->email->subject('eValuation Account was Changed');
-
-			//email body
-			$email_data = array(
-				'admin' => array(
-					'first_name' => $this->session->userdata('first_name'),
-					'last_name' => $this->session->userdata('last_name'),
-					'email_address' => $this->session->userdata('email_address'),
-					),
-				'account' => array(
-					'first_name' => $first_name,
-					'last_name' => $last_name,
-					'email_address' => $email_address,
-					'role' => $role,
-					'office' => $office->name,
-					),
-				);
-
-			//changed values
-			if ($first_name !== $old_account->first_name) {
-				$email_data['changes']['first_name'] = TRUE;
-			}
-			if ($last_name !== $old_account->last_name) {
-				$email_data['changes']['last_name'] = TRUE;
-			}
-			if ($email_address !== $old_account->email_address) {
-				$email_data['changes']['email_address'] = TRUE;
-			}
-			if ($office->office_id !== $old_account->office_id) {
-				$email_data['changes']['office'] = TRUE;
-			}
-
-			$this->email->message($this->load->view('contents/superadmin/admin/email_edit_account',$email_data, TRUE));
-
-		}
-
 		$result = $this->account_model->edit($user_id, $first_name, $last_name, $email_address, $password, $role, $office->office_id);
 		if ($result) {
-			if ($changed) {
-				//send only if successfully edited
-				$this->email->send();
-				// echo $this->email->print_debugger();
-			}
 			return TRUE;
 		} else {
 			return FALSE;
