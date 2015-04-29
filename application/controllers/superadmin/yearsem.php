@@ -74,7 +74,7 @@ class Yearsem extends CI_Controller {
 			$form_data['years'] = array();
 			$current_year = date("Y");
 			for ($i=0; $i < 5; $i++) { 
-				$form_data['years'][$current_year + $i] = format_year($current_year + $i);
+				$form_data['years'][$current_year + $i] = format_year($current_year + $i - 1);
 			}
 			$data['body_content'] = $this->load->view('contents/superadmin/yearsem/add',$form_data,TRUE);
 		} else {
