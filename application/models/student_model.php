@@ -7,16 +7,95 @@ class Student_model extends CI_Model {
 
 /**
  * Returns all students.
- * @return object		student row (as object) found. else, FALSE.
+ * @return array		student rows (as object) found. else, FALSE.
  */
 	public function get() {
 		$this->db->from('student');
-		$this->db->order_by("last_name", "asc");
+		$this->db->order_by('program', 'asc');
+		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('first_name', 'asc');
 
 		$query = $this->db->get();
 
 		if($query->num_rows() >= 1) {
 			return $query->result();
+		}	else {
+			return FALSE;
+		}
+	}
+
+/**
+ * Returns all students enrolled in classes of given office.
+ * @return array		student rows (as object) found. else, FALSE.
+ */
+	public function get_by_office($office_id) {
+		$this->load->model('class_model');
+		$class_result = $this->class_model->get($office_id);
+		if ($class_result) {
+			$classes = array();
+			foreach ($class_result as $key => $row) {
+				$classes[$key] = $row->class_id;
+			}
+
+			$this->db->where_in('student_class.class_id', $classes);
+			$this->db->join('student_class', 'student_class.student_id = student.student_id');
+
+			$this->db->order_by('program', 'asc');
+			$this->db->order_by('last_name', 'asc');
+			$this->db->order_by('first_name', 'asc');
+
+			$query = $this->db->get('student');
+
+			if($query->num_rows() >= 1) {
+				return $query->result();
+			}	else {
+				return FALSE;
+			}
+		} else {
+			return FALSE;
+		}
+	}
+
+/**
+ * Returns the temporary student passwords of a given office.
+ * @param  int $office_id valid office id
+ * @return array             student passwords. FALSE if students not found.
+ */
+	public function get_temp_passwords($office_id) {
+		$students_result = $this->get_by_office($office_id);
+		if ($students_result) {
+			$passwords = array();
+			foreach ($students_result as $key => $row) {
+				$passwords[$key] = $this->get_temp_password($row->sais_id);
+				if ($passwords[$key]) {
+					$passwords[$key]->first_name = $row->first_name;
+					$passwords[$key]->last_name = $row->last_name;
+				} else {
+					unset($passwords[$key]);
+				}
+			}
+
+			if (count($passwords) > 0) {
+				return $passwords;
+			}
+		}
+
+		return FALSE;
+	}
+
+/**
+ * Returns the temporary password of a given student.
+ * @param  int $sais_id valid SAIS id
+ * @return string             password. FALSE if student not found.
+ */
+	public function get_temp_password($sais_id) {
+		$this->db->from('student_temp_password');
+		$this->db->where('sais_id',$sais_id);
+		$this->db->limit(1);
+
+		$query = $this->db->get();
+		if($query->num_rows() >= 1) {
+			return $query->row();
 		}	else {
 			return FALSE;
 		}
@@ -67,20 +146,28 @@ class Student_model extends CI_Model {
  * @return boolean 							student_id if successfully inserted
  * 														  FALSE if insert failed
  */
-	public function add($sais_id, $first_name, $last_name, $password) {
+	public function add($sais_id, $first_name, $last_name, $password, $program) {
 		$this->db->trans_start();
 
 		$data = array(
 			'sais_id' => $sais_id,
 			'first_name' => $first_name,
 			'last_name' => $last_name,
-			'password' => $password,
+			'password' => md5($password),
+			'program' => $program,
 		);
 
 		$student = $this->get_by_sais_id($sais_id);
 		if (!$student) {
 			$this->db->insert('student',$data);
 			$student_id = $this->db->insert_id();
+
+			//insert temp password
+			$temp_data = array(
+				'sais_id' => $sais_id,
+				'password' => $password
+			);
+			$this->db->insert('student_temp_password', $temp_data);
 		} else {
 			$student_id = $student->student_id;
 			unset($data['password']);
@@ -124,6 +211,43 @@ class Student_model extends CI_Model {
 
 		$this->db->where('sais_id', $sais_id);
 		$this->db->update('student',$data);
+		
+		if ($this->db->affected_rows() >= 0) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+/**
+ * Resets student password to a random one.
+ * @param int $sais_id			valid sais_id
+ * @return int 							TRUE if edit successful
+ * 													FALSE if edit failed
+ */
+	public function reset_password($sais_id) {
+		$password = bin2hex(openssl_random_pseudo_bytes(4));
+		$data = array(
+			'password' => MD5($password)
+		);
+
+		$this->db->where('sais_id', $sais_id);
+		$this->db->update('student',$data);
+		
+
+		//insert temp password
+		$temp_data = array(
+			'sais_id' => $sais_id,
+			'password' => $password
+		);
+		$student = $this->get_temp_password($sais_id);
+		if (!$student) {
+			$this->db->where('sais_id', $sais_id);
+			$this->db->update('student_temp_password',$temp_data);
+		} else {
+			$student_id = $student->student_id;
+			$this->db->insert('student_temp_password', $temp_data);
+		}
 		
 		if ($this->db->affected_rows() >= 0) {
 			return TRUE;

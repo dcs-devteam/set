@@ -195,14 +195,16 @@ class Class_controller extends CI_Controller {
 							$name = explode(",", $row2[1]);
 							$first_name = ucwords(mb_strtolower($name[1]));
 							$last_name = ucwords(mb_strtolower($name[0]));
-							$password = md5(mb_strtolower($first_name[0].$last_name));
-							$student_id = $this->student_model->add($sais_id, $first_name, $last_name, $password);
+							// $password = md5(mb_strtolower($first_name[0].$last_name));
+							$password = bin2hex(openssl_random_pseudo_bytes(4));
+							$program = explode(" - ", $row2[4])[0];
+							$student_id = $this->student_model->add($sais_id, $first_name, $last_name, $password, $program);
 							if (!empty($student_id)) {
 								$this->student_class_model->add($student_id, $class_id);
 							} else {
 								$this->class_model->delete($class_id);
 								delete_files('assets/temp/');
-								$this->error_message = "Enrol student failed.";
+								$this->error_message = "Enrol student failed. Please contact the Online SET administrator.<br><br><small>".$this->db->_error_message().'</small>';
 								return FALSE;
 							}
 						}
@@ -384,13 +386,15 @@ class Class_controller extends CI_Controller {
 							$name = explode(",", $row2[1]);
 							$first_name = ucwords(mb_strtolower($name[1]));
 							$last_name = ucwords(mb_strtolower($name[0]));
-							$password = md5(mb_strtolower($first_name[0].$last_name));
-							$student_id = $this->student_model->add($sais_id, $first_name, $last_name, $password);
+							$password = bin2hex(openssl_random_pseudo_bytes(4));
+							$program = explode(" - ", $row2[4])[0];
+							$student_id = $this->student_model->add($sais_id, $first_name, $last_name, $password, $program);
 							if (!empty($student_id)) {
 								$this->student_class_model->add($student_id, $class_id);
 							} else {
+								$this->class_model->delete($class_id);
 								delete_files('assets/temp/');
-								$this->error_message = "Enrol student failed.";
+								$this->error_message = "Enrol student failed. Please contact the Online SET administrator.<br><br><small>".$this->db->_error_message().'</small>';
 								return FALSE;
 							}
 						}
@@ -420,12 +424,6 @@ class Class_controller extends CI_Controller {
 			$error_data = array(
 				'error_title' => 'No Such Class Exists',
 				'error_message' => 'Record for the given class ID does not exist in the database.'
-				);
-			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-		} else if ($class->is_active == TRUE) {
-			$error_data = array(
-				'error_title' => 'Class Evaluation is Active',
-				'error_message' => 'Evaluation of this class is currently active. Stop or cancel evaluation before deleting.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 		} else {

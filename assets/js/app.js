@@ -61,7 +61,12 @@ var tables = {
 			"order": [[1,'asc']],
 			"aoColumnDefs": [{ "bSearchable": false, "aTargets": [ 0,4 ] }]
 		});
-		$('.data-table:not(".account-table,.yearsem-table,.class-table,.office-table")').DataTable({
+		$('.student-table').DataTable( {
+			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+			"pageLength": 25,
+			"order": [[3,'asc'],[1,'asc'], [2,'asc']]
+		});
+		$('.data-table:not(".account-table,.yearsem-table,.class-table,.office-table,.student-table")').DataTable({
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			"pageLength": 10,
 			"order": [[1,'asc']],

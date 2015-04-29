@@ -3,11 +3,13 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2015 at 05:03 PM
+-- Generation Time: Apr 29, 2015 at 08:45 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,8 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `set`
 --
-CREATE DATABASE IF NOT EXISTS `set` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `set`;
+CREATE DATABASE IF NOT EXISTS `upcdcs_set` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `upcdcs_set`;
 
 -- --------------------------------------------------------
 
@@ -36,20 +38,7 @@ CREATE TABLE IF NOT EXISTS `class` (
   `year` year(4) NOT NULL,
   `semester` int(1) NOT NULL,
   `schedule` varchar(256) NOT NULL,
-  `number_of_students` int(99) NOT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT '0',
-  `is_done` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `class_evaluator`
---
-
-CREATE TABLE IF NOT EXISTS `class_evaluator` (
-  `class_id` int(99) NOT NULL,
-  `evaluator_id` int(99) NOT NULL
+  `number_of_students` int(99) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -146,10 +135,11 @@ CREATE TABLE IF NOT EXISTS `office` (
 
 CREATE TABLE IF NOT EXISTS `student` (
 `student_id` int(255) NOT NULL,
-  `student_number` int(9) NOT NULL COMMENT 'No dash/hyphen',
+  `sais_id` int(9) NOT NULL,
   `first_name` varchar(256) NOT NULL,
   `last_name` varchar(256) NOT NULL,
-  `password` varchar(256) NOT NULL
+  `password` varchar(256) NOT NULL,
+  `program` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -162,6 +152,17 @@ CREATE TABLE IF NOT EXISTS `student_class` (
   `student_id` int(255) NOT NULL,
   `class_id` int(255) NOT NULL,
   `has_evaluated` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_temp_password`
+--
+
+CREATE TABLE IF NOT EXISTS `student_temp_password` (
+  `sais_id` int(9) NOT NULL,
+  `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -191,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_name` varchar(256) NOT NULL,
   `role` varchar(10) NOT NULL,
   `office_id` int(99) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Default superadmin password: upcebu.dcs (please change)';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Default superadmin password: upcebu.dcs (please change)';
 
 --
 -- Dumping data for table `user`
@@ -199,7 +200,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`user_id`, `email_address`, `password`, `first_name`, `last_name`, `role`, `office_id`) VALUES
 (1, 'superadmin', '1821fc9b2257aba3f7d268fde28606ff', 'Admin', 'Super', 'superadmin', NULL);
-
 
 -- --------------------------------------------------------
 
@@ -211,7 +211,9 @@ CREATE TABLE IF NOT EXISTS `year_semester` (
   `year` year(4) NOT NULL,
   `semester` int(1) NOT NULL,
   `start_date` date NOT NULL,
-  `is_current` tinyint(1) NOT NULL DEFAULT '0'
+  `is_current` tinyint(1) NOT NULL DEFAULT '0',
+  `evaluation_active` tinyint(1) NOT NULL DEFAULT '0',
+  `evaluation_done` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -223,12 +225,6 @@ CREATE TABLE IF NOT EXISTS `year_semester` (
 --
 ALTER TABLE `class`
  ADD PRIMARY KEY (`class_id`), ADD UNIQUE KEY `unique_class` (`year`,`semester`,`course_id`,`section`), ADD KEY `teacher_id` (`teacher_id`), ADD KEY `course_id` (`course_id`);
-
---
--- Indexes for table `class_evaluator`
---
-ALTER TABLE `class_evaluator`
- ADD UNIQUE KEY `class_id` (`class_id`), ADD KEY `evaluator_id` (`evaluator_id`);
 
 --
 -- Indexes for table `course`
@@ -258,13 +254,19 @@ ALTER TABLE `office`
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
- ADD PRIMARY KEY (`student_id`);
+ ADD PRIMARY KEY (`student_id`), ADD UNIQUE KEY `sais_id` (`sais_id`);
 
 --
 -- Indexes for table `student_class`
 --
 ALTER TABLE `student_class`
  ADD PRIMARY KEY (`student_id`,`class_id`), ADD KEY `class_id` (`class_id`);
+
+--
+-- Indexes for table `student_temp_password`
+--
+ALTER TABLE `student_temp_password`
+ ADD UNIQUE KEY `sais_id` (`sais_id`);
 
 --
 -- Indexes for table `teacher`
@@ -327,7 +329,7 @@ MODIFY `teacher_id` int(99) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `user_id` int(99) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `user_id` int(99) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
@@ -337,15 +339,7 @@ MODIFY `user_id` int(99) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 ALTER TABLE `class`
 ADD CONSTRAINT `class_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `class_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `class_ibfk_3` FOREIGN KEY (`year`, `semester`) REFERENCES `year_semester` (`year`, `semester`) ON UPDATE CASCADE;
-
---
--- Constraints for table `class_evaluator`
---
-ALTER TABLE `class_evaluator`
-ADD CONSTRAINT `class_evaluator_ibfk_2` FOREIGN KEY (`evaluator_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `class_evaluator_ibfk_3` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `class_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `course`
@@ -357,15 +351,27 @@ ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`office_id`) REFERENCES `office` (`o
 -- Constraints for table `evaluation`
 --
 ALTER TABLE `evaluation`
-ADD CONSTRAINT `evaluation_ibfk_2` FOREIGN KEY (`content_id`) REFERENCES `evaluation_content` (`content_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `evaluation_ibfk_4` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `evaluation_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `evaluation_content` (`content_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `evaluation_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `evaluation_content`
+--
+ALTER TABLE `evaluation_content`
+ADD CONSTRAINT `evaluation_content_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `student_class`
 --
 ALTER TABLE `student_class`
-ADD CONSTRAINT `student_class_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON UPDATE CASCADE,
-ADD CONSTRAINT `student_class_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON UPDATE CASCADE;
+ADD CONSTRAINT `student_class_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `student_class_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `student_temp_password`
+--
+ALTER TABLE `student_temp_password`
+ADD CONSTRAINT `student_temp_password_ibfk_1` FOREIGN KEY (`sais_id`) REFERENCES `student` (`sais_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `teacher`
@@ -394,6 +400,7 @@ ORDER BY `start_date` DESC LIMIT 1;
 END$$
 
 DELIMITER ;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
