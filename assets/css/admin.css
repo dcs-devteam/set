@@ -10,6 +10,26 @@
 /*evaluation/set*/
 
 /*evaluation/view*/
+.evaluation-btn-container {
+	margin-top: 50px;
+	text-align: center;
+}
+
+.evaluation-btn.btn-primary {
+	/*background-color: #D1DFEC;*/
+	/*color: #357EBD;*/
+}
+
+.evaluation-btn.btn-warning {
+	background-color: #EAE3DA;
+	color: #EEA236;
+}
+
+.evaluation-btn.btn-danger {
+	background-color: #E0D1D0;
+	color: #D43F3A;
+}
+
 .class-table th,
 .class-table td {
 	/*white-space: nowrap;*/
@@ -45,17 +65,6 @@
 .class-table td:nth-child(6) {
 	width: 200px;
 }
-
-.evaluation-table th:nth-child(7),
-.evaluation-table td:nth-child(7) {
-	width: 1px !important;
-}
-
-.evaluation-table th:nth-child(8),
-.evaluation-table td:nth-child(8) {
-	width: 41px;
-}
-
 
 /*confirm dialogs*/
 

@@ -12,7 +12,6 @@
 				<th>Semester</th>
 				<th>Start Date</th>
 				<th>Current</th>
-				<th class="no-sort">Evaluation</th>
 				<th class="no-sort">Actions</th>
 			</tr>
 		</thead>
@@ -25,18 +24,6 @@
 					<td>
 						<?php if ($year_semester->is_current):?>
 							<span class="label label-success">Current</span>
-						<?php endif;?>
-					</td>
-					<td>
-						<?php if (!$year_semester->evaluation_done && $year_semester->evaluation_active):?>
-							<a class="btn btn-danger btn-xs btn-evaluation-start-stop" href="<?php echo base_url('superadmin/yearsem/evaluation/stop/'.$year_semester->year.'/'.$year_semester->semester)?>">Stop Evaluation</a>
-						<?php elseif (!$year_semester->evaluation_done && !$year_semester->evaluation_active):?>	
-							<a class="btn btn-primary btn-xs btn-evaluation-start-stop" href="<?php echo base_url('superadmin/yearsem/evaluation/start/'.$year_semester->year.'/'.$year_semester->semester)?>">Start Evaluation</a>
-						<?php else:?>	
-							<a class="btn btn-success btn-xs btn-evaluation-start-stop" disabled><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Done</a>
-						<?php endif;?>
-						<?php if ($year_semester->evaluation_active):?>
-							&nbsp;&nbsp;&nbsp;<span class="label label-success label-evaluation"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Active</span>
 						<?php endif;?>
 					</td>
 					<td>

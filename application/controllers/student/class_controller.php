@@ -26,9 +26,15 @@ class Class_controller extends CI_Controller {
  */
 	public function view() {
 		$this->load->model('evaluation_model');
+
+		$classes = $this->student_class_model->get_current_classes($this->student_id);
+
+		foreach ($classes as $class) {
+			$class->evaluation_active = $this->evaluation_model->evaluation_active($class->class_id);
+		}
+
 		$view_data = array(
-			'classes' => $this->student_class_model->get_current_classes($this->student_id),
-			'evaluation_active' => $this->evaluation_model->is_active(),
+			'classes' => $classes,
 			'completed_evaluation' => $this->student_class_model->completed_evaluation($this->student_id),
 			);
 
@@ -53,11 +59,11 @@ class Class_controller extends CI_Controller {
 					'error_message' => 'You are currently not enrolled in this class.'
 					);
 				$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-			} else if (!$this->evaluation_model->is_active()) {
+			} else if (!$this->evaluation_model->evaluation_active($class_id)) {
 			//check if evaluation is enabled
 				$error_data = array(
 					'error_title' => 'Not Yet Evaluation Period',
-					'error_message' => 'You cannot evaluate because the evaluation period is not yet enabled.'
+					'error_message' => 'You cannot evaluate because the evaluation period is not yet enabled for this class.'
 					);
 				$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 			} else if ($this->student_class_model->has_evaluated($this->student_id, $class_id)) {

@@ -158,50 +158,6 @@ class Year_semester_model extends CI_Model {
 			return FALSE;
 		}
 	}
-
-/**
- * Enable evaluation for given year and semester
- * @param  int $year     valid year
- * @param  int $semester valid semester
- * @return boolean           TRUE if successfully enabled. Otherwise, FALSE.
- */
-	public function start_evaluation($year, $semester) {
-		$this->db->trans_start();
-
-		$this->db->where('year', $year);
-		$this->db->where('semester', $semester);
-		$result = $this->db->update('year_semester', array('evaluation_active' => 1));
-		
-		$this->db->trans_complete();
-		if ($this->db->trans_status()) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-
-	}
-
-/**
- * Disable evaluation for given year and semester
- * @param  int $year     valid year
- * @param  int $semester valid semester
- * @return boolean           TRUE if successfully enabled. Otherwise, FALSE.
- */
-	public function stop_evaluation($year, $semester) {
-		$this->db->trans_start();
-
-		$this->db->where('year', $year);
-		$this->db->where('semester', $semester);
-		$result = $this->db->update('year_semester', array('evaluation_active' => 0, 'evaluation_done' => 1));
-		
-		$this->db->trans_complete();
-		if ($this->db->trans_status()) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-
-	}
 }
 
 /* End of file year_semester_model.php */

@@ -350,60 +350,6 @@ class Yearsem extends CI_Controller {
 			return FALSE;
 		}
 	}
-
-/**
- * Starts the evaluation period for given year and semester.
- * @param  int $year     valid year
- * @param  int $semester valid semester
- * @return void
- */
-	public function start_evaluation($year, $semester) {
-		$start_evaluation_result = $this->year_semester_model->start_evaluation($year, $semester);
-
-		$message = '';
-		$error = '';
-		$success = FALSE;
-		if ($start_evaluation_result) {
-			$message = 'Evaluation for '.format_semester($semester).' Semester/A.Y. '.format_year($year).' was successfully enabled.';
-			$success = TRUE;
-		} else {
-			$message = 'Evaluation enable for '.format_semester($semester).' Semester/A.Y. '.format_year($year).' failed.';
-			if ($this->db->_error_message()) {
-				$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
-			}
-		}
-		$delete_data = array('message' => $message, 'error' => $error, 'success' => $success);
-		$data['body_content'] = $this->load->view('contents/superadmin/yearsem/function_result',$delete_data,TRUE);
-
-		$this->parser->parse('layouts/default', $data);
-	}
-
-/**
- * Stops the evaluation period for given year and semester.
- * @param  int $year     valid year
- * @param  int $semester valid semester
- * @return void
- */
-	public function stop_evaluation($year, $semester) {
-		$stop_evaluation_result = $this->year_semester_model->stop_evaluation($year, $semester);
-
-		$message = '';
-		$error = '';
-		$success = FALSE;
-		if ($stop_evaluation_result) {
-			$message = 'Evaluation for '.format_semester($semester).' Semester/A.Y. '.format_year($year).' was successfully disabled.';
-			$success = TRUE;
-		} else {
-			$message = 'Evaluation disable for '.format_semester($semester).' Semester/A.Y. '.format_year($year).' failed.';
-			if ($this->db->_error_message()) {
-				$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
-			}
-		}
-		$delete_data = array('message' => $message, 'error' => $error, 'success' => $success);
-		$data['body_content'] = $this->load->view('contents/superadmin/yearsem/function_result',$delete_data,TRUE);
-
-		$this->parser->parse('layouts/default', $data);
-	}
 }
 
 /* End of file yearsem.php */

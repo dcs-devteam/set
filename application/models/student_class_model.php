@@ -4,6 +4,9 @@ class Student_class_model extends CI_Model {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('class_model');
+		$this->load->model('course_model');
+		$this->load->model('teacher_model');
+		$this->load->model('office_model');
 		$this->load->model('year_semester_model');
 		$this->load->model('evaluation_model');
 	}
@@ -57,7 +60,9 @@ class Student_class_model extends CI_Model {
 			$result = $query->result();
 			//add class attributes
 			foreach ($result as $key => $row) {
-				$row->class_details = $this->class_model->get_by_id($row->class_id);
+				$row->class_name = $this->course_model->get_name($row->course_id);
+				$row->teacher = $this->teacher_model->get_by_id($row->teacher_id);
+				$row->office = $this->office_model->get_by_id($row->teacher->office_id);
 			}
 			return $result;
 		} else {

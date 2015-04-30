@@ -154,14 +154,22 @@ class Evaluation_model extends CI_Model {
 	}
 
 /**
- * Checks if evaluation period for current year and semester is active.
- * @return boolean TRUE if evaluation period is active. Otherwise, FALSE.
+ * Checks if evaluation period for given class.
+ * @return boolean TRUE if evaluation period for class is active. Otherwise, FALSE.
  */
-	public function is_active() {
-		$this->load->model('year_semester_model');		
-		$current_yearsem = $this->year_semester_model->get_current();
-		if ($current_yearsem->evaluation_active) {
-			return TRUE;
+	public function evaluation_active($class_id) {
+		$this->load->model('class_model');
+		$this->load->model('course_model');
+		$this->load->model('office_model');
+		$class = $this->class_model->get_by_id($class_id);
+		if (!empty($class)) {
+			$course = $this->course_model->get_by_id($class->course_id);
+			if (!empty($course)) {
+				$office = $this->office_model->get_by_id($course->office_id);
+				if (!empty($office)) {
+					return $office->evaluation_active;
+				}
+			}
 		}
 		return FALSE;
 	}

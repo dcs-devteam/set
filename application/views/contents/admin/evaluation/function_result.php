@@ -19,22 +19,17 @@
 		</div>
 	</div>
 	<div class="panel-footer">
-		<?php if ($success && !empty($class_id)):?>
-		 		<a class="btn btn-success" target="_blank" href="<?php echo base_url('admin/evaluation/code/'.$class_id)?>">Access Codes</a>
-		 		<a class="btn btn-default" href="<?php echo base_url('admin/evaluation/view')?>">View Evaluation</a>
-	 	<?php else:?>
-			<a class="btn
-				<?php if(!is_null($success)):?>
-					<?php if($success == TRUE):?>
-						 btn-success
-					<?php else:?>
-						 btn-danger
-					<?php endif;?>
+		<a class="btn
+			<?php if(!is_null($success)):?>
+				<?php if($success == TRUE):?>
+					 btn-success
 				<?php else:?>
-					 btn-primary
+					 btn-danger
 				<?php endif;?>
-			 " href="<?php echo base_url('admin/evaluation/view')?>">View Evaluation</a>			 
-			<button class="btn btn-default" onClick="window.name='autoreload';history.go(-1);window.close();">Back</button>
-	 	<?php endif;?>
+			<?php else:?>
+				 btn-primary
+			<?php endif;?>
+		 " href="<?php echo base_url('admin/evaluation/view')?>">View Evaluation Period</a>			 
+		<button class="btn btn-default" onClick="window.name='autoreload';history.go(-1);window.close();">Back</button>
 	</div>
 </div>

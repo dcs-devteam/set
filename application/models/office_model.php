@@ -111,6 +111,102 @@ class Office_model extends CI_Model {
 		$this->db->trans_complete();
 		return $this->db->trans_status();
 	}
+
+/**
+ * Checks if evaluation for given office is enabled
+ * @param  int $office_id     valid office id
+ * @return boolean           TRUE if enabled. Otherwise, FALSE.
+ */
+	public function evaluation_active($office_id) {
+		$this->db->where('office_id', $office_id);
+		$query = $this->db->get('office');
+		
+		if ($query) {
+			$result = $query->row();
+			return $result->evaluation_active;
+		} else {
+			return FALSE;
+		}
+
+	}
+
+/**
+ * Checks if evaluation for given office is complete/done
+ * @param  int $office_id     valid office id
+ * @return boolean           TRUE if completed. Otherwise, FALSE.
+ */
+	public function evaluation_done($office_id) {
+		$this->db->where('office_id', $office_id);
+		$query = $this->db->get('office');
+		
+		if ($query) {
+			$result = $query->row();
+			return $result->evaluation_done;
+		} else {
+			return FALSE;
+		}
+
+	}
+
+/**
+ * Enable evaluation for given office
+ * @param  int $office_id     valid office id
+ * @return boolean           TRUE if successfully enabled. Otherwise, FALSE.
+ */
+	public function enable_evaluation($office_id) {
+		$this->db->trans_start();
+
+		$this->db->where('office_id', $office_id);
+		$result = $this->db->update('office', array('evaluation_active' => 1));
+		
+		$this->db->trans_complete();
+		if ($this->db->trans_status()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+
+	}
+
+/**
+ * Disable evaluation for given office
+ * @param  int $office_id     valid office id
+ * @return boolean           TRUE if successfully enabled. Otherwise, FALSE.
+ */
+	public function disable_evaluation($office_id) {
+		$this->db->trans_start();
+
+		$this->db->where('office_id', $office_id);
+		$result = $this->db->update('office', array('evaluation_active' => 0));
+		
+		$this->db->trans_complete();
+		if ($this->db->trans_status()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+
+	}
+
+/**
+ * Mark evaluation as done for given office
+ * @param  int $office_id     valid office id
+ * @return boolean           TRUE if successfully enabled. Otherwise, FALSE.
+ */
+	public function end_evaluation($office_id) {
+		$this->db->trans_start();
+
+		$this->db->where('office_id', $office_id);
+		$result = $this->db->update('office', array('evaluation_active' => 0, 'evaluation_done' => 1));
+		
+		$this->db->trans_complete();
+		if ($this->db->trans_status()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+
+	}
 }
 
 /* End of file office_model.php */
