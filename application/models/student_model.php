@@ -37,6 +37,7 @@ class Student_model extends CI_Model {
 				$classes[$key] = $row->class_id;
 			}
 
+			$this->db->select(array('student.student_id', 'sais_id', 'first_name', 'last_name', 'program'));
 			$this->db->where_in('student_class.class_id', $classes);
 			$this->db->join('student_class', 'student_class.student_id = student.student_id');
 
@@ -47,7 +48,14 @@ class Student_model extends CI_Model {
 			$query = $this->db->get('student');
 
 			if($query->num_rows() >= 1) {
-				return $query->result();
+				$result = $query->result();
+				//remove duplicate rows
+				$new = array();
+				foreach($result as $value) {
+					$new[serialize($value)] = $value;
+				}
+				$result = array_values($new);
+				return $result;
 			}	else {
 				return FALSE;
 			}
