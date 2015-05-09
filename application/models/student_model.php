@@ -84,6 +84,13 @@ class Student_model extends CI_Model {
 			}
 
 			if (count($passwords) > 0) {
+				//sort by last name and first name
+				usort($passwords, function($a, $b) {
+					if ($a->last_name == $b->last_name) {
+						return strcmp($a->first_name, $b->first_name);
+					}
+					return strcmp($a->last_name, $b->last_name);
+				});
 				return $passwords;
 			}
 		}
