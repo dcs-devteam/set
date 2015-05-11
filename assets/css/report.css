@@ -1,9 +1,22 @@
+@media print{    
+    .no-print, .no-print * {
+        display: none !important;
+    }
+    @page { 
+	    size: auto;   /* auto is the initial value */ 
+
+	    /* this affects the margin in the printer settings */ 
+	    margin: 0.5cm 0.5cm 0.5cm 0.5cm;  
+	}
+}
+	
+
 * {
 	box-sizing: border-box;
 }
 html {
 	margin: 0px !important;
-	margin-top: 18px !important;
+	/*margin-top: 18px !important;*/
 }
 /*report/generate*/
 #report-container {
@@ -13,12 +26,13 @@ html {
 }
 
 .page {
-	font-size: 13pt;
+	font-size: 11pt;
 	font-family: Times, Georgia;
 	page-break-after: always;
 	/*margin-bottom: 30px;*/
 	/*border: 1px solid #E7E7E7;*/
 
+	width: 190.5mm;
 	/*width: 203mm;*/
 	/*height: 267mm;*/
 	/*padding: 12.7mm;*/
@@ -28,7 +42,7 @@ html {
 }
 
 .page:last-child {
-	page-break-after: auto;
+	/*page-break-after: auto;*/
 }
 
 table {
@@ -43,8 +57,8 @@ table {
 
 th, td {
 	border: 1px solid #DDD;
-	padding: 8px;
-	line-height: 1.4;
+	padding: 5px;
+	line-height: 1.2;
 	vertical-align: top;
 }
 
@@ -60,19 +74,63 @@ ul.unstyled {
 
 #summary #header #up-seal {
 	margin: 10px;
+	height: 80px;
 }
 
 
 #summary #title,
 #summary #summary-content {
-	margin-top: 50px;
+	margin-top: 30px;
 }
 
 #summary #summary-content .eval-report-table th,
 #summary #summary-content .eval-report-table td {
 	/*white-space: nowrap;*/
-	width: 12.5%;
+	/*width: 12.5%;*/
 	vertical-align: text-bottom;
+	text-align: center;
+
+}
+
+#summary #summary-content .eval-report-table th:nth-child(1),
+#summary #summary-content .eval-report-table td:nth-child(1) {
+	width: 100px;
+	text-align: left;
+}
+
+#summary #summary-content .eval-report-table th:nth-child(2),
+#summary #summary-content .eval-report-table td:nth-child(2) {
+	width: 100px;
+}
+
+#summary #summary-content .eval-report-table th:nth-child(3),
+#summary #summary-content .eval-report-table td:nth-child(3) {
+	width: 80px;
+}
+
+#summary #summary-content .eval-report-table th:nth-child(4),
+#summary #summary-content .eval-report-table td:nth-child(4) {
+	width: 80px;
+}
+
+#summary #summary-content .eval-report-table th:nth-child(5),
+#summary #summary-content .eval-report-table td:nth-child(5) {
+	width: 80px;
+}
+
+#summary #summary-content .eval-report-table th:nth-child(6),
+#summary #summary-content .eval-report-table td:nth-child(6) {
+	width: 80px;
+}
+
+#summary #summary-content .eval-report-table th:nth-child(7),
+#summary #summary-content .eval-report-table td:nth-child(7) {
+	width: 100px;
+}
+
+#summary #summary-content .eval-report-table th:nth-child(8),
+#summary #summary-content .eval-report-table td:nth-child(8) {
+	width: 100px;
 }
 
 #summary #summary-content li {
@@ -221,22 +279,24 @@ ul.unstyled {
 
 /*comments*/
 .comments {
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 }
 
 .comments li {
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	word-wrap: break-word;
 }
 
 /*evaluation forms*/
 .eval-form-page {
-	font-size: 9pt;
+	font-size: 8pt;
 	/*line-height: 8px;*/
 	font-family: Times, Georgia;
 	page-break-after: always;
 	line-height: 1;
 	margin: 0px;
+	height: 250mm;
+	width: 190.5mm;
 }
 
 .eval-form-page:last-child {
@@ -245,8 +305,6 @@ ul.unstyled {
 
 .evaluation-forms .evaluation-form {
 	display: inline-block;
-	width: 49%;
-
 	border-right: 1px solid black;
 
 	padding: 5px;
@@ -254,10 +312,11 @@ ul.unstyled {
 	margin-bottom: 0px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: -8px;
+	/*margin-top: -8px;*/
 	vertical-align: top;
-	height: 1200px;
+	/*height: 1200px;*/
 	/*width: 395px;*/
+	width: 49%;
 }
 
 .evaluation-forms .evaluation-form:nth-child(even) {
@@ -278,13 +337,13 @@ ul.unstyled {
 
 .evaluation-forms .evaluation-form .header .eval-form-label {
 	font-weight: bold;
-	width: 120px;
+	width: 80px;
 	display: inline-block;
 }
 
 .evaluation-forms .evaluation-form .header .eval-form-value {
 	border-bottom: 1px solid black;	
-	width: 250px;
+	width: 200px;
 	padding-left: 5px;
 	padding-bottom: 3px;
 	display: inline-block;
@@ -328,7 +387,7 @@ ul.unstyled {
 	width: 100%;
 }
 .evaluation-forms .evaluation-form .content .part3 {
-	margin-left: 23px;
+	margin-left: 9px;
 }
 .evaluation-forms .evaluation-form .content .comments .contents label {
 	display: block;
@@ -337,7 +396,7 @@ ul.unstyled {
 .evaluation-forms .evaluation-form .content .comments .contents span {
 	display: block;
 	border-bottom: 1px solid black;
-	font-size: 2vmin;
+	font-size: 8pt;
 	font-weight: normal;
 	margin-top: 2px;
 	padding: 3px;

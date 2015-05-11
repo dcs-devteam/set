@@ -9,7 +9,7 @@ class Class_model extends CI_Model {
 	}
 
 /**
- * Returns all classes, given office ID.
+ * Returns all classes for current semester, given office ID.
  * @param  int $office_id	valid office ID.
  * @return array					class rows (as object)
  * 												FALSE if no class found

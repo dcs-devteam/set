@@ -214,7 +214,7 @@ class Teacher extends CI_Controller {
 		}
 		$first_name = $this->input->post('first_name');
 
-		$result = $this->teacher_model->teacher_exists($first_name, $last_name);
+		$result = $this->teacher_model->get_by_name($first_name, $last_name);
 		if ($result !== FALSE && $result->teacher_id !== $teacher_id) {
 			$this->form_validation->set_message('unique_new_teacher','Teacher with given first name and last name already exists.');
 			return FALSE;

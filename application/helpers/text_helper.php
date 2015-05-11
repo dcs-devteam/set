@@ -233,5 +233,19 @@
 		}
 		return '';
 	}
+
+	function qualitative_rating($rating) {
+		if ($rating >= 4.5) {
+			return 'Poor';
+		} else if ($rating >= 3.5) {
+			return 'Conditional';
+		} else if ($rating >= 2.5) {
+			return 'Good';
+		} else if ($rating >= 1.5) {
+			return 'Very Good';
+		} else {
+			return 'Excellent';
+		}
+	}
 /* End of file text_helper.php */
 /* Location: ./application/helpers/text_helper.php */

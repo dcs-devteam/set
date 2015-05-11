@@ -49,6 +49,7 @@
 												<li class="<?php if (($this->uri->uri_string() === 'admin/student/password')) echo 'active'?>"><a href="<?php echo base_url('admin/student/password')?>">Print Temporary Passwords</a></li>
 											</ul>
 										</li>
+										<li class="<?php if (($this->uri->uri_string() === 'admin/report') OR ($this->uri->uri_string() === 'admin/report/view')) echo 'active'?>"><a href="<?php echo base_url('admin/report/view')?>">Evaluation Reports</a></li>
 										<li class="<?php if (($this->uri->uri_string() === 'admin/evaluation') OR ($this->uri->uri_string() === 'admin/evaluation/view')) echo 'active'?>"><a href="<?php echo base_url('admin/evaluation/view')?>"><strong>Evaluation Period</strong></a></li>
 										<!-- <li class="dropdown <?php if (($this->uri->segment(2) === 'account')) echo 'active'?>">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Accounts <span class="caret"></span></a>

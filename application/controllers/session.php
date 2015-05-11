@@ -111,7 +111,7 @@ class Session extends CI_Controller {
 			$this->session->set_userdata($sess_array);
 			return TRUE;
 		} else {
-			$this->form_validation->set_message('verify_student_login','Invalid student number or password.');
+			$this->form_validation->set_message('verify_student_login','Invalid SAIS ID or password.');
 			return FALSE;
 		}
 	}

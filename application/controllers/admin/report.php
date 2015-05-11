@@ -25,12 +25,11 @@ class Report extends CI_Controller {
 	}
 
 /**
- * Displays all classes already evaluated of the office of user.
+ * Displays all teachers that have classes for the current semester.
  */
 	public function view() {
 		$view_data = array(
-			'classes_already_evaluated' => $this->class_model->get_done($this->office_id),
-			'total_evaluations' => $this->evaluation_model->total_evaluations($this->office_id)
+			'teachers' => $this->teacher_model->get_current($this->office_id)
 			);
 
 		$data['body_content'] = $this->load->view('contents/admin/report/view',$view_data,TRUE);
@@ -39,158 +38,166 @@ class Report extends CI_Controller {
 
 /**
  * Generates PDF file containing the evaluation report of
- * given class.
- * @param  int $class_id	valid class ID
+ * given teacher.
+ * @param  int $teacher_id	valid teacher ID
  */
-	public function generate($class_id = FALSE) {
-		$class = $this->class_model->get_by_id($class_id);
-		//check if class ID is valid
-		if ($class === FALSE) {
+	public function generate($teacher_id = FALSE, $include_forms = TRUE) {
+		if (!empty($this->uri->segment(5))) {
+			$include_forms = $this->uri->segment(5);
+		}
+		$teacher = $this->teacher_model->get_by_id($teacher_id);
+		//check if teacher ID is valid
+		if ($teacher_id === FALSE) {
 			$error_data = array(
 				'error_title' => 'No Such Entry Exists',
-				'error_message' => 'Record for the given class ID does not exist in the database.'
-				);
-			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-
-			$this->parser->parse('layouts/default', $data);
-		} else if ($class->is_active == TRUE OR $class->is_done == FALSE) {
-			$error_data = array(
-				'error_title' => 'Class Evaluation Not Done',
-				'error_message' => 'You cannot generate the evaluation report for this class because it was not yet evaluated.'
+				'error_message' => 'Record for the given teacher_id ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 
 			$this->parser->parse('layouts/default', $data);
 		} else {
-			$evaluations = $this->evaluation_model->get_by_class($class_id);
+			$classes = $this->teacher_model->get_classes($teacher_id, $this->office_id);
+			foreach ($classes as $idx => $class) {
+				$evaluations = $this->evaluation_model->get_by_class($class->class_id);
+
+				$class->report = array();
+
+				if (count($evaluations) <= 0 OR $evaluations == FALSE) {
+					unset($classes[$idx]);
+				} else {
+					//individual forms
+					$class->report['evaluations'] = array();
+					foreach ($evaluations as $key => $evaluation) {
+						$class->report['evaluations'][$key] = $this->evaluation_model->get_content($evaluation->content_id);
+						$class->report['evaluations'][$key]->date = $evaluation->date;
+						$class->report['evaluations'][$key]->strong_points = base64_decode($class->report['evaluations'][$key]->strong_points);
+						$class->report['evaluations'][$key]->weak_points = base64_decode($class->report['evaluations'][$key]->weak_points);
+						$class->report['evaluations'][$key]->recommendations = base64_decode($class->report['evaluations'][$key]->recommendations);
+					}
+
+					//detail
+					$class->report['detail'] = array();
+					//initialize
+					for ($i=1; $i <= 35; $i++) { 
+						$class->report['detail'][$i] = 0;
+					}
+
+					//add
+					foreach ($class->report['evaluations'] as $key => $evaluation) {
+						for ($i=1; $i <= 35; $i++) {
+							$class->report['detail'][$i] += $evaluation->{'i'.$i};
+						}
+					}
+
+					//average
+					for ($i=1; $i <= 35; $i++) { 
+						$class->report['detail'][$i] /= sizeof($evaluations);
+					}
+
+					//summary
+					$class->report['summary'] = array();
+					//average a
+					$class->report['summary']['average']['a'] = 0;
+					for ($i=1; $i <= 10; $i++) { 
+						$class->report['summary']['average']['a'] += $class->report['detail'][$i];
+					}
+					$class->report['summary']['average']['a'] /= 10;
+					//average b
+					$class->report['summary']['average']['b'] = 0;
+					for ($i=11; $i <= 20; $i++) { 
+						$class->report['summary']['average']['b'] += $class->report['detail'][$i];
+					}
+					$class->report['summary']['average']['b'] /= 10;
+					//average c
+					$class->report['summary']['average']['c'] = 0;
+					for ($i=21; $i <= 30; $i++) { 
+						$class->report['summary']['average']['c'] += $class->report['detail'][$i];
+					}
+					$class->report['summary']['average']['c'] /= 10;
+					//average d
+					$class->report['summary']['average']['d'] = 0;
+					for ($i=31; $i <= 35; $i++) { 
+						$class->report['summary']['average']['d'] += $class->report['detail'][$i];
+					}
+					$class->report['summary']['average']['d'] /= 5;
+
+					//grand average
+					$class->report['summary']['average']['grand'] = ($class->report['summary']['average']['a'] * 0.7) + ($class->report['summary']['average']['b'] * 0.2) + ($class->report['summary']['average']['c'] * 0.05) + ($class->report['summary']['average']['d'] * 0.05);
+
+					//qualitative rating
+					$class->report['summary']['rating'] = qualitative_rating($class->report['summary']['average']['grand']);
+					
+					//detail
+					$class->report['questions'] = evaluation_questions();
+
+					//strong points
+					$class->report['strong_points'] = array();
+
+					$s_index = 1;
+					foreach ($class->report['evaluations'] as $key => $evaluation) {
+						if (!empty($evaluation->strong_points)) {
+							$class->report['strong_points'][$s_index] = $evaluation->strong_points;
+							$s_index++;
+						}
+					}
+
+					//weak points
+					$class->report['weak_points'] = array();
+
+					$w_index = 1;
+					foreach ($class->report['evaluations'] as $key => $evaluation) {
+						if (!empty($evaluation->weak_points)) {
+							$class->report['weak_points'][$w_index] = $evaluation->weak_points;
+							$w_index++;
+						}
+					}
+
+					//recommendations
+					$class->report['recommendations'] = array();
+
+					$r_index = 1;
+					foreach ($class->report['evaluations'] as $key => $evaluation) {
+						if (!empty($evaluation->recommendations)) {
+							$class->report['recommendations'][$r_index] = $evaluation->recommendations;
+							$r_index++;
+						}
+					}
+				}
+			}
+
+			//check if classes is not empty
+			if (count($classes) <= 0) {
+				$error_data = array(
+					'error_title' => 'No Evaluations for Given Teacher',
+					'error_message' => 'No evaluations were submitted for '.$teacher->first_name.' '.$teacher->last_name.'.'
+					);
+				$data['body_content'] = $this->load->view('contents/admin/report/error', $error_data, TRUE);
+
+				$this->parser->parse('layouts/default', $data);
+				return;
+			}
 
 			$view_data = array(
-				'class' => $class,
+				'classes' => $classes,
 				'teacher' => $this->teacher_model->get_by_id($class->teacher_id),
 				'office' => $this->office_model->get_by_id($this->office_id)->name,
-				);
+				'include_forms' => $include_forms
+			);
 
-			//individual forms
-			$view_data['evaluations'] = array();
-			foreach ($evaluations as $key => $evaluation) {
-				$view_data['evaluations'][$key] = $this->evaluation_model->get_content($evaluation->content_id);
-				$view_data['evaluations'][$key]->date = $evaluation->date;
-				$view_data['evaluations'][$key]->strong_points = base64_decode($view_data['evaluations'][$key]->strong_points);
-				$view_data['evaluations'][$key]->weak_points = base64_decode($view_data['evaluations'][$key]->weak_points);
-				$view_data['evaluations'][$key]->recommendations = base64_decode($view_data['evaluations'][$key]->recommendations);
-			}
-
-			//detail
-			$view_data['detail'] = array();
-			//initialize
-			for ($i=1; $i <= 35; $i++) { 
-				$view_data['detail'][$i] = 0;
-			}
-
-			//add
-			foreach ($view_data['evaluations'] as $key => $evaluation) {
-				for ($i=1; $i <= 35; $i++) {
-					$view_data['detail'][$i] += $evaluation->{'i'.$i};
-				}
-			}
-
-			//average
-			for ($i=1; $i <= 35; $i++) { 
-				$view_data['detail'][$i] /= sizeof($evaluations);
-			}
-
-			//summary
-			$view_data['summary'] = array();
-			//average a
-			$view_data['summary']['average']['a'] = 0;
-			for ($i=1; $i <= 10; $i++) { 
-				$view_data['summary']['average']['a'] += $view_data['detail'][$i];
-			}
-			$view_data['summary']['average']['a'] /= 10;
-			//average b
-			$view_data['summary']['average']['b'] = 0;
-			for ($i=11; $i <= 20; $i++) { 
-				$view_data['summary']['average']['b'] += $view_data['detail'][$i];
-			}
-			$view_data['summary']['average']['b'] /= 10;
-			//average c
-			$view_data['summary']['average']['c'] = 0;
-			for ($i=21; $i <= 30; $i++) { 
-				$view_data['summary']['average']['c'] += $view_data['detail'][$i];
-			}
-			$view_data['summary']['average']['c'] /= 10;
-			//average d
-			$view_data['summary']['average']['d'] = 0;
-			for ($i=31; $i <= 35; $i++) { 
-				$view_data['summary']['average']['d'] += $view_data['detail'][$i];
-			}
-			$view_data['summary']['average']['d'] /= 5;
-
-			//grand average
-			$view_data['summary']['average']['grand'] = ($view_data['summary']['average']['a'] * 0.7) + ($view_data['summary']['average']['b'] * 0.2) + ($view_data['summary']['average']['c'] * 0.05) + ($view_data['summary']['average']['d'] * 0.05);
-
-			//qualitative rating
-			if ($view_data['summary']['average']['grand'] >= 4.5) {
-				$view_data['summary']['rating'] = 'Poor';
-			} else if ($view_data['summary']['average']['grand'] >= 3.5) {
-				$view_data['summary']['rating'] = 'Conditional';
-			} else if ($view_data['summary']['average']['grand'] >= 2.5) {
-				$view_data['summary']['rating'] = 'Good';
-			} else if ($view_data['summary']['average']['grand'] >= 1.5) {
-				$view_data['summary']['rating'] = 'Very Good';
-			} else {
-				$view_data['summary']['rating'] = 'Excellent';
-			}
-
-			//detail
-			$view_data['questions'] = evaluation_questions();
-
-			//strong points
-			$view_data['strong_points'] = array();
-
-			$s_index = 1;
-			foreach ($view_data['evaluations'] as $key => $evaluation) {
-				if (!empty($evaluation->strong_points)) {
-					$view_data['strong_points'][$s_index] = $evaluation->strong_points;
-					$s_index++;
-				}
-			}
-
-			//weak points
-			$view_data['weak_points'] = array();
-
-			$w_index = 1;
-			foreach ($view_data['evaluations'] as $key => $evaluation) {
-				if (!empty($evaluation->weak_points)) {
-					$view_data['weak_points'][$w_index] = $evaluation->weak_points;
-					$w_index++;
-				}
-			}
-
-			//recommendations
-			$view_data['recommendations'] = array();
-
-			$r_index = 1;
-			foreach ($view_data['evaluations'] as $key => $evaluation) {
-				if (!empty($evaluation->recommendations)) {
-					$view_data['recommendations'][$r_index] = $evaluation->recommendations;
-					$r_index++;
-				}
-			}
-
-			$data['page_title'] = $class->year.'-'.format_semester($class->semester).' - '.$view_data['teacher']->last_name.', '.$view_data['teacher']->first_name.' - '.$class->class_name.' '.$class->section;
+			$data['page_title'] = $teacher->last_name.", ".$teacher->first_name;
 			$data['body_content'] = $this->load->view('contents/admin/report/report',$view_data,TRUE);
 
 			//render webpage (for testing). comment out pdf_create line below
-			// $this->parser->parse('layouts/report', $data);
+			$this->parser->parse('layouts/report', $data);
 
 			//pdf
 			$this->load->helper(array('wkhtmltopdf', 'file'));
 			$html = $this->parser->parse('layouts/report', $data, TRUE);
 
+			$this->load->helper('file');
 			if (write_file('assets/temp/temp.php', $html)) {
-				$filename = $class->year.'-'.format_semester($class->semester).' - '.$view_data['teacher']->last_name.', '.$view_data['teacher']->first_name.' - '.$class->class_name.' '.$class->section;
-				pdf_create($html, $filename);
+				$filename = $teacher->last_name.", ".$teacher->first_name;
+				// pdf_create($html, $filename);
 				delete_files('assets/temp/');
 			}
 		}
