@@ -42,7 +42,8 @@ class Report extends CI_Controller {
  * @param  int $teacher_id	valid teacher ID
  */
 	public function generate($teacher_id = FALSE, $include_forms = TRUE) {
-		if (!empty($this->uri->segment(5))) {
+		$uri_segment = $this->uri->segment(5);
+		if (!empty($uri_segment)) {
 			$include_forms = $this->uri->segment(5);
 		}
 		$teacher = $this->teacher_model->get_by_id($teacher_id);
