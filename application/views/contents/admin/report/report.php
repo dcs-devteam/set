@@ -709,6 +709,7 @@
 				</div>
 			<?php endfor;?>
 		</div>
+	</div>
 <?php endif;?>
 <?php endforeach;?>
 </div>

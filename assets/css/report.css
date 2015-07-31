@@ -41,10 +41,6 @@ html {
 	/*margin-top: 18px;*/
 }
 
-.page:last-child {
-	/*page-break-after: auto;*/
-}
-
 table {
 	border: 1px solid #DDD;
 	width: 100%;
@@ -305,10 +301,6 @@ ul.unstyled {
 	margin: 0px;
 	height: 250mm;
 	width: 190.5mm;
-}
-
-.eval-form-page:last-child {
-	page-break-after: auto;
 }
 
 .evaluation-forms .evaluation-form {
