@@ -178,10 +178,12 @@ class Report extends CI_Controller {
 				return;
 			}
 
+			$office = $this->office_model->get_by_id($this->office_id);
 			$view_data = array(
 				'classes' => $classes,
 				'teacher' => $this->teacher_model->get_by_id($class->teacher_id),
-				'office' => $this->office_model->get_by_id($this->office_id)->name,
+				'office' => $office->name,
+				'chair' => $this->teacher_model->get_by_id($office->chair_id),
 				'include_forms' => $include_forms
 			);
 

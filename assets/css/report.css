@@ -189,6 +189,18 @@ ul.unstyled {
 	margin-left: 53px;
 }
 
+#chair-signature {
+	margin-top: 75px;
+	margin-left: 500px;
+	/*text-align: right;*/
+	line-height: 1.5;
+}
+
+#chair-signature #chair-name {
+	text-decoration: underline;
+	font-weight: bold;
+}
+
 /*detail*/
 
 .detail .eval-report-table .progress {
