@@ -156,7 +156,7 @@ class Account extends CI_Controller {
 	private function generate_password() {
 		//resulting length of code is $len * 2
 		$len = 5;
-		return bin2hex(openssl_random_pseudo_bytes($len));;
+		return bin2hex(openssl_random_pseudo_bytes($len));
 	}
 
 /**
