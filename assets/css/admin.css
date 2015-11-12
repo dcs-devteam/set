@@ -94,3 +94,32 @@
 	white-space: nowrap !important;
 	width: 1px !important;
 }
+
+/*office/view*/
+#office-details-container {
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 500px;
+	text-align: center;
+}
+
+#office-details-container label {
+  padding-top: 7px;
+  margin-bottom: 0px;
+  text-align: right;
+  width: 33.3333%;
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+#office-details-container .value {
+	display: block;
+	width: 100%;
+  padding-top: 7px;
+	font-size: 14px;
+	text-align: left;
+}

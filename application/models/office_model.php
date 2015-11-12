@@ -79,13 +79,16 @@ class Office_model extends CI_Model {
 
 /**
  * Updates office.
- * @param string $name
+ * @param string $name 					name
+ * @param string $office_id			valid office ID
+ * @param string $chair_id			valid chair ID
  * @return boolean 							TRUE if successfully inserted
  * 														  FALSE if insert failed
  */
-	public function edit($name, $office_id) {
+	public function edit($name, $office_id, $chair_id) {
 		$data = array(
 			'name' => $name,
+			'chair_id' => $chair_id,
 		);
 
 		$this->db->where('office_id', $office_id);
@@ -206,6 +209,23 @@ class Office_model extends CI_Model {
 			return FALSE;
 		}
 
+	}
+
+/**
+ * Checks if office exists.
+ * @param  string $office_name	valid office name
+ * @return boolean							TRUE if office exists. Else, FALSE.
+ */
+	public function office_exists($office_name) {
+		$this->db->where('name', $office_name);
+		$this->db->limit(1);
+
+		$query = $this->db->get('office');
+		if ($query->num_rows() == 1) {
+			return $query->row();
+		}	else {
+			return FALSE;
+		}
 	}
 }
 

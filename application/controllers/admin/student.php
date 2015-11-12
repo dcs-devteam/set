@@ -45,6 +45,37 @@ class Student extends CI_Controller {
 		$data['body_content'] = $this->load->view('contents/admin/student/password',$view_data,TRUE);
 		$this->parser->parse('layouts/passwords', $data);
 	}
+
+/**
+ * Reset all passwords of students enrolled in current classes of the office of user.
+ */
+	public function reset_passwords() {
+		//must go through end-confirm form
+		$confirm = $this->input->post('confirm');
+
+		if ($confirm !== 'TRUE') {
+			//confirmation dialog
+			$data['body_content'] = $this->load->view('contents/admin/student/reset_passwords', '',TRUE);
+		} else {
+			$reset_passwords_result = $this->student_model->reset_passwords($this->office_id);
+
+			$message = '';
+			$error = '';
+			$success = FALSE;
+			if ($reset_passwords_result) {
+				$message = 'Passwords are successfully reset.';
+				$success = TRUE;
+			} else {
+				$message = 'Password resets failed.';
+				if ($this->db->_error_message()) {
+					$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+				}
+			}
+			$reset_data = array('message' => $message, 'error' => $error, 'success' => $success);
+			$data['body_content'] = $this->load->view('contents/admin/student/function_result',$reset_data,TRUE);
+		}
+		$this->parser->parse('layouts/default', $data);
+	}
 }
 
 /* End of file student.php */

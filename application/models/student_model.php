@@ -256,11 +256,10 @@ class Student_model extends CI_Model {
 			'password' => $password
 		);
 		$student = $this->get_temp_password($sais_id);
-		if (!$student) {
+		if ($student) {
 			$this->db->where('sais_id', $sais_id);
 			$this->db->update('student_temp_password',$temp_data);
 		} else {
-			$student_id = $student->student_id;
 			$this->db->insert('student_temp_password', $temp_data);
 		}
 		
@@ -269,6 +268,26 @@ class Student_model extends CI_Model {
 		} else {
 			return FALSE;
 		}
+	}
+
+/**
+ * Resets all passwords of students enrolled in current semester of given office.
+ * @param int $office_id			valid office_id
+ * @return int 							TRUE if reset successful
+ * 													FALSE if reset failed
+ */
+	public function reset_passwords($office_id) {
+		$students = $this->get_by_office($office_id);
+		$result = FALSE;
+		if (is_array($students) || is_object($students)) {
+			foreach ($students as $student) {
+				$result = $this->reset_password($student->sais_id);
+				if (!$result) {
+					return FALSE;
+				}
+			}
+		}
+		return $result;
 	}
 
 /**

@@ -29,8 +29,10 @@ class Class_controller extends CI_Controller {
 
 		$classes = $this->student_class_model->get_current_classes($this->student_id);
 
-		foreach ($classes as $class) {
-			$class->evaluation_active = $this->evaluation_model->evaluation_active($class->class_id);
+		if (is_array($classes) || is_object($classes)) {
+			foreach ($classes as $class) {
+				$class->evaluation_active = $this->evaluation_model->evaluation_active($class->class_id);
+			}
 		}
 
 		$view_data = array(
