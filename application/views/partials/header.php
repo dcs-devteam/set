@@ -47,10 +47,17 @@
 											<ul class="dropdown-menu" role="menu">
 												<li class="<?php if (($this->uri->uri_string() === 'admin/student') OR ($this->uri->uri_string() === 'admin/student/view')) echo 'active'?>"><a href="<?php echo base_url('admin/student/view')?>">View Students</a></li>
 												<li class="<?php if (($this->uri->uri_string() === 'admin/student/password')) echo 'active'?>"><a href="<?php echo base_url('admin/student/password')?>">Print Temporary Passwords</a></li>
+												<li class="<?php if (($this->uri->uri_string() === 'admin/student/reset_passwords')) echo 'active'?>"><a href="<?php echo base_url('admin/student/reset_passwords')?>">Reset Student Passwords</a></li>
 											</ul>
 										</li>
-										<li class="<?php if (($this->uri->uri_string() === 'admin/report') OR ($this->uri->uri_string() === 'admin/report/view')) echo 'active'?>"><a href="<?php echo base_url('admin/report/view')?>">Evaluation Reports</a></li>
-										<li class="<?php if (($this->uri->uri_string() === 'admin/evaluation') OR ($this->uri->uri_string() === 'admin/evaluation/view')) echo 'active'?>"><a href="<?php echo base_url('admin/evaluation/view')?>"><strong>Evaluation Period</strong></a></li>
+										<li class="dropdown <?php if (($this->uri->segment(2) === 'report') OR ($this->uri->segment(2) === 'evaluation')) echo 'active'?>">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Evaluation <span class="caret"></span></a>
+											<ul class="dropdown-menu" role="menu">
+												<li class="<?php if (($this->uri->uri_string() === 'admin/evaluation') OR ($this->uri->uri_string() === 'admin/evaluation/view')) echo 'active'?>"><a href="<?php echo base_url('admin/evaluation/view')?>"><strong>Evaluation Period</strong></a></li>
+												<li class="<?php if (($this->uri->uri_string() === 'admin/report') OR ($this->uri->uri_string() === 'admin/report/view')) echo 'active'?>"><a href="<?php echo base_url('admin/report/view')?>">Evaluation Reports</a></li>
+											</ul>
+										</li>
+										<li class="<?php if (($this->uri->uri_string() === 'admin/office') OR ($this->uri->uri_string() === 'admin/office/view')) echo 'active'?>"><a href="<?php echo base_url('admin/office/view')?>"><strong>Office</strong></a></li>
 										<!-- <li class="dropdown <?php if (($this->uri->segment(2) === 'account')) echo 'active'?>">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Accounts <span class="caret"></span></a>
 											<ul class="dropdown-menu" role="menu">

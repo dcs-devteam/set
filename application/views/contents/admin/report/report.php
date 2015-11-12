@@ -123,13 +123,19 @@
 				<label class="rating"><?php echo qualitative_rating($average_rating)?></label>
 		</div>
 		<div id="chair-signature">
-			<span id="chair-name">
-			<?php if(!empty($chair)):?>
-				<?php echo $chair->first_name.' '.$chair->last_name?>
-			<?php else:?>
-				___________________
-			<?php endif;?>
-			</span>
+			<div id="chair-name-container">
+				<span id="chair-name">
+				<?php if(!empty($chair)):?>
+					<?php echo $chair->first_name.' '.$chair->last_name?>
+				<?php else:?>
+					<br>
+				<?php endif;?>
+				</span>
+				<span id="underline">
+					<br>
+					_______________
+				</span>
+			</div>
 			<br>
 			<span id="title">Department Chair</span><br>
 			<span id="date">Date: __________</span><br>

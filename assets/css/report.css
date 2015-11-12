@@ -196,9 +196,20 @@ ul.unstyled {
 	line-height: 1.5;
 }
 
+#chair-signature #chair-name-container {
+	position: relative;
+}
+
 #chair-signature #chair-name {
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 	font-weight: bold;
+	position: absolute;
+	top: 0;
+}
+
+#chair-signature #underline {
+	position: absolute;
+	top: -22px;
 }
 
 /*detail*/
