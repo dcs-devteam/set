@@ -47,7 +47,7 @@
 											<ul class="dropdown-menu" role="menu">
 												<li class="<?php if (($this->uri->uri_string() === 'admin/student') OR ($this->uri->uri_string() === 'admin/student/view')) echo 'active'?>"><a href="<?php echo base_url('admin/student/view')?>">View Students</a></li>
 												<li class="<?php if (($this->uri->uri_string() === 'admin/student/password')) echo 'active'?>"><a href="<?php echo base_url('admin/student/password')?>">Print Temporary Passwords</a></li>
-												<li class="<?php if (($this->uri->uri_string() === 'admin/student/reset_passwords')) echo 'active'?>"><a href="<?php echo base_url('admin/student/reset_passwords')?>">Reset Student Passwords</a></li>
+												<!-- <li class="<?php //if (($this->uri->uri_string() === 'admin/student/reset_passwords')) echo 'active'?>"><a href="<?php //echo base_url('admin/student/reset_passwords')?>">Reset Student Passwords</a></li> -->
 											</ul>
 										</li>
 										<li class="dropdown <?php if (($this->uri->segment(2) === 'report') OR ($this->uri->segment(2) === 'evaluation')) echo 'active'?>">
