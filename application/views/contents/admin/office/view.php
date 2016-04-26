@@ -7,7 +7,7 @@
 		<span class="value"><?php echo $office->name?></span>
 		<br>
 		<label>Chair</label>
-		<span class="value"><?php echo $chair->first_name." ".$chair->last_name?></span>
+		<span class="value"><?php if(!empty($chair)){echo $chair->first_name." ".$chair->last_name;}?></span>
 	</div>
 	<div class="panel-footer">
 		<a class="btn btn-info" href="<?php echo base_url('admin/office/edit/'.$office->office_id)?>">Edit Office Details</a>			 

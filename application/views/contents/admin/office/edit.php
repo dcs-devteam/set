@@ -14,7 +14,7 @@
 			<div class="form-group">
 				<label for="chair" class="col-sm-4 control-label">Chair</label>
 				<div class="col-sm-8">
-					<input value="<?php echo set_value('chair', $chair->last_name.', '.$chair->first_name); ?>" id="chair" name="chair" type="text" class="form-control" placeholder="Chair (Last Name, First Name)" list="teachers">
+					<input value="<?php if(!empty($chair)){echo set_value('chair', $chair->last_name.', '.$chair->first_name);} ?>" id="chair" name="chair" type="text" class="form-control" placeholder="Chair (Last Name, First Name)" list="teachers">
 					<datalist id="teachers">
 						<?php foreach ($teachers as $teacher):?>
 							<option value="<?php echo $teacher->last_name.', '.$teacher->first_name?>">

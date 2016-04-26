@@ -187,12 +187,6 @@ class Admin extends CI_Controller {
 				'error_message' => 'Record for the given account ID does not exist in the database.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-		} else if ($this->evaluator_model->has_active_evaluation($user_id, $admin->office_id)) {
-			$error_data = array(
-				'error_title' => 'Edit Disallowed',
-				'error_message' => 'User is currently conducting an evaluation. Wait until the evaluation has finished before editing the account.'
-				);
-			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 		} else {
 			$this->load->library('form_validation');
 			//set validation rules
@@ -336,12 +330,6 @@ class Admin extends CI_Controller {
 			$error_data = array(
 				'error_title' => 'No Such Account Exists',
 				'error_message' => 'Record for the given account ID does not exist in the database.'
-				);
-			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
-		} else if ($this->evaluator_model->has_active_evaluation($user_id, $admin->office_id)) {
-			$error_data = array(
-				'error_title' => 'Delete Disallowed',
-				'error_message' => 'User is currently conducting an evaluation. Wait until the evaluation has finished before deleting the account.'
 				);
 			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
 		} else {
