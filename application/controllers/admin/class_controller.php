@@ -156,12 +156,13 @@ class Class_controller extends CI_Controller {
 		}
 
 		$class_id = $this->class_model->add($course_id, $teacher_id, $section, $year, $semester, $schedule, $number_of_students);
+
+		$inputFileName = null;
 		if (!empty($class_id)) {
 			//students
 			$field_name = 'class-roster';
 			if (!$this->upload->do_upload($field_name)) {
 				$this->class_model->delete($class_id);
-				delete_files('assets/temp/');
 				$this->error_message = "Upload failed.";
 				return FALSE;
 			} else {
@@ -176,7 +177,7 @@ class Class_controller extends CI_Controller {
 				} catch(Exception $e) {
 					$this->error_message = 'Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage();
 					$this->class_model->delete($class_id);
-					delete_files('assets/temp/');
+					unlink($inputFileName);
 					return FALSE;
 				}
 																																					 
@@ -203,7 +204,7 @@ class Class_controller extends CI_Controller {
 								$this->student_class_model->add($student_id, $class_id);
 							} else {
 								$this->class_model->delete($class_id);
-								delete_files('assets/temp/');
+								unlink($inputFileName);
 								$this->error_message = "Enrol student failed. Please contact the Online SET administrator.<br><br><small>".$this->db->_error_message().'</small>';
 								return FALSE;
 							}
@@ -213,7 +214,7 @@ class Class_controller extends CI_Controller {
 
 				$this->class_model->edit($class_id, $course_id, $teacher_id, $section, $year, $semester, $schedule, $number_of_students);
 
-				delete_files('assets/temp/');
+			unlink($inputFileName);
 			}
 
 			return TRUE;
@@ -342,11 +343,11 @@ class Class_controller extends CI_Controller {
 		}
 
 		$result = $this->class_model->edit($class_id, $course_id, $teacher_id, $section, $year, $semester, $schedule, $number_of_students);
+		$inputFileName = null;
 		if (!empty($result)) {
 			//students
 			$field_name = 'class-roster';
 			if (!$this->upload->do_upload($field_name)) {
-				delete_files('assets/temp/');
 				$this->error_message = "Upload failed.";
 				return FALSE;
 			} else {
@@ -360,7 +361,7 @@ class Class_controller extends CI_Controller {
 					$excel=$reader->load($inputFileName);
 				} catch(Exception $e) {
 					$this->error_message = 'Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage();
-					delete_files('assets/temp/');
+					unlink($inputFileName);
 					return FALSE;
 				}
 																																					 
@@ -393,7 +394,7 @@ class Class_controller extends CI_Controller {
 								$this->student_class_model->add($student_id, $class_id);
 							} else {
 								$this->class_model->delete($class_id);
-								delete_files('assets/temp/');
+								unlink($inputFileName);
 								$this->error_message = "Enrol student failed. Please contact the Online SET administrator.<br><br><small>".$this->db->_error_message().'</small>';
 								return FALSE;
 							}
@@ -403,7 +404,7 @@ class Class_controller extends CI_Controller {
 
 				$this->class_model->edit($class_id, $course_id, $teacher_id, $section, $year, $semester, $schedule, $number_of_students);
 
-				delete_files('assets/temp/');
+				unlink($inputFileName);
 			}
 
 			return TRUE;
