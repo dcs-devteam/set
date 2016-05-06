@@ -41,19 +41,9 @@
 	width: 1px !important;
 }
 
-.class-table th:nth-child(2),
-.class-table td:nth-child(2) {
-	width: 150px;
-}
-
 .class-table th:nth-child(3),
 .class-table td:nth-child(3) {
 	width: 1px !important;
-}
-
-.class-table th:nth-child(4),
-.class-table td:nth-child(4) {
-	width: 130px;
 }
 
 .class-table th:nth-child(5),
@@ -63,7 +53,7 @@
 
 .class-table th:nth-child(6),
 .class-table td:nth-child(6) {
-	width: 200px;
+	width: 1px !important;
 }
 
 /*confirm dialogs*/

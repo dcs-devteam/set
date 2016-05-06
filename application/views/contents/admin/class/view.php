@@ -8,6 +8,7 @@
 				<th>Section</th>
 				<th>Schedule</th>
 				<th>Students</th>
+				<th>Evaluations</th>
 				<th>Teacher</th>
 				<th>Actions</th>
 			</tr>
@@ -20,6 +21,7 @@
 					<td><?php echo $class->section?></td>
 					<td><?php echo $class->schedule?></td>
 					<td><?php echo $class->number_of_students?></td>
+					<td><?php echo $class->submissions?></td>
 					<td><?php $teacher = $this->teacher_model->get_by_id($class->teacher_id);echo $teacher->last_name.', '.$teacher->first_name?></td>
 					<td>
 						<a class="btn btn-warning btn-xs" href="<?php echo base_url('admin/class/edit/'.$class->class_id)?>">Edit</a>
