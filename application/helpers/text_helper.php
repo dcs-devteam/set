@@ -23,12 +23,12 @@
 
 /**
  * Format a rating string into a string with
- * 2 decimal places.
+ * 4 decimal places.
  * @param  int $str	number to format
  * @return int			processed number
  */
 	function format_rating($str) {
-		return number_format($str,2,'.','');
+		return number_format($str,4,'.','');
 	}
 
 /**
@@ -44,6 +44,7 @@
 		} else if ($str == 3) {
 			return 'Summer';
 		}
+		return 'N/A';
 	}
 
 /**
@@ -233,6 +234,12 @@
 		}
 		return '';
 	}
+
+/**
+ * Converts numerical rating to equivalent text.
+ * @param  int $rating
+ * @return string 		qualitative rating
+ */
 
 	function qualitative_rating($rating) {
 		if ($rating >= 4.5) {
