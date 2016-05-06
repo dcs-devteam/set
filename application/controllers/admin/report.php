@@ -197,12 +197,12 @@ class Report extends CI_Controller {
 			$this->load->helper(array('wkhtmltopdf', 'file'));
 			$html = $this->parser->parse('layouts/report', $data, TRUE);
 
-			$this->load->helper('file');
-			if (write_file('assets/temp/temp.php', $html)) {
-				$filename = $teacher->last_name.", ".$teacher->first_name;
-				// pdf_create($html, $filename);
-				delete_files('assets/temp/');
-			}
+			// $this->load->helper('file');
+			// if (write_file('assets/temp/temp.php', $html)) {
+			// 	$filename = $teacher->last_name.", ".$teacher->first_name;
+			// 	// pdf_create($html, $filename);
+			// 	unlink('assets/temp/'.$filename.'pdf');
+			// }
 		}
 	}
 }
