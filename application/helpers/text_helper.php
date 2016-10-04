@@ -254,5 +254,15 @@
 			return 'Excellent';
 		}
 	}
+
+/**
+ * Converts a number to percent, with specified number of decimal places.
+ * @param double $num number to be formatted
+ * @param int $decimal_places number of decimal places in output
+ * @return string formatted number with percent sign
+ */
+	function format_percent($num, $decimal_places = 2) {
+		return number_format($num * 100,$decimal_places,'.','')."%";
+	}
 /* End of file text_helper.php */
 /* Location: ./application/helpers/text_helper.php */
