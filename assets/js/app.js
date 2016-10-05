@@ -47,7 +47,7 @@ var tables = {
 		$('.data-table.yearsem-table').DataTable({
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			"pageLength": 10,
-			"order": [[3,'desc'],[2,'desc'],[0,'desc'],[1,'desc']]
+			"order": [[2,'desc'],[3,'desc'],[0,'desc'],[1,'desc']]
 		});
 		$('.data-table.office-table').DataTable({
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
