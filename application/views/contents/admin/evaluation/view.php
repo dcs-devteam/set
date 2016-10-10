@@ -1,5 +1,5 @@
 <h2>
-	Evaluation Period (<?php $year_sem=$this->year_semester_model->get_current(); echo format_semester($year_sem->semester).' Semester/A.Y. '.format_year($year_sem->year)?>)
+	Evaluation Period (<?php $year_sem=$this->year_semester_model->get_current(); echo format_semester($year_sem->semester).' Semester/Trimester | A.Y. '.format_year($year_sem->year)?>)
 </h2>
 <hr>
 <div class="evaluation-btn-container">

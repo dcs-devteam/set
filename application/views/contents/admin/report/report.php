@@ -76,7 +76,7 @@
 						</li>
 						<ol class="unstyled">
 							<li>
-								<label class="l2">Semester:</label>
+								<label class="l2">Semester/Trimester:</label>
 								<span class="l2-value"><?php echo format_semester(reset($classes)->semester)?></span>
 							</li>
 							<li>
@@ -147,7 +147,7 @@
 		<div class="" id="summary">
 			<div class="" id="summary-content">
 				<div class="">
-					<p><strong><?php echo $teacher->last_name.', '.$teacher->first_name?> - <?php echo $class->class_name.' '.$class->section?> (<?php echo format_semester($class->semester)?> Semester / A.Y. <?php echo format_year($class->year)?>)</strong></p>
+					<p><strong><?php echo $teacher->last_name.', '.$teacher->first_name?> - <?php echo $class->class_name.' '.$class->section?> (<?php echo format_semester($class->semester)?> Semester/Trimester | A.Y. <?php echo format_year($class->year)?>)</strong></p>
 					<table class="table table-bordered eval-report-table">
 							<tr>
 								<th>Subject</th>

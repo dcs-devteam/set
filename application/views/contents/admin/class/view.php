@@ -1,4 +1,4 @@
-<h2>Classes for <?php $year_sem=$this->year_semester_model->get_current(); echo format_semester($year_sem->semester).' Semester/A.Y. '.format_year($year_sem->year)?></h2>
+<h2>Classes for <?php $year_sem=$this->year_semester_model->get_current(); echo format_semester($year_sem->semester).' Semester/Trimester | A.Y. '.format_year($year_sem->year)?></h2>
 <?php if(!empty($classes)):?>
 	<table class="table table-striped table-hover table-bordered class-table data-table">
 		<thead>

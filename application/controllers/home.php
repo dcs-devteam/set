@@ -18,7 +18,7 @@ class Home extends CI_Controller {
 	}
 
 /**
- * Displays the eValuation homepage.
+ * Displays the Online SET homepage.
  */
 	public function index() {
 

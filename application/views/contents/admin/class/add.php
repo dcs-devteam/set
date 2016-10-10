@@ -1,6 +1,6 @@
 <div class="alert alert-info" role="alert">
 	<ul>
-		<li>The Academic Year and Semester fields are automatically filled out with the current year and semester as set by the eValuation administrator. If the values are wrong, contact the administrator.</li>
+		<li>The Academic Year and Semester/Trimester fields are automatically filled out with the current year and semester/trimester as set by the Online SET superadmin. If the values are wrong, contact the administrator.</li>
 	</ul>
 </div>
 <?php echo form_open_multipart('admin/class/add',array('class'=>'form-horizontal','role'=>'form'))?>
@@ -12,15 +12,15 @@
 			<div class="form-group">
 				<label for="year" class="col-sm-4 control-label">Academic Year</label>
 				<div class="col-sm-8">
-					<div class="tooltip-wrapper" data-toggle="tooltip" title="Contact the eValuation Super Admin if the given year is wrong."></div>
+					<div class="tooltip-wrapper" data-toggle="tooltip" title="Contact the Online SET Super Admin if the given year is wrong."></div>
 					<input class="form-control" readonly="readonly" value="<?php echo format_year($year_semester->year)?>" class="form-control" id="year" name="year" type="text">
 					<?php echo form_error('year','<p class="text-danger">','</p>');?>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="semester" class="col-sm-4 control-label">Semester</label>
+				<label for="semester" class="col-sm-4 control-label">Semester/Trimester</label>
 				<div class="col-sm-8">
-					<div class="tooltip-wrapper" data-toggle="tooltip" title="Contact the eValuation Super Admin if the given semester is wrong."></div>
+					<div class="tooltip-wrapper" data-toggle="tooltip" title="Contact the Online SET Super Admin if the given semester/trimester is wrong."></div>
 					<input class="form-control" readonly="readonly" value="<?php echo format_semester($year_semester->semester)?>" class="form-control" id="semester" name="semester" type="text">
 					<?php echo form_error('semester','<p class="text-danger">','</p>');?>
 				</div>

@@ -42,7 +42,7 @@
 		} else if ($str == 2) {
 			return '2nd';
 		} else if ($str == 3) {
-			return 'Summer';
+			return '3rd/Summer';
 		}
 		return 'N/A';
 	}

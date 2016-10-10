@@ -5,7 +5,7 @@
 	<div class="panel-body">
 		<div id="message-content">
 			<p>Are you sure you want to delete the admin account of <?php echo $admin->last_name.', '.$admin->first_name?>?</p>
-			<p>If he/she is the only admin for <?php echo office_name($admin->office_id)?>, deleting the account will prevent others from maintaining the courses, classes, teachers, and eValuation accounts for the office.</p>
+			<p>If he/she is the only admin for <?php echo office_name($admin->office_id)?>, deleting the account will prevent others from maintaining the courses, classes, teachers, and Online SET accounts for the office.</p>
 			<p><strong>Note: Deletion is permanent and cannot be undone.</strong></p>
 		</div>
 	</div>

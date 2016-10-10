@@ -1,5 +1,5 @@
 <h2>
-	Evaluation Reports (<?php $year_sem=$this->year_semester_model->get_current(); echo format_semester($year_sem->semester).' Semester/A.Y. '.format_year($year_sem->year)?>)
+	Evaluation Reports (<?php $year_sem=$this->year_semester_model->get_current(); echo format_semester($year_sem->semester).' Semester/Trimester | A.Y. '.format_year($year_sem->year)?>)
 </h2>
 <?php if(!empty($teachers)):?>
 	<table class="table table-striped table-hover table-bordered teacher-table data-table">
@@ -26,5 +26,5 @@
 		</tbody>
 	</table>
 <?php else:?>
-	<div class="alert alert-warning" role="alert">No teachers for current semester found.</div>
+	<div class="alert alert-warning" role="alert">No teachers for current semester/trimester found.</div>
 <?php endif;?>
