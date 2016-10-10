@@ -174,7 +174,7 @@ class Office_model extends CI_Model {
 /**
  * Disable evaluation for given office
  * @param  int $office_id     valid office id
- * @return boolean           TRUE if successfully enabled. Otherwise, FALSE.
+ * @return boolean           TRUE if successfully disabled. Otherwise, FALSE.
  */
 	public function disable_evaluation($office_id) {
 		$this->db->trans_start();
@@ -194,13 +194,33 @@ class Office_model extends CI_Model {
 /**
  * Mark evaluation as done for given office
  * @param  int $office_id     valid office id
- * @return boolean           TRUE if successfully enabled. Otherwise, FALSE.
+ * @return boolean           TRUE if successfully ended. Otherwise, FALSE.
  */
 	public function end_evaluation($office_id) {
 		$this->db->trans_start();
 
 		$this->db->where('office_id', $office_id);
 		$result = $this->db->update('office', array('evaluation_active' => 0, 'evaluation_done' => 1));
+		
+		$this->db->trans_complete();
+		if ($this->db->trans_status()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+
+	}
+
+/**
+ * Starts evaluation for given office. Overrides completed evaluation.
+ * @param  int $office_id     valid office id
+ * @return boolean           TRUE if successfully started. Otherwise, FALSE.
+ */
+	public function start_evaluation($office_id) {
+		$this->db->trans_start();
+
+		$this->db->where('office_id', $office_id);
+		$result = $this->db->update('office', array('evaluation_active' => 1, 'evaluation_done' => 0));
 		
 		$this->db->trans_complete();
 		if ($this->db->trans_status()) {
