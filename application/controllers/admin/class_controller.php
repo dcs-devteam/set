@@ -194,9 +194,9 @@ class Class_controller extends CI_Controller {
 						foreach ($rowData as $row2) {
 							$sais_id = $row2[0];
 							$name = explode(",", $row2[1]);
-							$first_name = ucwords(mb_strtolower($name[1]));
-							$last_name = ucwords(mb_strtolower($name[0]));
-							// $password = md5(mb_strtolower($first_name[0].$last_name));
+							$first_name = ucwords(strtolower($name[1]));
+							$last_name = ucwords(strtolower($name[0]));
+							// $password = md5(strtolower($first_name[0].$last_name));
 							$password = bin2hex(openssl_random_pseudo_bytes(4));
 							$program = explode(" - ", $row2[4])[0];
 							$student_id = $this->student_model->add($sais_id, $first_name, $last_name, $password, $program);
@@ -385,8 +385,8 @@ class Class_controller extends CI_Controller {
 						foreach ($rowData as $row2) {
 							$sais_id = $row2[0];
 							$name = explode(",", $row2[1]);
-							$first_name = ucwords(mb_strtolower($name[1]));
-							$last_name = ucwords(mb_strtolower($name[0]));
+							$first_name = ucwords(strtolower($name[1]));
+							$last_name = ucwords(strtolower($name[0]));
 							$password = bin2hex(openssl_random_pseudo_bytes(4));
 							$program = explode(" - ", $row2[4])[0];
 							$student_id = $this->student_model->add($sais_id, $first_name, $last_name, $password, $program);
