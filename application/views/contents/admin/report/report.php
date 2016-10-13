@@ -133,12 +133,13 @@
 				</span>
 				<span id="underline">
 					<br>
-					_______________
+					____________________
 				</span>
 			</div>
 			<br>
-			<span id="title">Department Chair</span><br>
-			<span id="date">Date: __________</span><br>
+			<span id="office"><?php echo $office?></span><br>
+			<span id="title">Chair</span><br>
+			<span id="date">Date: _______________</span><br>
 		</div>
 	</div>
 
