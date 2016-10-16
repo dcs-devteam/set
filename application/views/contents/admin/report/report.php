@@ -88,9 +88,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="page" id="rating-table-page">		
 		<table class="table table-bordered eval-report-table">
 				<tr>
 					<th>Subject</th>
