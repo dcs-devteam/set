@@ -129,7 +129,7 @@ class Admin extends CI_Controller {
  * @return string		password generated
  */
 	private function generate_password($first_name, $last_name) {
-		return mb_strtolower($first_name[0].$last_name);
+		return strtolower($first_name[0].$last_name);
 	}
 
 /**
