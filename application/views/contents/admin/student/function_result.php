@@ -29,7 +29,7 @@
 			<?php else:?>
 				 btn-primary
 			<?php endif;?>
-		 " href="<?php echo base_url('admin/student/password')?>">View Temporary Passwords</a>			 
+		 " href="<?php echo base_url('admin/student')?>">View Students</a>			 
 		<button class="btn btn-default" onClick="window.name='autoreload';history.go(-1);window.close();">Back</button>
 	</div>
 </div>

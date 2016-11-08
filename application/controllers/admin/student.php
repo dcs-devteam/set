@@ -47,6 +47,85 @@ class Student extends CI_Controller {
 	}
 
 /**
+ * Displays the temporary password for given SAIS ID.
+ * @param  int $sais_id valid SAIS ID
+ */
+	public function temp_password($sais_id = FALSE) {
+		$student = $this->student_model->get_by_sais_id($sais_id);
+		$temp_password_result = $this->student_model->get_temp_password($student->sais_id);
+		$message = 'Temporary password for student '.$student->last_name.', '.$student->first_name.' ('.$student->sais_id.') is: <b>'.$temp_password_result->password.'</b>';
+		$success = TRUE;
+		$error = '';
+		$temp_password_data = array('message' => $message, 'error' => $error, 'success' => $success);
+		$data['body_content'] = $this->load->view('contents/admin/student/function_result',$temp_password_data,TRUE);
+		$this->parser->parse('layouts/default', $data);
+	}
+
+
+/**
+ * Displays the reset password confirmation form for a given SAIS ID.
+ * Calls the reset_student_password function and displays whether the function
+ * was successful or not.
+ * @param  int $sais_id	valid SAIS ID
+ */
+	public function reset_password($sais_id = FALSE) {
+		$student = $this->student_model->get_by_sais_id($sais_id);
+		if ($student === FALSE) {
+			$error_data = array(
+				'error_title' => 'No Such Student Exists',
+				'error_message' => 'Record for the given SAIS ID does not exist in the database.'
+				);
+			$data['body_content'] = $this->load->view('contents/error', $error_data, TRUE);
+		} else {
+			//must go through reset-password-confirm form
+			$confirm = $this->input->post('confirm');
+
+			if ($confirm !== 'TRUE') {
+				//confirmation dialog
+				$reset_password_confirm_data = array(
+					'student' => $student
+					);
+
+				$data['body_content'] = $this->load->view('contents/admin/student/reset_password_confirm',$reset_password_confirm_data,TRUE);
+			} else {
+				$reset_password_result = $this->reset_student_password($sais_id);
+
+				$message = '';
+				$error = '';
+				$success = FALSE;
+				if ($reset_password_result) {
+					$temp_password_result = $this->student_model->get_temp_password($student->sais_id);
+					$message = 'Student password successfully reset. Temporary password for student '.$student->last_name.', '.$student->first_name.' is: <b>'.$temp_password_result->password.'</b>';
+					$success = TRUE;
+				} else {
+					$message = 'Student password reset failed.';
+					if ($this->db->_error_message()) {
+						$error = 'DB Error: ('.$this->db->_error_number().') '.$this->db->_error_message();
+					}
+				}
+				$reset_password_data = array('message' => $message, 'error' => $error, 'success' => $success);
+				$data['body_content'] = $this->load->view('contents/admin/student/function_result',$reset_password_data,TRUE);
+			}
+		}
+
+		$this->parser->parse('layouts/default', $data);
+	}
+
+
+/**
+ * Passes the SAIS ID to student_model->reset_password for password reset
+ * @param  int $sais_id	valid SAIS ID
+ * @return boolean 				TRUE if password was successfully reset. Else, FALSE.
+ */
+	private function reset_student_password($sais_id = FALSE) {
+		if ($this->student_model->reset_password($sais_id)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+/**
  * Reset all passwords of students enrolled in current classes of the office of user.
  */
 	public function reset_passwords() {
