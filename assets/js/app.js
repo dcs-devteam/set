@@ -32,11 +32,12 @@ var evaluation_form = {
 var tables = {
 	initialize: function() {
 		$.extend( $.fn.dataTable.defaults, {
-	    // Disable sorting
-      "aoColumnDefs" : [ {
-          'bSortable' : false,
-          'aTargets' : [ "no-sort" ],
-      }]
+			// Disable sorting
+			"aoColumnDefs" : [ {
+					'bSortable' : false,
+					'aTargets' : [ "no-sort" ],
+			}],
+			"scrollX": true
 		} );
 		$('.data-table.account-table').DataTable({
 			"lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
