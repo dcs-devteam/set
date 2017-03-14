@@ -95,7 +95,7 @@ class Student extends CI_Controller {
 				$success = FALSE;
 				if ($reset_password_result) {
 					$temp_password_result = $this->student_model->get_temp_password($student->sais_id);
-					$message = 'Student password successfully reset. Temporary password for student '.$student->last_name.', '.$student->first_name.' is: <b>'.$temp_password_result->password.'</b>';
+					$message = 'Student password successfully reset. Temporary password for student '.$student->last_name.', '.$student->first_name.'('.$student->sais_id') is: <b>'.$temp_password_result->password.'</b>';
 					$success = TRUE;
 				} else {
 					$message = 'Student password reset failed.';
