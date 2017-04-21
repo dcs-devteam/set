@@ -1,7 +1,4 @@
 /*DataTables*/
-.dataTables_wrapper {
-	width: calc(100% - 1px);
-}
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {
 	box-sizing: border-box;
@@ -44,6 +41,7 @@
 	border: 1px solid #DDD !important;
 	border-spacing: 0px !important;
 	border-collapse: collapse !important;
+	width: calc(100% - 1px) !important;
 }
 
 .dataTable td,
