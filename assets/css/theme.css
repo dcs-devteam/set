@@ -1,5 +1,9 @@
 /*DataTables*/
 
+.dataTables_scrollBody {
+	border: none !important;
+}
+
 .dataTables_wrapper .dataTables_paginate .paginate_button {
 	box-sizing: border-box;
 	display: inline-block;
