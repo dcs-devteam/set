@@ -3,6 +3,7 @@ class Teacher_model extends CI_Model {
 
 	public function __construct() {
 		parent::__construct();
+		$this->load->model('course_model');
 	}
 
 /**
@@ -51,14 +52,26 @@ class Teacher_model extends CI_Model {
  * 												FALSE if teacher not found
  */
 	public function get_by_office($office_id) {
-		$this->db->where('office_id', $office_id);
+		$course_result = $this->course_model->get_by_office($office_id);
+		$courses = array();
+		foreach ($course_result as $key => $row) {
+			$courses[$key] = $row->course_id;
+		}
 
-		$this->db->order_by("last_name", "asc");
+		$this->db->distinct();
+		$this->db->select('teacher_id');
+		$this->db->where_in('class.course_id', $courses);
 
-		$query = $this->db->get('teacher');
+		$query = $this->db->get('class');
 
 		if($query->num_rows() >= 1) {
-			return $query->result();
+			$classes = $query->result();
+			$teachers = array();
+			foreach ($classes as $idx => $class) {
+				$teachers[] = $this->get_by_id($class->teacher_id);
+			}
+
+			return $teachers;
 		}	else {
 			return FALSE;
 		}
@@ -71,19 +84,26 @@ class Teacher_model extends CI_Model {
  * 									FALSE if teacher not found
  */
 	public function get_current($office_id) {
-		$this->db->where('office_id', $office_id);
+		$course_result = $this->course_model->get_by_office($office_id);
+		$courses = array();
+		foreach ($course_result as $key => $row) {
+			$courses[$key] = $row->course_id;
+		}
+		$year_sem = $this->year_semester_model->get_current();
 
-		$this->db->order_by("last_name", "asc");
+		$this->db->distinct();
+		$this->db->select('teacher_id');
+		$this->db->where_in('class.course_id', $courses);
+		$this->db->where('year', $year_sem->year);
+		$this->db->where('semester', $year_sem->semester);
 
-		$query = $this->db->get('teacher');
+		$query = $this->db->get('class');
 
 		if($query->num_rows() >= 1) {
-			$teachers = $query->result();
-			foreach ($teachers as $idx => $teacher) {
-				$classes = $this->get_classes($teacher->teacher_id, $office_id);
-				if (count($classes) <= 0 OR $classes == FALSE) {
-					unset($teachers[$idx]);
-				}
+			$classes = $query->result();
+			$teachers = array();
+			foreach ($classes as $idx => $class) {
+				$teachers[] = $this->get_by_id($class->teacher_id);
 			}
 
 			return $teachers;
@@ -125,9 +145,9 @@ class Teacher_model extends CI_Model {
 			'first_name' => $first_name,
 			'last_name' => $last_name,
 			'office_id' => $office_id
-		);		
+		);
 		$this->db->insert('teacher',$data);
-		
+
 		if ($this->db->affected_rows() >= 0) {
 			return $this->db->insert_id();
 		} else {
@@ -149,11 +169,11 @@ class Teacher_model extends CI_Model {
 			'first_name' => $first_name,
 			'last_name' => $last_name,
 			'office_id' => $office_id
-		);		
+		);
 
 		$this->db->where('teacher_id', $teacher_id);
 		$result = $this->db->update('teacher',$data);
-		
+
 		if ($this->db->affected_rows() >= 0) {
 			return $result;
 		} else {
