@@ -60,9 +60,10 @@ class Student_class_model extends CI_Model {
 			$result = $query->result();
 			//add class attributes
 			foreach ($result as $key => $row) {
-				$row->class_name = $this->course_model->get_name($row->course_id);
+				$course = $this->course_model->get_by_id($row->course_id);
+				$row->class_name = $course->course_name;
 				$row->teacher = $this->teacher_model->get_by_id($row->teacher_id);
-				$row->office = $this->office_model->get_by_id($row->teacher->office_id);
+				$row->office = $this->office_model->get_by_id($course->office_id);
 			}
 			return $result;
 		} else {
@@ -88,7 +89,7 @@ class Student_class_model extends CI_Model {
 				return TRUE;
 			}
 		}
-		
+
 		return FALSE;
 	}
 
@@ -108,7 +109,7 @@ class Student_class_model extends CI_Model {
 				return TRUE;
 			}
 		}
-		
+
 		return FALSE;
 	}
 
