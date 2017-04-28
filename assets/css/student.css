@@ -27,3 +27,8 @@
 .class-table td:nth-child(3) {
 	width: 180px;
 }
+
+/*student/class/evaluate*/
+#cancel-submit{
+	line-height: 35px;
+}
